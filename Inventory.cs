@@ -1,10 +1,10 @@
 ﻿namespace CGullProject
 {
-    public class Invetory
+    public class Inventory
     {
-        Dictionary<Item, int> Items {  get; set; }
+        public Dictionary<Item, int> Items {  get; set; }
 
-        public Invetory() { 
+        public Inventory() { 
             Items = new Dictionary<Item, int>();
         }
 
@@ -19,7 +19,7 @@
 
         public void EditQuantity(Item item, int newQuantity)
         {
-            //TBD
+            Items[item] = newQuantity;
         }
     }
 }

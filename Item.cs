@@ -39,6 +39,5 @@
         PET_SUPPLIES = 12,
         JEWELRY_AND_ACCESSORIES = 13,
         BABY_AND_TODDLER = 14
-
     }
 }
