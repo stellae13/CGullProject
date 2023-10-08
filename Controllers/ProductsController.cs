@@ -29,7 +29,7 @@ namespace CGullProject.Controllers
           {
               return NotFound();
           }
-            return await _context.Product.ToListAsync();
+            return await _context.Product.Include(x => x.Category).ToListAsync();
         }
 
         // GET: api/Products/5
