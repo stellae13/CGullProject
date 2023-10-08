@@ -1,1 +1,2 @@
 # CGullProject
+Seagull-themed merchandise!
