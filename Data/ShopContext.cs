@@ -23,9 +23,9 @@ namespace CGullProject.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Product>().ToTable("Products");
-            modelBuilder.Entity<User>().ToTable("Users");
-            modelBuilder.Entity<CartItem>().ToTable("CartItems");
+            modelBuilder.Entity<Product>().ToTable("Product");
+            modelBuilder.Entity<User>().ToTable("User");
+            modelBuilder.Entity<CartItem>().ToTable("CartItem");
 
         }
 

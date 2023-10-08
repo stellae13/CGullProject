@@ -9,7 +9,7 @@ namespace CGullProject
         {
             var builder = WebApplication.CreateBuilder(args);
             builder.Services.AddDbContext<ShopContext>(options =>
-                options.UseSqlServer(builder.Configuration.GetConnectionString("ProductContext") ?? throw new InvalidOperationException("Connection string 'ProductContext' not found.")));
+                options.UseSqlServer(builder.Configuration.GetConnectionString("ShopContext") ?? throw new InvalidOperationException("Connection string 'ProductContext' not found.")));
 
             // Add services to the container.
 

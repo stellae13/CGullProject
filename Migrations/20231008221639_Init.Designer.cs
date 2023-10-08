@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CGullProject.Migrations
 {
     [DbContext(typeof(ShopContext))]
-    [Migration("20231008193025_Init")]
+    [Migration("20231008221639_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -40,7 +40,7 @@ namespace CGullProject.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("CartItems", (string)null);
+                    b.ToTable("CartItem", (string)null);
                 });
 
             modelBuilder.Entity("CGullProject.Category", b =>
@@ -79,7 +79,7 @@ namespace CGullProject.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("Rating")
-                        .HasColumnType("decimal 3,2");
+                        .HasColumnType("decimal(3,2)");
 
                     b.Property<int>("Stock")
                         .HasColumnType("int");
@@ -88,7 +88,7 @@ namespace CGullProject.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Products", (string)null);
+                    b.ToTable("Product", (string)null);
                 });
 
             modelBuilder.Entity("CGullProject.User", b =>
@@ -122,7 +122,7 @@ namespace CGullProject.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("User", (string)null);
                 });
 
             modelBuilder.Entity("CGullProject.CartItem", b =>

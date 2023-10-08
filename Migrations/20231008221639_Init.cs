@@ -24,7 +24,7 @@ namespace CGullProject.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Users",
+                name: "User",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -36,25 +36,25 @@ namespace CGullProject.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users", x => x.Id);
+                    table.PrimaryKey("PK_User", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Products",
+                name: "Product",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
                     Name = table.Column<string>(type: "nvarchar(32)", maxLength: 32, nullable: false),
                     CategoryId = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Rating = table.Column<decimal>(type: "decimal (3,2)", nullable: false),
+                    Rating = table.Column<decimal>(type: "decimal(3,2)", nullable: false),
                     Stock = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Products", x => x.Id);
+                    table.PrimaryKey("PK_Product", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Products_Category_CategoryId",
+                        name: "FK_Product_Category_CategoryId",
                         column: x => x.CategoryId,
                         principalTable: "Category",
                         principalColumn: "Id",
@@ -62,7 +62,7 @@ namespace CGullProject.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CartItems",
+                name: "CartItem",
                 columns: table => new
                 {
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -71,29 +71,29 @@ namespace CGullProject.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CartItems", x => new { x.UserId, x.ProductId });
+                    table.PrimaryKey("PK_CartItem", x => new { x.UserId, x.ProductId });
                     table.ForeignKey(
-                        name: "FK_CartItems_Products_ProductId",
+                        name: "FK_CartItem_Product_ProductId",
                         column: x => x.ProductId,
-                        principalTable: "Products",
+                        principalTable: "Product",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_CartItems_Users_UserId",
+                        name: "FK_CartItem_User_UserId",
                         column: x => x.UserId,
-                        principalTable: "Users",
+                        principalTable: "User",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_CartItems_ProductId",
-                table: "CartItems",
+                name: "IX_CartItem_ProductId",
+                table: "CartItem",
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Products_CategoryId",
-                table: "Products",
+                name: "IX_Product_CategoryId",
+                table: "Product",
                 column: "CategoryId");
         }
 
@@ -101,13 +101,13 @@ namespace CGullProject.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "CartItems");
+                name: "CartItem");
 
             migrationBuilder.DropTable(
-                name: "Products");
+                name: "Product");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "User");
 
             migrationBuilder.DropTable(
                 name: "Category");
