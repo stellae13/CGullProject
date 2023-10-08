@@ -2,7 +2,7 @@ namespace CGullProject;
 
 public class Product {
 
-    public string Id { get; set; } = "";
+    public Guid Id { get; set; } = Guid.NewGuid();
     public string Name { get; set; } = "";
     public string Category { get; set; } = "";
     public decimal Price { get; set; }
