@@ -9,22 +9,27 @@ namespace CGullProject.Controllers
 
         [HttpGet("Item")]
         public async Task<ActionResult> GetAllItems() {
-            return NotFound();    // TODO
+            return BadRequest();    // TODO
         }
 
         [HttpPost("Item")]
         public async Task<ActionResult> AddItemToCart([Required] Guid cartId, [Required] string itemId, [Required] int quantity) {
-            return NotFound();      // TODO
+            return BadRequest();      // TODO
         }
 
         [HttpGet("Cart/Details/{id}")]
         public async Task<ActionResult> GetCart([Required] Guid userId) {
-            return NotFound();  // TODO
+            return BadRequest();  // TODO
         }
 
         [HttpGet("Cart/Total/{id}")]
         public async Task<ActionResult> GetTotals([Required] Guid cartId) {
-            return NotFound();  // TODO
+            return BadRequest();  // TODO
+        }
+
+        [HttpPost("ProcessPayment")]
+        public async Task<ActionResult> ProcessPayment([Required] Guid cartId, [Required] string cardNumber, [Required] string exp, [Required] string cardholderName, [Required] string cvc) {
+            return BadRequest(); // TODO
         }
 
     }
