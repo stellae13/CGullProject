@@ -1,3 +1,6 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using CGullProject.Data;
 namespace CGullProject
 {
     public class Program
@@ -5,6 +8,8 @@ namespace CGullProject
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            builder.Services.AddDbContext<ShopContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("ProductContext") ?? throw new InvalidOperationException("Connection string 'ProductContext' not found.")));
 
             // Add services to the container.
 
