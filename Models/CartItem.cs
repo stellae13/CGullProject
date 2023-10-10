@@ -5,17 +5,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace CGullProject;
 
 [Owned]
-[PrimaryKey(nameof(UserId),nameof(ProductId))]
+[PrimaryKey(nameof(CartId),nameof(ProductId))]
 public class CartItem {
 
-
     [Required]
-    [ForeignKey("User")]
-    public Guid UserId { get; set; }
+    [ForeignKey("Cart")]
+    public int CartId { get; set; }
 
     [Required]
     [ForeignKey("Product")]
-    public string ProductId { get; set; }
+    public string? ProductId { get; set; }
 
     public Product Product { get; set; }
 

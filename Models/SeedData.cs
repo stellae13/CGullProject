@@ -9,69 +9,7 @@ namespace CGullProject.Models
         {
             using(var context = new ShopContext(serviceProvider.GetRequiredService<DbContextOptions<ShopContext>>()))
             {
-                if (!context.User.Any())
-                {
-                    context.User.AddRange(
-                        new User
-                        {
-                            Id = Guid.NewGuid(),
-                            Email ="User@email.com",
-                            PasswordHash ="adfe58dfdjakl",
-                            FirstName ="Jeff",
-                            LastName = "Smith",
-                            Address ="123 smithfield way",
-
-                        },
-                        new User
-                        {
-                            Id = Guid.NewGuid(),
-                            Email = "user1@email.com",
-                            PasswordHash = "adfe58dfdjakl",
-                            FirstName = "Jeff",
-                            LastName = "Smith",
-                            Address = "123 Smithfield Way"
-                        },
-                        new User
-                        {
-                            Id = Guid.NewGuid(),
-                            Email = "user2@email.com",
-                            PasswordHash = "bce47gfdhsk29",
-                            FirstName = "Alice",
-                            LastName = "Johnson",
-                            Address = "456 Johnson Street"
-                        },
-                        new User
-                        {
-                            Id = Guid.NewGuid(),
-                            Email = "user3@email.com",
-                            PasswordHash = "3hjds8sdsf",
-                            FirstName = "Emily",
-                            LastName = "Davis",
-                            Address = "789 Davis Lane"
-                        },
-                        new User
-                        {
-                            Id = Guid.NewGuid(),
-                            Email = "user4@email.com",
-                            PasswordHash = "wq9asfj2klsd",
-                            FirstName = "Michael",
-                            LastName = "Johnson",
-                            Address = "1010 Johnson Avenue"
-                        },
-                        new User
-                        {
-                            Id = Guid.NewGuid(),
-                            Email = "user5@email.com",
-                            PasswordHash = "1dfkjs9dfkj32",
-                            FirstName = "Sarah",
-                            LastName = "Brown",
-                            Address = "567 Brown Street"
-                        }
-
-                        );
-                }
-                //end of user seed data
-
+                
                 if (!context.Category.Any())
                 {
                     context.Category.AddRange(

@@ -8,16 +8,16 @@ public class Product {
 
     [Required]
     [StringLength(64, MinimumLength = 3)]
-    public String Id { get; set; }
+    public String? Id { get; set; }
 
     [Required]
     [StringLength(32, MinimumLength = 2)]
-    public string Name { get; set; }
+    public string? Name { get; set; }
 
     [ForeignKey("Category")]
     [Required]
     [StringLength(64, MinimumLength = 3)]
-    public String CategoryId { get; set; }
+    public String? CategoryId { get; set; }
     public Category Category { get; set; }
 
     [Required]
