@@ -17,7 +17,7 @@ namespace CGullProject.Data
 
         public DbSet<Category> Category { get; set; }
         public DbSet<Product> Product { get; set; }
-        public DbSet<Cart> cart { get; set; }
+        public DbSet<Cart> Cart { get; set; }
         public DbSet<CartItem> CartItem { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
