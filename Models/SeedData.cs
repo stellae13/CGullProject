@@ -48,8 +48,13 @@ namespace CGullProject.Models
                         {
                             Id = "7",
                             Name = "health_and_beauty"
+                        },
+                        new Category
+                        {
+                            Id = "8",
+                            Name = "misc"
                         }
-               
+
                         );
 
                 }
@@ -228,6 +233,15 @@ namespace CGullProject.Models
                          Price = 19.49M,
                          Rating = 4.8M,
                          Stock = 25
+                     },
+                     new Product
+                     {
+                         Id = "20",
+                         Name = "Sounds of the Gull",
+                         CategoryId = "7",
+                         Price = 18.99M,
+                         Rating = 4.9M,
+                         Stock = 35
                      }
                         );
                 }
