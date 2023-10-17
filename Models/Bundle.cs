@@ -1,7 +1,14 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace CGullProject;
 
 public class Bundle {
-    public string BundleId { get; set; } = "";
+    [Required]
+    public string Id { get; set; } = "";
+
+    [Required]
     public decimal Discount { get; set; }
+
+    [Required]
     public string Name { get; set; } = "";
 }

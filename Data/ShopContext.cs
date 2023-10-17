@@ -28,8 +28,9 @@ namespace CGullProject.Data
             modelBuilder.Entity<Product>().ToTable("Product");
             modelBuilder.Entity<Cart>().ToTable("Cart");
             modelBuilder.Entity<CartItem>().ToTable("CartItem");
-           
 
+            modelBuilder.Entity<Bundle>().ToTable("Bundle");
+            modelBuilder.Entity<BundleItem>().ToTable("BundleItem");
         }
 
 
