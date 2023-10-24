@@ -1,13 +1,14 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CGullProject;
 
 public class Category {
+    
     [Required]
-    [StringLength(64, MinimumLength = 3)]
-    public String? Id { get; set; }
+    public int Id { get; set; }
 
     [Required]
-    [StringLength(64, MinimumLength = 3)]
-    public String? Name { get; set; }
+    [Column(TypeName = "varchar(64)")]
+    public string Name { get; set; } = string.Empty;
 }

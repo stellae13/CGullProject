@@ -24,14 +24,14 @@ namespace CGullProject.Migrations
             modelBuilder.Entity("CGullProject.Bundle", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("varchar(64)");
 
                     b.Property<decimal>("Discount")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(3,2)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(64)");
 
                     b.HasKey("Id");
 
@@ -57,28 +57,27 @@ namespace CGullProject.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("ProductId")
-                        .HasColumnType("nvarchar(64)");
+                        .HasColumnType("varchar(64)");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
                     b.HasKey("CartId", "ProductId");
 
-                    b.HasIndex("ProductId");
-
                     b.ToTable("CartItem", (string)null);
                 });
 
             modelBuilder.Entity("CGullProject.Category", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasMaxLength(64)
-                        .HasColumnType("nvarchar(64)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(64)
-                        .HasColumnType("nvarchar(64)");
+                        .HasColumnType("varchar(64)");
 
                     b.HasKey("Id");
 
@@ -95,29 +94,59 @@ namespace CGullProject.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(32)
-                        .HasColumnType("nvarchar(32)");
+                        .HasColumnType("varchar(32)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Cart", (string)null);
                 });
 
-            modelBuilder.Entity("CGullProject.Product", b =>
+            modelBuilder.Entity("CGullProject.Models.CartDetail", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasMaxLength(64)
-                        .HasColumnType("nvarchar(64)");
-
-                    b.Property<string>("CategoryId")
-                        .IsRequired()
-                        .HasMaxLength(64)
-                        .HasColumnType("nvarchar(64)");
+                    b.Property<int>("CartId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(32)
-                        .HasColumnType("nvarchar(32)");
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Subtotal")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("UnitPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.ToTable("CartDetails");
+                });
+
+            modelBuilder.Entity("CGullProject.Models.CartTotals", b =>
+                {
+                    b.Property<decimal>("BundleTotal")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("RegularTotal")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("TotalWithTax")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.ToTable("CartTotals");
+                });
+
+            modelBuilder.Entity("CGullProject.Product", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("varchar(64)");
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("varchar(32)");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
@@ -130,42 +159,7 @@ namespace CGullProject.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId");
-
                     b.ToTable("Product", (string)null);
-                });
-
-            modelBuilder.Entity("CGullProject.CartItem", b =>
-                {
-                    b.HasOne("CGullProject.Models.Cart", null)
-                        .WithMany("Items")
-                        .HasForeignKey("CartId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CGullProject.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("CGullProject.Product", b =>
-                {
-                    b.HasOne("CGullProject.Category", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("CGullProject.Models.Cart", b =>
-                {
-                    b.Navigation("Items");
                 });
 #pragma warning restore 612, 618
         }

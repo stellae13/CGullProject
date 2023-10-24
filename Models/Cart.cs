@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CGullProject.Models
 {
@@ -8,9 +9,7 @@ namespace CGullProject.Models
         public int Id { get; set; }
 
         [Required]
-        [StringLength(32, MinimumLength = 1)]
-        public string? Name { get; set; }    
-
-        public ICollection<CartItem> Items { get; set;} = new List<CartItem>();
+        [Column(TypeName = "varchar(32)")]
+        public string Name { get; set; } = string.Empty;
     }
 }

@@ -14,11 +14,9 @@ public class CartItem {
 
     [Required]
     [ForeignKey("Product")]
-    public string? ProductId { get; set; }
-
-    public Product Product { get; set; }
+    [Column(TypeName = "varchar(64)")]
+    public string ProductId { get; set; } = string.Empty;
 
     [Required]
-    [Range(0,int.MaxValue)]
     public int Quantity { get; set; }
 }
