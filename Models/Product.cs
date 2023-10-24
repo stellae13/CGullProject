@@ -7,21 +7,18 @@ namespace CGullProject;
 public class Product {
 
     [Required]
-    [StringLength(64, MinimumLength = 3)]
-    public String? Id { get; set; }
+    [Column(TypeName = "varchar(64)")]
+    public string Id { get; set; } = string.Empty;
 
     [Required]
-    [StringLength(32, MinimumLength = 2)]
-    public string? Name { get; set; }
+    [Column(TypeName = "varchar(32)")]
+    public string Name { get; set; } = string.Empty;
 
     [ForeignKey("Category")]
     [Required]
-    [StringLength(64, MinimumLength = 3)]
-    public String? CategoryId { get; set; }
-    public Category Category { get; set; }
+    public int CategoryId { get; set; }
 
     [Required]
-    [DataType(DataType.Currency)]
     [Column(TypeName = "decimal(18,2)")]
     public decimal Price { get; set; }
 
@@ -31,6 +28,6 @@ public class Product {
     public decimal Rating { get; set; }
 
     [Required]
-    [Range(0, int.MaxValue)]
+    [Column(TypeName = "int")]
     public int Stock { get; set; }
 }

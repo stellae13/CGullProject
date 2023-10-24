@@ -16,42 +16,34 @@ namespace CGullProject.Models
 
                         new Category
                         {
-                            Id = "1",
                             Name = "food_and_beverage"
                         },
                         new Category
                         {
-                            Id = "2",
                             Name = "trinkets"
                         },
                         new Category
                         {
-                            Id = "3",
                             Name = "clothing"
                         },
                         new Category
                         {
-                            Id = "4",
                             Name = "books"
                         },
                         new Category
                         {
-                            Id = "5",
                             Name = "toys_and_stuffed_animals"
                         },
                         new Category
                         {
-                            Id = "6",
                             Name = "costumes"
                         },
                         new Category
                         {
-                            Id = "7",
                             Name = "health_and_beauty"
                         },
                         new Category
                         {
-                            Id = "8",
                             Name = "misc"
                         }
 
@@ -66,7 +58,7 @@ namespace CGullProject.Models
                     {
                         Id = "1",
                         Name = "Seagull Drink",
-                        CategoryId = "1",
+                        CategoryId = 1,
                         Price = 1.75M,
                         Rating = 2.6M,
                         Stock = 20
@@ -75,7 +67,7 @@ namespace CGullProject.Models
                     {
                         Id = "2",
                         Name = "Seagull Chips",
-                        CategoryId = "1",
+                        CategoryId = 1,
                         Price = 5.99M,
                         Rating = 4.5M,
                         Stock = 25
@@ -84,7 +76,7 @@ namespace CGullProject.Models
                     {
                         Id = "3",
                         Name = "Seagull Cereal",
-                        CategoryId = "1",
+                        CategoryId = 1,
                         Price = 69.99M,
                         Rating = 4.2M,
                         Stock = 25
@@ -93,7 +85,7 @@ namespace CGullProject.Models
                     {
                         Id = "4",
                         Name = "Seagull Keychain",
-                        CategoryId = "2",
+                        CategoryId = 2,
                         Price = 12.99M,
                         Rating = 4.0M,
                         Stock = 30
@@ -102,7 +94,7 @@ namespace CGullProject.Models
                     {
                         Id = "5",
                         Name = "Seagull Action Figure",
-                        CategoryId = "2",
+                        CategoryId = 2,
                         Price = 50.99M,
                         Rating = 5.0M,
                         Stock = 20
@@ -111,7 +103,7 @@ namespace CGullProject.Models
                     {
                         Id = "6",
                         Name = "Seagull Ornament",
-                        CategoryId = "2",
+                        CategoryId = 2,
                         Price = 10.99M,
                         Rating = 4.7M,
                         Stock = 50
@@ -120,7 +112,7 @@ namespace CGullProject.Models
                     {
                         Id = "7",
                         Name = "Seagull Hat",
-                        CategoryId = "3",
+                        CategoryId = 3,
                         Price = 29.99M,
                         Rating = 4.3M,
                         Stock = 12
@@ -129,7 +121,7 @@ namespace CGullProject.Models
                     {
                         Id = "8",
                         Name = "Seagull Sweatshirt",
-                        CategoryId = "3",
+                        CategoryId = 3,
                         Price = 49.99M,
                         Rating = 4.6M,
                         Stock = 8
@@ -138,7 +130,7 @@ namespace CGullProject.Models
                     {
                         Id = "9",
                         Name = "Seagull T-Shirt",
-                        CategoryId = "3",
+                        CategoryId = 3,
                         Price = 40.99M,
                         Rating = 4.1M,
                         Stock = 40
@@ -147,7 +139,7 @@ namespace CGullProject.Models
                     {
                         Id = "10",
                         Name = "Seagull Sid Book",
-                        CategoryId = "4",
+                        CategoryId = 4,
                         Price = 23.49M,
                         Rating = 2.8M,
                         Stock = 50
@@ -156,7 +148,7 @@ namespace CGullProject.Models
                     {
                         Id = "11",
                         Name = "Seagull Soar Book",
-                        CategoryId = "4",
+                        CategoryId = 4,
                         Price = 21.49M,
                         Rating = 4.8M,
                         Stock = 50
@@ -165,7 +157,7 @@ namespace CGullProject.Models
                     {
                         Id = "12",
                         Name = "Jonathan Livingston Seagull Book",
-                        CategoryId = "4",
+                        CategoryId = 4,
                         Price = 29.49M,
                         Rating = 2.8M,
                         Stock = 100
@@ -174,7 +166,7 @@ namespace CGullProject.Models
                     {
                         Id = "13",
                         Name = "Seagull Board Game",
-                        CategoryId = "5",
+                        CategoryId = 5,
                         Price = 25.49M,
                         Rating = 3.8M,
                         Stock = 20
@@ -183,7 +175,7 @@ namespace CGullProject.Models
                     {
                         Id = "14",
                         Name = "Seagull Small Plushie",
-                        CategoryId = "5",
+                        CategoryId = 5,
                         Price = 9.49M,
                         Rating = 4.8M,
                         Stock = 100
@@ -192,7 +184,7 @@ namespace CGullProject.Models
                     {
                         Id = "15",
                         Name = "Seagull Big Plushie",
-                        CategoryId = "5",
+                        CategoryId = 5,
                         Price = 19.49M,
                         Rating = 4.8M,
                         Stock = 100
@@ -202,7 +194,7 @@ namespace CGullProject.Models
                     {
                         Id = "16",
                         Name = "Adult Seagull Costume",
-                        CategoryId = "6",
+                        CategoryId = 6,
                         Price = 119.49M,
                         Rating = 4.8M,
                         Stock = 30
@@ -211,7 +203,7 @@ namespace CGullProject.Models
                     {
                         Id = "17",
                         Name = "Child Seagull Costume",
-                        CategoryId = "6",
+                        CategoryId = 6,
                         Price = 79.49M,
                         Rating = 4.8M,
                         Stock = 35
@@ -220,7 +212,7 @@ namespace CGullProject.Models
                      {
                          Id = "18",
                          Name = "Seagull Hat Costume",
-                         CategoryId = "6",
+                         CategoryId = 6,
                          Price = 19.49M,
                          Rating = 4.8M,
                          Stock = 35
@@ -229,7 +221,7 @@ namespace CGullProject.Models
                      {
                          Id = "19",
                          Name = "Seagull Makeup Kit",
-                         CategoryId = "7",
+                         CategoryId = 7,
                          Price = 19.49M,
                          Rating = 4.8M,
                          Stock = 25
@@ -238,7 +230,7 @@ namespace CGullProject.Models
                      {
                          Id = "20",
                          Name = "Sounds of the Gull",
-                         CategoryId = "7",
+                         CategoryId = 7,
                          Price = 18.99M,
                          Rating = 4.9M,
                          Stock = 35
