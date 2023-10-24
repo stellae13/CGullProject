@@ -4,10 +4,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CGullProject;
 
-public class Product {
+public class Inventory {
 
     [Required]
-    [Column(TypeName = "varchar(64)")]
+    [Column(TypeName = "varchar(6)")]
     public string Id { get; set; } = string.Empty;
 
     [Required]
@@ -20,7 +20,11 @@ public class Product {
 
     [Required]
     [Column(TypeName = "decimal(18,2)")]
-    public decimal Price { get; set; }
+    public decimal MSRP { get; set; }
+
+    [Required]
+    [Column(TypeName = "decimal(18,2)")]
+    public decimal SalePrice {  get; set; }
 
     [Required]
     [Column(TypeName ="decimal(3,2)")]

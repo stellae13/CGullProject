@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CGullProject.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class CartController : ControllerBase
     {
@@ -20,16 +20,17 @@ namespace CGullProject.Controllers
 
         // return details about the cart
         [HttpGet("GetCart")]
-        public async Task<ActionResult<List<CartDetail>>> GetCart([Required] int cartId)
+        public async Task<ActionResult> GetCart([Required] Guid cartId)
         {
-            return Ok(await _context.CartDetails.FromSqlInterpolated($"exec usp_GetCartDetails {cartId}").ToListAsync());
+            return NotFound();
         }
 
         // return the different totals for the cart
         [HttpGet("GetTotals")]
-        public async Task<ActionResult<List<CartTotals>>> GetTotals([Required] int cartId)
+        public async Task<ActionResult> GetTotals([Required] Guid cartId)
         {
-            return Ok(await _context.CartTotals.FromSqlInterpolated($"exec usp_GetCartTotals {cartId}").ToListAsync());
+            // stubbed
+            return NotFound();
         }
     }
 }

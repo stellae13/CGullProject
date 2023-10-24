@@ -9,6 +9,6 @@ public class Category {
     public int Id { get; set; }
 
     [Required]
-    [Column(TypeName = "varchar(64)")]
+    [Column(TypeName = "varchar(32)")]
     public string Name { get; set; } = string.Empty;
 }
