@@ -21,64 +21,49 @@ namespace CGullProject.Controllers
             _context = context;
         }
 
-        // GET: api/Products
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Product>>> GetProduct()
-        {
-          if (_context.Product == null)
-          {
-              return NotFound();
-          }
-            return await _context.Product.Include(x => x.Category).ToListAsync();
-        }
+        // Unneccesary code - rml
+        //// GET: api/Products
+        //[HttpGet]
+        //public async Task<ActionResult<IEnumerable<Product>>> GetProduct()
+        //{
+        //    return await _context.Product.Include(x => x.Category).ToListAsync();
+        //}
 
         // GET: api/Products/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Product>> GetProduct(string id)
+        public async Task<ActionResult<Product>> GetProductById(string id)
         {
-          if (_context.Product == null)
-          {
-              return NotFound();
-          }
             var product = await _context.Product.FindAsync(id);
 
             if (product == null)
             {
-                return NotFound();
+                return NotFound($"Product with ID {id} not found.");
             }
 
-            return product;
+            return Ok(product);
         }
 
         // PUT: api/Products/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutProduct(string id, Product product)
+        public async Task<ActionResult> PutProduct(Product product)
         {
-            if (id != product.Id.ToString())
+            var dbProduct = await _context.Product.FindAsync(product.Id);
+
+            if (dbProduct == null)
             {
-                return BadRequest();
+                return NotFound($"Product with ID {product.Id} not found.");
             }
 
-            _context.Entry(product).State = EntityState.Modified;
+            dbProduct.Name = product.Name;
+            dbProduct.CategoryId = product.CategoryId;
+            dbProduct.Price = product.Price;
+            dbProduct.Rating = product.Rating;
+            dbProduct.Stock = product.Stock;
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ProductExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            await _context.SaveChangesAsync();
 
-            return NoContent();
+            return Ok($"Product with ID {product.Id} updated.");
         }
 
         // POST: api/Products
@@ -86,53 +71,26 @@ namespace CGullProject.Controllers
         [HttpPost]
         public async Task<ActionResult<Product>> PostProduct(Product product)
         {
-          if (_context.Product == null)
-          {
-              return Problem("Entity set 'ProductContext.Product'  is null.");
-          }
-            _context.Product.Add(product);
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (ProductExists(product.Id.ToString()))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            await _context.Product.AddAsync(product);
+            await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetProduct", new { id = product.Id }, product);
         }
 
         // DELETE: api/Products/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteProduct(string id)
+        public async Task<ActionResult> DeleteProduct(string id)
         {
-            if (_context.Product == null)
-            {
-                return NotFound();
-            }
             var product = await _context.Product.FindAsync(id);
             if (product == null)
             {
-                return NotFound();
+                return NotFound("Product with ID {id} not found.");
             }
 
             _context.Product.Remove(product);
             await _context.SaveChangesAsync();
 
-            return NoContent();
-        }
-
-        private bool ProductExists(string id)
-        {
-            return (_context.Product?.Any(e => e.Id.ToString() == id)).GetValueOrDefault();
+            return Ok($"Deleted product with ID {id}.");
         }
     }
 }
