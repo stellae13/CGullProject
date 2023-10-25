@@ -16,35 +16,43 @@ namespace CGullProject.Models
 
                         new Category
                         {
-                            Name = "food_and_beverage"
+                            Name = "food_and_beverage",
+                            Id = 1
                         },
                         new Category
                         {
-                            Name = "trinkets"
+                            Name = "trinkets",
+                            Id = 2
                         },
                         new Category
                         {
-                            Name = "clothing"
+                            Name = "clothing",
+                            Id = 3
                         },
                         new Category
                         {
-                            Name = "books"
+                            Name = "books",
+                            Id = 4
                         },
                         new Category
                         {
-                            Name = "toys_and_stuffed_animals"
+                            Name = "toys_and_stuffed_animals",
+                            Id = 5
                         },
                         new Category
                         {
-                            Name = "costumes"
+                            Name = "costumes",
+                            Id = 6
                         },
                         new Category
                         {
-                            Name = "health_and_beauty"
+                            Name = "health_and_beauty",
+                            Id = 7
                         },
                         new Category
                         {
-                            Name = "misc"
+                            Name = "misc",
+                            Id = 8 
                         }
 
                         );
@@ -254,8 +262,84 @@ namespace CGullProject.Models
                          SalePrice = 18.99M,
                          Rating = 4.9M,
                          Stock = 35
+                     },
+                     new Inventory
+                     {
+                         Id = "000021",
+                         Name = "Costume Bundle",
+                     },
+                     new Inventory
+                     {
+                         Id = "000022",
+                         Name = "Costume Bundle with Makeup",
+                     },
+                     new Inventory
+                     {
+                         Id = "000023",
+                         Name = "Seagull Teapot",
+                         CategoryId = 2,
+                         MSRP = 99.99M,
+                         SalePrice = 89.99M,
+                         Rating = 4.9M,
+                         Stock = 40
+                     },
+                     new Inventory
+                     {
+                         Id = "000024",
+                         Name = "Seagull 3D Phone Case",
+                         CategoryId = 8,
+                         MSRP = 29.49M,
+                         SalePrice = 19.49M,
+                         Rating = 3.8M,
+                         Stock = 25
+                     },
+                     new Inventory
+                     {
+                         Id = "000025",
+                         Name = "Seagull Painted Case",
+                         CategoryId = 8,
+                         MSRP = 17.99M,
+                         SalePrice = 15.99M,
+                         Rating = 4.5M,
+                         Stock = 35
+                     },
+                     new Inventory
+                     {
+                         Id = "000026",
+                         Name = "Seagull Jean Case",
+                         CategoryId = 8,
+                         MSRP = 15.99M,
+                         SalePrice = 10.99M,
+                         Rating = 4.9M,
+                         Stock = 45
+                     },
+                     new Inventory
+                     {
+                         Id = "000027",
+                         Name = "Seagull Mug",
+                         CategoryId = 1,
+                         MSRP = 17.99M,
+                         SalePrice = 15.99M,
+                         Rating = 4.2M,
+                         Stock = 50
+                     },
+                     new Inventory
+                     {
+                         Id = "000028",
+                         Name = "Seagull Plushies"
+                     },
+                     new Inventory
+                     {
+                         Id = "000029",
+                         Name = "Decorative Seagull License Plate",
+                         CategoryId = 2,
+                         MSRP = 37.99M,
+                         SalePrice = 35.99M,
+                         Rating = 4.2M,
+                         Stock = 20
                      }
-                        );
+
+                     );
                 }
                 //end of product seed data
                 if (!context.Cart.Any())
@@ -285,6 +369,119 @@ namespace CGullProject.Models
                     );
                 }
                 // end of Cart seed data
+
+                if (!context.Bundle.Any())
+                {
+                    context.AddRange(
+
+                        new Bundle()
+                        {
+                            Id = "00020",
+                            Name = "Costume Bundle",
+                            Discount = 159.20M,
+                            StartDate = DateTime.Now,
+                            EndDate = DateTime.Now + TimeSpan.FromDays( 100 )
+
+                        },
+                        new Bundle()
+                        {
+                            Id = "00021",
+                            Name = "Costume Bundle with Makeup",
+                            Discount = 177.20M,
+                            StartDate = DateTime.Now,
+                            EndDate = DateTime.Now + TimeSpan.FromDays(100)
+
+                        },
+                        new Bundle()
+                        {
+                            Id = "00022",
+                            Name = "Bookworm (Seagull-Worm) Bundle",
+                            Discount = 60.20M,
+                            StartDate = DateTime.Now,
+                            EndDate = DateTime.Now + TimeSpan.FromDays(100)
+
+                        },
+                        new Bundle()
+                        {
+                            Id = "00028",
+                            Name = "Seagull Plushies",
+                            Discount = 23.20M,
+                            StartDate = DateTime.Now,
+                            EndDate = DateTime.Now + TimeSpan.FromDays(100)
+
+                        }
+                    );
+
+                }
+                // end of Bundle seed data
+                if (!context.BundleItem.Any())
+                {
+                    context.AddRange(
+
+                        new BundleItem()
+                        {
+                            BundleId = "000020",
+                            InventoryId = "000016"
+
+                        },
+                        new BundleItem()
+                        {
+                            BundleId = "000020",
+                            InventoryId = "000017"
+
+                        },
+                        new BundleItem()
+                        {
+                            BundleId = "000021",
+                            InventoryId = "000016"
+
+                        },
+                        new BundleItem()
+                        {
+                            BundleId = "000021",
+                            InventoryId = "000017"
+
+                        },
+                        new BundleItem()
+                        {
+                            BundleId = "000021",
+                            InventoryId = "000019"
+
+                        },
+                        new BundleItem()
+                        {
+                            BundleId = "000022",
+                            InventoryId = "000010"
+
+                        },
+                        new BundleItem()
+                        {
+                            BundleId = "000022",
+                            InventoryId = "000011"
+
+                        },
+                        new BundleItem()
+                        {
+                            BundleId = "000022",
+                            InventoryId = "000012"
+
+                        },
+                        new BundleItem()
+                        {
+                            BundleId = "000028",
+                            InventoryId = "000014"
+
+                        },
+                        new BundleItem()
+                        {
+                            BundleId = "000028",
+                            InventoryId = "000015"
+
+                        }
+                    );
+
+                }
+
                 context.SaveChanges();
 
             }
