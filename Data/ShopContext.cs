@@ -20,7 +20,6 @@ namespace CGullProject.Data
         public DbSet<Cart> Cart { get; set; }
         public DbSet<CartItem> CartItem { get; set; }
         public DbSet<Bundle > Bundle { get; set; }
-
         public DbSet<BundleItem> BundleItem { get; set; }
 
 

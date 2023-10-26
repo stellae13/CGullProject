@@ -17,42 +17,42 @@ namespace CGullProject.Models
                         new Category
                         {
                             Name = "food_and_beverage",
-                            Id = 1
+            
                         },
                         new Category
                         {
                             Name = "trinkets",
-                            Id = 2
+                         
                         },
                         new Category
                         {
                             Name = "clothing",
-                            Id = 3
+                            
                         },
                         new Category
                         {
                             Name = "books",
-                            Id = 4
+                            
                         },
                         new Category
                         {
                             Name = "toys_and_stuffed_animals",
-                            Id = 5
+                           
                         },
                         new Category
                         {
                             Name = "costumes",
-                            Id = 6
+                            
                         },
                         new Category
                         {
                             Name = "health_and_beauty",
-                            Id = 7
+                           
                         },
                         new Category
                         {
                             Name = "misc",
-                            Id = 8 
+                            
                         }
 
                         );
@@ -265,12 +265,12 @@ namespace CGullProject.Models
                      },
                      new Inventory
                      {
-                         Id = "000021",
+                         Id = "100021",
                          Name = "Costume Bundle",
                      },
                      new Inventory
                      {
-                         Id = "000022",
+                         Id = "100022",
                          Name = "Costume Bundle with Makeup",
                      },
                      new Inventory
@@ -325,7 +325,7 @@ namespace CGullProject.Models
                      },
                      new Inventory
                      {
-                         Id = "000028",
+                         Id = "100028",
                          Name = "Seagull Plushies"
                      },
                      new Inventory
@@ -376,36 +376,36 @@ namespace CGullProject.Models
 
                         new Bundle()
                         {
-                            Id = "00020",
+                            Id = "100020",
                             Name = "Costume Bundle",
-                            Discount = 159.20M,
+                            Discount = 0.20M,
                             StartDate = DateTime.Now,
-                            EndDate = DateTime.Now + TimeSpan.FromDays( 100 )
+                            EndDate = DateTime.Now + TimeSpan.FromDays(100)
 
                         },
                         new Bundle()
                         {
-                            Id = "00021",
+                            Id = "100021",
                             Name = "Costume Bundle with Makeup",
-                            Discount = 177.20M,
+                            Discount = 0.20M,
                             StartDate = DateTime.Now,
                             EndDate = DateTime.Now + TimeSpan.FromDays(100)
 
                         },
                         new Bundle()
                         {
-                            Id = "00022",
+                            Id = "100022",
                             Name = "Bookworm (Seagull-Worm) Bundle",
-                            Discount = 60.20M,
+                            Discount = 0.20M,
                             StartDate = DateTime.Now,
                             EndDate = DateTime.Now + TimeSpan.FromDays(100)
 
                         },
                         new Bundle()
                         {
-                            Id = "00028",
+                            Id = "100028",
                             Name = "Seagull Plushies",
-                            Discount = 23.20M,
+                            Discount = 0.20M,
                             StartDate = DateTime.Now,
                             EndDate = DateTime.Now + TimeSpan.FromDays(100)
 
@@ -420,61 +420,61 @@ namespace CGullProject.Models
 
                         new BundleItem()
                         {
-                            BundleId = "000020",
+                            BundleId = "100020",
                             InventoryId = "000016"
 
                         },
                         new BundleItem()
                         {
-                            BundleId = "000020",
+                            BundleId = "100020",
                             InventoryId = "000017"
 
                         },
                         new BundleItem()
                         {
-                            BundleId = "000021",
+                            BundleId = "100021",
                             InventoryId = "000016"
 
                         },
                         new BundleItem()
                         {
-                            BundleId = "000021",
+                            BundleId = "100021",
                             InventoryId = "000017"
 
                         },
                         new BundleItem()
                         {
-                            BundleId = "000021",
+                            BundleId = "100021",
                             InventoryId = "000019"
 
                         },
                         new BundleItem()
                         {
-                            BundleId = "000022",
+                            BundleId = "100022",
                             InventoryId = "000010"
 
                         },
                         new BundleItem()
                         {
-                            BundleId = "000022",
+                            BundleId = "100022",
                             InventoryId = "000011"
 
                         },
                         new BundleItem()
                         {
-                            BundleId = "000022",
+                            BundleId = "100022",
                             InventoryId = "000012"
 
                         },
                         new BundleItem()
                         {
-                            BundleId = "000028",
+                            BundleId = "100028",
                             InventoryId = "000014"
 
                         },
                         new BundleItem()
                         {
-                            BundleId = "000028",
+                            BundleId = "100028",
                             InventoryId = "000015"
 
                         }
