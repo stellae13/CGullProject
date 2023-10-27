@@ -61,7 +61,7 @@ namespace CGullProject.Models
                 // end of category seed data 
                 if(!context.Inventory.Any())
                 {
-                    context.AddRange(
+                    context.Inventory.AddRange(
                     new Inventory
                     {
                         Id = "000001",
