@@ -1,8 +1,10 @@
 using System.ComponentModel.DataAnnotations;
 using CGullProject.Data;
+using CGullProject.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using Microsoft.IdentityModel.Tokens;
 
 namespace CGullProject.Controllers
 {
@@ -10,22 +12,17 @@ namespace CGullProject.Controllers
     [Route("[controller]")]
     public class ItemController : ControllerBase {
 
-        private readonly ShopContext _context;
+        private readonly IProductService _productService;
 
-        public ItemController(ShopContext context)
+        public ItemController(IProductService productService)
         {
-            _context = context;
+            _productService = productService;
         }
 
         [HttpGet("GetAllItems")]
         public async Task<ActionResult> GetAllItems()
         {
-            IEnumerable<Inventory> inventory =
-                await _context.Inventory.ToListAsync<Inventory>();
-
-            // Query to filter out bundles
-            inventory =
-                from item in inventory where item.Id[0] == '0' select item;
+           var inventory = await _productService.GetAllProducts();
 
             return Ok(inventory);
         }
@@ -33,74 +30,36 @@ namespace CGullProject.Controllers
         [HttpGet("GetById")]
         public async Task<ActionResult> GetById(String idList)
         {
-            // Request supplies string with ampersand-delim'd to easily split
-            String[] ids = idList.Split("&");
-            
-            List<Inventory> itemsById = new();  // The sublist of items to return.
+            var products = await _productService.GetProductsById(idList);
 
-            Dictionary<String,Inventory> inventoryTable = 
-                await _context.Inventory.ToDictionaryAsync<Inventory, String>(itm => itm.Id);
-
-            foreach (string id in ids)
-            {
-                // Tentative: skip over any requested Id that's malformatted
-                // without returning bad request error.
-                if (id.Length != 6)
-                    continue;
-                try
-                {
-                    Inventory itm = inventoryTable[id];
-                    itemsById.Add(itm);
-                }
-                catch (KeyNotFoundException e)
-                {
-                    // Tentative: skip over any requested Id that is not
-                    // listed in DB without returning bad request error.
-                    continue;
-                }
+            if (products.IsNullOrEmpty()) {
+                return NotFound();
             }
-            return Ok(itemsById);
+
+            return Ok(products);
         }
 
-        
+        [HttpGet("GetProductByCategory")]
+        public async Task<ActionResult> GetProductByCategory(int categoryID)
+        {
+            var products = await _productService.GetProductsbyCategory(categoryID);
 
-        [HttpPost("AddItemToCart")]
-        public async Task<ActionResult> AddItemToCart([Required] Guid cartId, [Required] string itemId, [Required] int quantity) {
-            var cart = await _context.Cart.FindAsync(cartId);
-
-            if (cart == null)
+            if (products.IsNullOrEmpty())
             {
-                return NotFound($"Cart with ID {cartId} not found");
-            } else if (quantity == 0)
-            {
-                return BadRequest($"Cannot add 0 items to cart");
+                return NotFound();
             }
 
-            var itemQuantity = from i in _context.Inventory
-                               where i.Id == itemId
-                               select i.Stock;
-
-            if(quantity > itemQuantity.First())
-            {
-                return BadRequest($"Tring to add too many of this item. This item only has {itemQuantity} left in stock");
-            }
-
-            CartItem cartItem = new CartItem
-            {
-                CartId = cartId,
-                InventoryId = itemId,
-                Quantity = quantity
-            };
-
-            var item = from i in _context.Inventory
-                       where i.Id == itemId
-                       select i;
-
-            await _context.CartItem.AddAsync(cartItem);
-            item.First().Stock = item.First().Stock - quantity;
-            await _context.SaveChangesAsync();
-
-            return Ok($"Product with ID {itemId} added to cart with ID {cartId}.");
+            return Ok(products);
         }
+
+        [HttpGet("GetCategories")]
+        public async Task<ActionResult> GetCategories()
+        {
+            var categories = await _productService.GetAllCategories();
+
+            return Ok(categories);
+        }
+
+
     }
 }
