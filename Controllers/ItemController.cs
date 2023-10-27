@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using CGullProject.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace CGullProject.Controllers
 {
@@ -11,6 +12,8 @@ namespace CGullProject.Controllers
 
         private readonly ShopContext _context;
 
+        
+
         public ItemController(ShopContext context)
         {
             _context = context;
@@ -19,8 +22,32 @@ namespace CGullProject.Controllers
         [HttpGet("GetAllItems")]
         public async Task<ActionResult> GetAllItems()
         {
-            return Ok(await _context.Inventory.ToListAsync());
+            IEnumerable<Inventory> products = 
+                await _context.Inventory.ToListAsync<Inventory>();
+
+            // Filter out bundles by filtering out any product whose ID has
+            // bundle flag digit set.
+            products = 
+                products.Where(prod => prod.Id[0] != '1').Select(prod => prod);
+            return Ok(products);
         }
+        
+        [HttpGet("GetById")]
+        public async Task<ActionResult> GetById([FromBody]String[] ids)
+        {
+            List<Inventory> matchingProds = new();
+            Dictionary<String,Inventory> products = await _context.Inventory.ToDictionaryAsync<Inventory, String>(itm => itm.Id);
+            foreach (string id in ids)
+            {
+                if (id.Length != 6) continue;
+                Inventory? itm = products[id];
+                if (itm is null) continue;
+                matchingProds.Add(itm);
+            }
+            return Ok(matchingProds);
+        }
+
+        
 
         [HttpPost("AddItemToCart")]
         public async Task<ActionResult> AddItemToCart([Required] Guid cartId, [Required] string itemId, [Required] int quantity) {
