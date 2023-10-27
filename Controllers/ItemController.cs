@@ -20,11 +20,14 @@ namespace CGullProject.Controllers
         [HttpGet("GetAllItems")]
         public async Task<ActionResult> GetAllItems()
         {
-            IEnumerable<Inventory> products = 
-                await _context.Inventory.ToListAsync<Inventory>();                
-            // Returns query result that filters out bundles by filtering out any product whose ID
-            return
-                Ok(products.Where(entry => entry.Id[0] == '0').Select(entry => entry));
+            IEnumerable<Inventory> inventory =
+                await _context.Inventory.ToListAsync<Inventory>();
+
+            // Query to filter out bundles
+            inventory =
+                from item in inventory where item.Id[0] == '0' select item;
+
+            return Ok(inventory);
         }
         
         [HttpGet("GetById")]
@@ -32,8 +35,12 @@ namespace CGullProject.Controllers
         {
             // Request supplies string with ampersand-delim'd to easily split
             String[] ids = idList.Split("&");
-            List<Inventory> matchingProds = new();
-            Dictionary<String,Inventory> products = await _context.Inventory.ToDictionaryAsync<Inventory, String>(itm => itm.Id);
+            
+            List<Inventory> itemsById = new();  // The sublist of items to return.
+
+            Dictionary<String,Inventory> inventoryTable = 
+                await _context.Inventory.ToDictionaryAsync<Inventory, String>(itm => itm.Id);
+
             foreach (string id in ids)
             {
                 // Tentative: skip over any requested Id that's malformatted
@@ -42,8 +49,8 @@ namespace CGullProject.Controllers
                     continue;
                 try
                 {
-                    Inventory itm = products[id];
-                    matchingProds.Add(itm);
+                    Inventory itm = inventoryTable[id];
+                    itemsById.Add(itm);
                 }
                 catch (KeyNotFoundException e)
                 {
@@ -52,7 +59,7 @@ namespace CGullProject.Controllers
                     continue;
                 }
             }
-            return Ok(matchingProds);
+            return Ok(itemsById);
         }
 
         
