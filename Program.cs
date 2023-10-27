@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using CGullProject.Data;
 using CGullProject.Models;
+using CGullProject.Services;
 
 namespace CGullProject
 {
@@ -19,6 +20,8 @@ namespace CGullProject
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddScoped<IProductService, ProductService>();
+            builder.Services.AddScoped<ICartService, CartService>();
 
             var app = builder.Build();
 
