@@ -19,6 +19,7 @@ namespace CGullProject.Controllers
         [HttpGet("GetAllItems")]
         public async Task<ActionResult> GetAllItems()
         {
+            
             return Ok(await _context.Inventory.ToListAsync());
         }
 
