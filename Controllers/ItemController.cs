@@ -12,8 +12,6 @@ namespace CGullProject.Controllers
 
         private readonly ShopContext _context;
 
-        
-
         public ItemController(ShopContext context)
         {
             _context = context;
@@ -23,26 +21,36 @@ namespace CGullProject.Controllers
         public async Task<ActionResult> GetAllItems()
         {
             IEnumerable<Inventory> products = 
-                await _context.Inventory.ToListAsync<Inventory>();
-
-            // Filter out bundles by filtering out any product whose ID has
-            // bundle flag digit set.
-            products = 
-                products.Where(prod => prod.Id[0] != '1').Select(prod => prod);
-            return Ok(products);
+                await _context.Inventory.ToListAsync<Inventory>();                
+            // Returns query result that filters out bundles by filtering out any product whose ID
+            return
+                Ok(products.Where(entry => entry.Id[0] == '0').Select(entry => entry));
         }
         
         [HttpGet("GetById")]
-        public async Task<ActionResult> GetById([FromBody]String[] ids)
+        public async Task<ActionResult> GetById(String idList)
         {
+            // Request supplies string with ampersand-delim'd to easily split
+            String[] ids = idList.Split("&");
             List<Inventory> matchingProds = new();
             Dictionary<String,Inventory> products = await _context.Inventory.ToDictionaryAsync<Inventory, String>(itm => itm.Id);
             foreach (string id in ids)
             {
-                if (id.Length != 6) continue;
-                Inventory? itm = products[id];
-                if (itm is null) continue;
-                matchingProds.Add(itm);
+                // Tentative: skip over any requested Id that's malformatted
+                // without returning bad request error.
+                if (id.Length != 6)
+                    continue;
+                try
+                {
+                    Inventory itm = products[id];
+                    matchingProds.Add(itm);
+                }
+                catch (KeyNotFoundException e)
+                {
+                    // Tentative: skip over any requested Id that is not
+                    // listed in DB without returning bad request error.
+                    continue;
+                }
             }
             return Ok(matchingProds);
         }
