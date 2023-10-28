@@ -4,16 +4,16 @@ namespace CGullProject.Services
 {
     public interface IProductService
     {
-        public Task<bool> AddProduct(Inventory Product);
+        public Task<bool> AddProduct(Product Product);
         public Task<bool> RemoveProduct(string productId);
-        public Task<IEnumerable<Inventory>> GetAllProducts();
+        public Task<IEnumerable<Product>> GetAllProducts();
 
         /// <summary> Get products that match keywords provided, sorted by relevance </summary>
-        public Task<IEnumerable<Inventory>> GetProductsByKeyword(String keywords);
+        public Task<IEnumerable<Product>> GetProductsByKeyword(String keywords);
 
-        public Task<IEnumerable<Inventory>> GetProductsById(String ids);
+        public Task<IEnumerable<Product>> GetProductsById(String ids);
 
-        public Task<IEnumerable<Inventory>> GetProductsbyCategory(int categoryId);
+        public Task<IEnumerable<Product>> GetProductsbyCategory(int categoryId);
 
         public Task<IEnumerable<Category>> GetAllCategories();
 

@@ -27,9 +27,6 @@ namespace CGullProject.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("varchar(6)");
 
-                    b.Property<decimal>("Discount")
-                        .HasColumnType("decimal(3,2)");
-
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime");
 
@@ -37,10 +34,15 @@ namespace CGullProject.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(64)");
 
+                    b.Property<string>("ProductId")
+                        .HasColumnType("varchar(6)");
+
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
 
                     b.ToTable("Bundle", (string)null);
                 });
@@ -50,10 +52,12 @@ namespace CGullProject.Migrations
                     b.Property<string>("BundleId")
                         .HasColumnType("varchar(6)");
 
-                    b.Property<string>("InventoryId")
+                    b.Property<string>("ProductId")
                         .HasColumnType("varchar(6)");
 
-                    b.HasKey("BundleId", "InventoryId");
+                    b.HasKey("BundleId", "ProductId");
+
+                    b.HasIndex("ProductId");
 
                     b.ToTable("BundleItem", (string)null);
                 });
@@ -63,13 +67,13 @@ namespace CGullProject.Migrations
                     b.Property<Guid>("CartId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("InventoryId")
+                    b.Property<string>("ProductId")
                         .HasColumnType("varchar(6)");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.HasKey("CartId", "InventoryId");
+                    b.HasKey("CartId", "ProductId");
 
                     b.ToTable("CartItem", (string)null);
                 });
@@ -91,7 +95,22 @@ namespace CGullProject.Migrations
                     b.ToTable("Category", (string)null);
                 });
 
-            modelBuilder.Entity("CGullProject.Inventory", b =>
+            modelBuilder.Entity("CGullProject.Models.Cart", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier default NEWID()");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("varchar(64)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Cart", (string)null);
+                });
+
+            modelBuilder.Entity("CGullProject.Product", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("varchar(6)");
@@ -115,24 +134,72 @@ namespace CGullProject.Migrations
                     b.Property<int>("Stock")
                         .HasColumnType("int");
 
+                    b.Property<bool>("isBundle")
+                        .HasColumnType("bit");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("Inventory", (string)null);
                 });
 
+            modelBuilder.Entity("CGullProject.Bundle", b =>
+                {
+                    b.HasOne("CGullProject.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId");
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("CGullProject.BundleItem", b =>
+                {
+                    b.HasOne("CGullProject.Bundle", "Bundle")
+                        .WithMany("BundleItems")
+                        .HasForeignKey("BundleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CGullProject.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Bundle");
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("CGullProject.CartItem", b =>
+                {
+                    b.HasOne("CGullProject.Models.Cart", null)
+                        .WithMany("cartItems")
+                        .HasForeignKey("CartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("CGullProject.Product", b =>
+                {
+                    b.HasOne("CGullProject.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("CGullProject.Bundle", b =>
+                {
+                    b.Navigation("BundleItems");
+                });
+
             modelBuilder.Entity("CGullProject.Models.Cart", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier default NEWID()");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("varchar(64)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Cart", (string)null);
+                    b.Navigation("cartItems");
                 });
 #pragma warning restore 612, 618
         }

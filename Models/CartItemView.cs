@@ -6,7 +6,7 @@
     // in js object literal notation.
     public struct CartItemView
     {
-        public String InventoryId { get; set; }
+        public String ProductId { get; set; }
         public int Quantity { get; set; }
         public Decimal Total { get; set; }
 

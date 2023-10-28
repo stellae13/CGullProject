@@ -39,14 +39,14 @@ namespace CGullProject.Services
 
 
             Dictionary<Tuple<Guid, String>, CartItem> cartItemTable =
-                await _context.CartItem.ToDictionaryAsync<CartItem, Tuple<Guid, String>>(cItm => new(cItm.CartId, cItm.InventoryId));
+                await _context.CartItem.ToDictionaryAsync<CartItem, Tuple<Guid, String>>(cItm => new(cItm.CartId, cItm.ProductId));
             Tuple<Guid, String> cartItemHandle = new(cartId, itemId);
             // If cart already has a quantity of this item, fetch its associated CartItem entry from the database
             // and then update its quantity to reflect the adjusted qty after adding this new qty to cart.
             if (cartItemTable.ContainsKey(cartItemHandle)) 
             {
 
-                cartItemTable[new(cartId, itemId)].Quantity += quantity;
+                cartItemTable[new(cartId, itemId)].Quantity += quantity;    
             }
             else
             {
@@ -54,7 +54,7 @@ namespace CGullProject.Services
                 CartItem cartItem = new CartItem
                 {
                     CartId = cartId,
-                    InventoryId = itemId,
+                    ProductId = itemId,
                     Quantity = quantity
                 };
                 await _context.CartItem.AddAsync(cartItem);
@@ -90,7 +90,7 @@ namespace CGullProject.Services
 
         private async Task<IEnumerable<CartItemView>> GetCartItemDetails(Guid cartId)
         {
-            Dictionary<String, Inventory> inventoryById = await _context.Inventory.ToDictionaryAsync<Inventory, String>(itm => itm.Id);
+            Dictionary<String, Product> inventoryById = await _context.Inventory.ToDictionaryAsync<Product, String>(itm => itm.Id);
             List<CartItem> bundles = new();
             List<CartItemView> idQtyCost = 
                 _context.CartItem.Where((Func<CartItem, bool>) (itm => 
@@ -103,7 +103,7 @@ namespace CGullProject.Services
                     {
                         return false;
                     }
-                    else if (itm.InventoryId[0] == '1')
+                    else if (itm.ProductId[0] == '1')
                     {
                         bundles.Add(itm);
                         return false;
@@ -114,34 +114,34 @@ namespace CGullProject.Services
                     }
                 })).Select((Func<CartItem, CartItemView>) (itm => 
                 {
-                    Inventory? productHandle = inventoryById.GetValueOrDefault(itm.InventoryId);
+                    Product? productHandle = inventoryById.GetValueOrDefault(itm.ProductId);
                     decimal total = (productHandle is null) ? 0M : productHandle.SalePrice;
                     total *= itm.Quantity;
                     return new CartItemView
                     {
-                        InventoryId = itm.InventoryId, 
+                        ProductId = itm.ProductId, 
                         Quantity = itm.Quantity, 
                         Total = total 
                     };
                 })).ToList<CartItemView>();
             foreach (CartItem bundle in bundles)
             {
-                IEnumerable<Inventory> bundleContents = from BundleItem itm in _context.BundleItem
-                                            where itm.BundleId.Equals(bundle.InventoryId) && inventoryById.ContainsKey(itm.InventoryId)
-                                            select inventoryById[itm.InventoryId];
-                Bundle? bundleHandle = await _context.Bundle.FindAsync(bundle.InventoryId);
+                IEnumerable<Product> bundleContents = from BundleItem itm in _context.BundleItem
+                                            where itm.BundleId.Equals(bundle.ProductId) && inventoryById.ContainsKey(itm.ProductId)
+                                            select inventoryById[itm.ProductId];
+                Bundle? bundleHandle = await _context.Bundle.FindAsync(bundle.ProductId);
                 decimal total = 0;
-                foreach (Inventory bundledItem in bundleContents)
+                foreach (Product bundledItem in bundleContents)
                 {
                     total += bundledItem.SalePrice;
                 }
                 total *= bundle.Quantity;
                 // There should never be a case where the else operand gets chosen in this ternary operator expr.
                 // It's just there to make the VS's language server stop warning me that bundlehandle may be null.
-                total *= bundleHandle is not null ? bundleHandle.Discount : 1M;
+                //total *= bundleHandle is not null ? bundleHandle.Discount : 1M;
                 idQtyCost.Add(new CartItemView
                 {
-                    InventoryId = bundle.InventoryId,
+                    ProductId = bundle.ProductId,
                     Total = total,
                     Quantity = bundle.Quantity
                 });

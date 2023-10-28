@@ -19,7 +19,6 @@ namespace CGullProject.Controllers
             _cartService = cartService;
         }
 
-        private readonly ICartService _cartService;
 
      
 

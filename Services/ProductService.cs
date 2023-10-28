@@ -15,7 +15,7 @@ namespace CGullProject.Services
             _context = context;
         }
 
-        public async Task<bool> AddProduct(Inventory Product)
+        public async Task<bool> AddProduct(Product Product)
         {
             throw new NotImplementedException();
         }
@@ -26,10 +26,10 @@ namespace CGullProject.Services
             return categories;
         }
 
-        public async Task<IEnumerable<Inventory>> GetAllProducts()
+        public async Task<IEnumerable<Product>> GetAllProducts()
         {
-            IEnumerable<Inventory> inventory =
-               await _context.Inventory.ToListAsync<Inventory>();
+            IEnumerable<Product> inventory =
+               await _context.Inventory.ToListAsync<Product>();
 
             // Query to filter out bundles
             inventory =
@@ -37,25 +37,25 @@ namespace CGullProject.Services
             return inventory;
         }
 
-        public async Task<IEnumerable<Inventory>> GetProductsbyCategory(int categoryId)
+        public async Task<IEnumerable<Product>> GetProductsbyCategory(int categoryId)
         {
-            List<Inventory> products = new List<Inventory>();
+            List<Product> products = new List<Product>();
 
             products = await _context.Inventory.Where( e => e.CategoryId == categoryId ).ToListAsync();
             return products;
         }
 
-        public async Task<IEnumerable<Inventory>> GetProductsById(string productIDs)
+        public async Task<IEnumerable<Product>> GetProductsById(string productIDs)
 
         {
 
             // Request supplies string with ampersand-delim'd to easily split
             String[] ids = productIDs.Split("&");
 
-            List<Inventory> itemsById = new();  // The sublist of items to return.
+            List<Product> itemsById = new();  // The sublist of items to return.
 
-            Dictionary<String, Inventory> inventoryTable =
-                await _context.Inventory.ToDictionaryAsync<Inventory, String>(itm => itm.Id);
+            Dictionary<String, Product> inventoryTable =
+                await _context.Inventory.ToDictionaryAsync<Product, String>(itm => itm.Id);
 
             foreach (string id in ids)
             {
@@ -65,7 +65,7 @@ namespace CGullProject.Services
                     continue;
                 try
                 {
-                    Inventory itm = inventoryTable[id];
+                    Product itm = inventoryTable[id];
                     itemsById.Add(itm);
                 }
                 catch (KeyNotFoundException e)
@@ -97,15 +97,15 @@ namespace CGullProject.Services
             return ret;
         }
         
-        public async Task<IEnumerable<Inventory>> GetProductsByKeyword(String keywords)
+        public async Task<IEnumerable<Product>> GetProductsByKeyword(String keywords)
         {
             HashSet<String> keySet = new(keywords.Split("&"));
             return await 
-                Task.Run((Func<IEnumerable<Inventory>>) 
+                Task.Run((Func<IEnumerable<Product>>) 
                 (() => {
-                    IEnumerable<KeyValuePair<Inventory, int>> itemsAndRelevance =
+                    IEnumerable<KeyValuePair<Product, int>> itemsAndRelevance =
                         from item in _context.Inventory
-                        select new KeyValuePair<Inventory, int>(item, ScoreItemRelevance(item.Name, keySet));
+                        select new KeyValuePair<Product, int>(item, ScoreItemRelevance(item.Name, keySet));
 
                     return
                         from kv in itemsAndRelevance
