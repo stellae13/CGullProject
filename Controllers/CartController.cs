@@ -1,5 +1,6 @@
 ﻿using CGullProject.Data;
 using CGullProject.Models;
+using CGullProject.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,12 +12,18 @@ namespace CGullProject.Controllers
     [ApiController]
     public class CartController : ControllerBase
     {
+
         private readonly ShopContext _context;
 
-        public CartController(ShopContext context)
+        public CartController(ShopContext context, ICartService cartService)
         {
             _context = context;
+            _cartService = cartService;
         }
+
+        private readonly ICartService _cartService;
+
+     
 
         // return details about the cart
         [HttpGet("GetCart")]
@@ -73,6 +80,16 @@ namespace CGullProject.Controllers
             await _context.SaveChangesAsync();
 
             return Ok($"Product with ID {itemId} added to cart with ID {cartId}.");
+        }
+        [HttpPost("ProcessPayment")]
+        public async Task<ActionResult> ProcessPayment(ProcessPaymentDTO paymentInfo)
+        {
+            if(await _cartService.ProcessPayment(paymentInfo))
+            {
+                return Ok();
+            }
+
+            return BadRequest();
         }
     }
 }

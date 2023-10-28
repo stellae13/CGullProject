@@ -13,6 +13,6 @@ namespace CGullProject.Services
 
         public Task<TotalsDTO> GetTotals(Guid cartID);
 
-        public Task<bool> ProcessPayment(Guid cartID, String cardNumber, DateOnly exp, string cardHolderName, string cvc);
+        public Task<bool> ProcessPayment(ProcessPaymentDTO paymentInfo);
     }
 }
