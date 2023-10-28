@@ -4,6 +4,16 @@ namespace CGullProject.Models
 {
     public class ProcessPaymentDTO
     {
+
+       public  ProcessPaymentDTO(Guid cartID, string cardNumber, DateOnly exp, string cardHolderName, string cvv)
+        {
+            this.cartID = cartID;
+            this.cardNumber = cardNumber;
+            this.exp = exp;
+            this.cardHolderName = cardHolderName;
+            this.cvv = cvv;
+        }
+
         [Required]
         public Guid cartID { get; set; }
 

@@ -82,9 +82,11 @@ namespace CGullProject.Controllers
             return Ok($"Product with ID {itemId} added to cart with ID {cartId}.");
         }
         [HttpPost("ProcessPayment")]
-        public async Task<ActionResult> ProcessPayment(ProcessPaymentDTO paymentInfo)
+        public async Task<ActionResult> ProcessPayment([Required] Guid cartId, [Required] String cardNumber, [Required] DateOnly exp, [Required] String cardHolderName, [Required] String cvv)
         {
-            if(await _cartService.ProcessPayment(paymentInfo))
+
+           ProcessPaymentDTO paymentInfo = new ProcessPaymentDTO(cartId,cardNumber, exp, cardHolderName, cvv);
+            if (await _cartService.ProcessPayment(paymentInfo))
             {
                 return Ok();
             }
