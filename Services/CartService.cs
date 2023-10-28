@@ -4,7 +4,7 @@ namespace CGullProject.Services
 {
     public class CartService : ICartService
     {
-        public Task<bool> AddItmeToCart(Guid cartID, string itemID, int quantity)
+        public Task<bool> AddItemToCart(Guid cartID, string itemID, int quantity)
         {
             throw new NotImplementedException();
         }
