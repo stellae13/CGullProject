@@ -39,6 +39,17 @@ namespace CGullProject.Controllers
             return Ok(products);
         }
 
+        [HttpGet("GetByKeyword")]
+        public async Task<ActionResult> GetByKeyword(String keywordList)
+        {
+            var products = await _productService.GetProductsByKeyword(keywordList);
+            if (products.IsNullOrEmpty())
+            {
+                return NotFound();
+            }
+            return Ok(products);
+        }
+
         [HttpGet("GetProductByCategory")]
         public async Task<ActionResult> GetProductByCategory(int categoryID)
         {

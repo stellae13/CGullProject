@@ -1,5 +1,7 @@
 ﻿using CGullProject.Data;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel;
+using System.Text.RegularExpressions;
 
 namespace CGullProject.Services
 {
@@ -74,6 +76,44 @@ namespace CGullProject.Services
                 }
             }
             return itemsById;
+        }
+
+        private static int ScoreItemRelevance(String itemName, HashSet<String> searchKeySet)
+        {
+            HashSet<String> tokensChecked = new();
+
+            // Filter out any punctuation
+            String[] nameTok = itemName.Split(" ");
+            int ret = 0;
+            foreach (String token in nameTok)
+            {
+                if (!tokensChecked.Add(token))
+                    continue;
+                if (searchKeySet.Contains(token))
+                    ++ret;
+
+            }
+
+            return ret;
+        }
+        
+        public async Task<IEnumerable<Inventory>> GetProductsByKeyword(String keywords)
+        {
+            HashSet<String> keySet = new(keywords.Split("&"));
+            return await 
+                Task.Run((Func<IEnumerable<Inventory>>) 
+                (() => {
+                    IEnumerable<KeyValuePair<Inventory, int>> itemsAndRelevance =
+                        from item in _context.Inventory
+                        select new KeyValuePair<Inventory, int>(item, ScoreItemRelevance(item.Name, keySet));
+
+                    return
+                        from kv in itemsAndRelevance
+                        where kv.Value > 0
+                        orderby kv.Value descending
+                        select kv.Key;
+                })
+            );
         }
 
         public async Task<bool> RemoveProduct(string productId)
