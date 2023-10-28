@@ -7,7 +7,7 @@ namespace CGullProject.Services
     public interface ICartService
     {
 
-        public Task<bool> AddItmeToCart(Guid cartID, string itemID, int quantity);
+        public Task<bool> AddItemToCart(Guid cartID, string itemID, int quantity);
 
         public Task<Cart> GetCart(Guid cartID);
 

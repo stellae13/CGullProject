@@ -15,7 +15,7 @@ namespace CGullProject.Services
             this._context = context;
         }
 
-        public Task<bool> AdditemToCart(Guid cartID, string itemID, int quantity)
+        public Task<bool> AddItemToCart(Guid cartID, string itemID, int quantity)
         {
             throw new NotImplementedException();
         }
