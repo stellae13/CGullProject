@@ -60,7 +60,7 @@ namespace CGullProject.Services
         //Uses luhn algroithm to check for valid credit card numbers 
         private static bool ValidateCreditCard(string cardNum)
         {
-            if(!int.TryParse(cardNum,out int x)){
+            if(!UInt64.TryParse(cardNum,out UInt64 x)){
                 return false;
             }
 
