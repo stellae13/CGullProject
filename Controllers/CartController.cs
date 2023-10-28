@@ -12,12 +12,10 @@ namespace CGullProject.Controllers
     [ApiController]
     public class CartController : ControllerBase
     {
+        private readonly ICartService _cartService;
 
-        private readonly ShopContext _context;
-
-        public CartController(ShopContext context, ICartService cartService)
+        public CartController(ICartService cartService)
         {
-            _context = context;
             _cartService = cartService;
         }
 
@@ -29,57 +27,52 @@ namespace CGullProject.Controllers
         [HttpGet("GetCart")]
         public async Task<ActionResult> GetCart([Required] Guid cartId)
         {
-            return NotFound();
+            try
+            {
+                Tuple<Cart, IEnumerable<CartItemView>> cart = await _cartService.GetCart(cartId);
+                return Ok(cart);
+            } catch (KeyNotFoundException e)
+            {
+                return NotFound(e.Message);
+            }
+        }
+
+        
+
+        
+
+        [HttpPost("CreateNewCart")]
+        public async Task<ActionResult> CreateNewCart(String name)
+        {
+            Guid newCartId = await _cartService.CreateNewCart(name);
+            return Ok(newCartId);
+
         }
 
         // return the different totals for the cart
         [HttpGet("GetTotals")]
         public async Task<ActionResult> GetTotals([Required] Guid cartId)
         {
-            // stubbed
-            return NotFound();
+            throw new NotImplementedException();  // Ill finish this tomorrow I'm so tired. its 5 am i think lol
+            
         }
 
 
         [HttpPost("AddItemToCart")]
         public async Task<ActionResult> AddItemToCart([Required] Guid cartId, [Required] string itemId, [Required] int quantity)
         {
-            var cart = await _context.Cart.FindAsync(cartId);
-
-            if (cart == null)
+            try
             {
-                return NotFound($"Cart with ID {cartId} not found");
-            }
-            else if (quantity == 0)
+                await _cartService.AddItemToCart(cartId, itemId, quantity);
+                return Ok($"Product with ID {itemId} added to cart with ID {cartId}.");
+            } catch (BadHttpRequestException e)
             {
-                return BadRequest($"Cannot add 0 items to cart");
-            }
-
-            var itemQuantity = from i in _context.Inventory
-                               where i.Id == itemId
-                               select i.Stock;
-
-            if (quantity > itemQuantity.First())
+                return BadRequest(e.Message);
+            } catch (KeyNotFoundException e)
             {
-                return BadRequest($"Tring to add too many of this item. This item only has {itemQuantity} left in stock");
+                return NotFound(e.Message);
             }
 
-            CartItem cartItem = new CartItem
-            {
-                CartId = cartId,
-                InventoryId = itemId,
-                Quantity = quantity
-            };
-
-            var item = from i in _context.Inventory
-                       where i.Id == itemId
-                       select i;
-
-            await _context.CartItem.AddAsync(cartItem);
-            item.First().Stock = item.First().Stock - quantity;
-            await _context.SaveChangesAsync();
-
-            return Ok($"Product with ID {itemId} added to cart with ID {cartId}.");
         }
         [HttpPost("ProcessPayment")]
         public async Task<ActionResult> ProcessPayment([Required] Guid cartId, [Required] String cardNumber, [Required] DateOnly exp, [Required] String cardHolderName, [Required] String cvv)
