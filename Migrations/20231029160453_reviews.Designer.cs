@@ -4,6 +4,7 @@ using CGullProject.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CGullProject.Migrations
 {
     [DbContext(typeof(ShopContext))]
-    partial class ShopContextModelSnapshot : ModelSnapshot
+    [Migration("20231029160453_reviews")]
+    partial class reviews
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -107,9 +110,7 @@ namespace CGullProject.Migrations
                         .HasColumnType("varchar(32)");
 
                     b.Property<decimal>("Rating")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("decimal(3,2)")
-                        .HasComputedColumnSql("select avg(Inventory.rating) from Reviews, Inventory where Inventory.Id = Reviews.InventoryId");
+                        .HasColumnType("decimal(3,2)");
 
                     b.Property<decimal>("SalePrice")
                         .HasColumnType("decimal(18,2)");

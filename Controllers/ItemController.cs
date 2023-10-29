@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using CGullProject.Data;
-using CGullProject.Services;
+using CGullProject.Models.DTO;
+using CGullProject.Services.ServiceInterfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
@@ -13,10 +14,12 @@ namespace CGullProject.Controllers
     public class ItemController : ControllerBase {
 
         private readonly IProductService _productService;
+        private readonly IReviewService _reviewService;
 
-        public ItemController(IProductService productService)
+        public ItemController(IProductService productService, IReviewService reviewService)
         {
             _productService = productService;
+            _reviewService = reviewService;
         }
 
         [HttpGet("GetAllItems")]
@@ -50,10 +53,10 @@ namespace CGullProject.Controllers
             return Ok(products);
         }
 
-        [HttpGet("GetProductByCategory")]
-        public async Task<ActionResult> GetProductByCategory(int categoryID)
+        [HttpGet("Category/{id}")]
+        public async Task<ActionResult> GetProductByCategory(int id)
         {
-            var products = await _productService.GetProductsbyCategory(categoryID);
+            var products = await _productService.GetProductsbyCategory(id);
 
             if (products.IsNullOrEmpty())
             {
@@ -63,7 +66,7 @@ namespace CGullProject.Controllers
             return Ok(products);
         }
 
-        [HttpGet("GetCategories")]
+        [HttpGet("Category")]
         public async Task<ActionResult> GetCategories()
         {
             var categories = await _productService.GetAllCategories();
@@ -71,6 +74,23 @@ namespace CGullProject.Controllers
             return Ok(categories);
         }
 
+        [HttpGet("{id}/Review")]
+        public async Task<ActionResult> GetReviews(String id)
+        {
+            return Ok(await _reviewService.GetReviewsById(id));
+        }
+
+        [HttpPost("{id}/Review")]
+
+        public async Task<ActionResult> CreateReview(CreateReviewDTO review,String id)
+        {
+            if(await _reviewService.AddReview(review, id))
+            {
+                return Ok();
+            }
+
+            return BadRequest();
+        }
 
     }
 }

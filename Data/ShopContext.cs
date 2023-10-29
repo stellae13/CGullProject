@@ -22,6 +22,8 @@ namespace CGullProject.Data
         public DbSet<Bundle > Bundle { get; set; }
         public DbSet<BundleItem> BundleItem { get; set; }
 
+        public DbSet<Review> Review { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -32,8 +34,20 @@ namespace CGullProject.Data
             modelBuilder.Entity<Cart>().ToTable("Cart");
             modelBuilder.Entity<CartItem>().ToTable("CartItem");
 
+
             modelBuilder.Entity<Bundle>().ToTable("Bundle");
             modelBuilder.Entity<BundleItem>().ToTable("BundleItem");
+
+            modelBuilder.Entity<Review>()
+                .Property(c => c.Created)
+                .HasDefaultValueSql("getdate()");
+
+
+            modelBuilder.Entity<Review>()
+              .Property(c => c.lastUpdated)
+              .HasDefaultValueSql("getdate()");
+                
+            modelBuilder.Entity<Review>().ToTable("reviews");
         }
 
 
