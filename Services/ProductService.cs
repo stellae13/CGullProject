@@ -96,7 +96,24 @@ namespace CGullProject.Services
 
             return ret;
         }
-        
+
+        public async Task<IEnumerable<Product>> GetBundledProducts(String bundleId) 
+        {
+            if (bundleId[0] != '1')
+                throw new BadHttpRequestException(
+                    $"Bundle ID malformatted {bundleId}; missing bundle flag digit.");
+            Dictionary<String, Product> productTable = 
+                await _context.Inventory.ToDictionaryAsync<Product, String>(p => p.Id);
+            Bundle? bundle = 
+                _context.Bundle.Where(b => b.ProductId == bundleId).Include(b => b.BundleItems).First()
+                    ?? throw new KeyNotFoundException($"Bundle with given ID {bundleId} does not exist");
+            IEnumerable<Product> ret =
+                from bndItm in bundle.BundleItems
+                where productTable.ContainsKey(bndItm.ProductId) 
+                select productTable[bndItm.ProductId];
+            return ret;
+        }
+
         public async Task<IEnumerable<Product>> GetProductsByKeyword(String keywords)
         {
             HashSet<String> keySet = new(keywords.Split("&"));

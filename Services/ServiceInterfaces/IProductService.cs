@@ -17,6 +17,8 @@ namespace CGullProject.Services.ServiceInterfaces
 
         public Task<IEnumerable<Category>> GetAllCategories();
 
+        public Task<IEnumerable<Product>> GetBundledProducts(String bundleIds);
+
 
         public Task<bool> UpdateStock(string id, int newQuantity);
 

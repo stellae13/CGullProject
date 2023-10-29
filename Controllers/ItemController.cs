@@ -1,5 +1,7 @@
 using System.ComponentModel.DataAnnotations;
+using System.Linq.Expressions;
 using CGullProject.Data;
+using CGullProject.Models;
 using CGullProject.Models.DTO;
 using CGullProject.Services.ServiceInterfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -51,6 +53,43 @@ namespace CGullProject.Controllers
                 return NotFound();
             }
             return Ok(products);
+        }
+
+        [HttpGet("GetBundleProducts")]
+        public async Task<ActionResult> GetBundleProducts(String bundleId) 
+        {
+            try
+            {
+                IEnumerable<Product> bundleContents = 
+                    await _productService.GetBundledProducts(bundleId);
+                return Ok(bundleContents);
+            }
+            catch (BadHttpRequestException e)
+            {
+                return BadRequest(e.Message);
+            }
+            catch (KeyNotFoundException e)
+            {
+                return NotFound(e.Message);
+            }
+        }
+
+
+        [HttpGet("Image/{id}")]
+        public IActionResult GetProductImage(String id)
+        {
+            if (id[0] == '1')
+                return BadRequest($"Given ID {id} belongs to a Bundle, which do not have accompanying photo.");
+            try
+            {
+                var img = System.IO.File.OpenRead($"./Image/{id}.jpg");
+                return File(img, "image/jpeg");
+            }
+            catch (FileNotFoundException e)
+            {
+                return NotFound($"Item with ID {id} not found in database or doesn't have accompanying photo.");
+            }
+            
         }
 
         [HttpGet("Category/{id}")]
