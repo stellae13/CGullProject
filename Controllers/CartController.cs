@@ -19,9 +19,7 @@ namespace CGullProject.Controllers
             _cartService = cartService;
         }
 
-        private readonly ICartService _cartService;
-
-     
+        //private readonly ICartService _cartService;
 
         // return details about the cart
         [HttpGet("GetCart")]
@@ -37,9 +35,6 @@ namespace CGullProject.Controllers
             }
         }
 
-        
-
-        
 
         [HttpPost("CreateNewCart")]
         public async Task<ActionResult> CreateNewCart(String name)

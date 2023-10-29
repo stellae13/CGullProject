@@ -337,6 +337,11 @@ namespace CGullProject.Models
                          SalePrice = 35.99M,
                          Rating = 4.2M,
                          Stock = 20
+                     },
+                     new Inventory()
+                     {
+                         Id = "100029",
+                         Name = "Clothing Bundle",
                      }
 
                      );
@@ -409,6 +414,15 @@ namespace CGullProject.Models
                             StartDate = DateTime.Now,
                             EndDate = DateTime.Now + TimeSpan.FromDays(100)
 
+                        },
+                        new Bundle()
+                        {
+                            Id = "100029",
+                            Name = "Clothing Bundle",
+                            Discount = 0.20M,
+                            StartDate = DateTime.Now,
+                            EndDate = DateTime.Now + TimeSpan.FromDays(100)
+
                         }
                     );
 
@@ -476,6 +490,24 @@ namespace CGullProject.Models
                         {
                             BundleId = "100028",
                             InventoryId = "000015"
+
+                        },
+                        new BundleItem()
+                        {
+                            BundleId = "100029",
+                            InventoryId = "000007"
+
+                        },
+                        new BundleItem()
+                        {
+                            BundleId = "100029",
+                            InventoryId = "000008"
+
+                        },
+                        new BundleItem()
+                        {
+                            BundleId = "100098",
+                            InventoryId = "000009"
 
                         }
                     );
