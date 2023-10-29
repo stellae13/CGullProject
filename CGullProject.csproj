@@ -20,7 +20,6 @@
 	<ItemGroup>
 		<Folder Include="Migrations\" />
 		<Folder Include="Models\Images\" />
-		<Folder Include="Views\" />
 	</ItemGroup>
 
 </Project>
