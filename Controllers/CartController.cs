@@ -1,6 +1,7 @@
 ﻿using CGullProject.Data;
 using CGullProject.Models;
-using CGullProject.Services;
+using CGullProject.Models.DTO;
+using CGullProject.Services.ServiceInterfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

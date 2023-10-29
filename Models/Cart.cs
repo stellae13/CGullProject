@@ -12,5 +12,7 @@ namespace CGullProject.Models
         [Required]
         [Column(TypeName = "varchar(64)")]
         public string Name { get; set; } = string.Empty;
+
+        public ICollection<Review> Reviews { get; }
     }
 }

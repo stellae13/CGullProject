@@ -1,5 +1,7 @@
 ﻿using CGullProject.Data;
 using CGullProject.Models;
+using CGullProject.Models.DTO;
+using CGullProject.Services.ServiceInterfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text.RegularExpressions;
