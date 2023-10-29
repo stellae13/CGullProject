@@ -1,18 +1,20 @@
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using CGullProject.Models;
 
 namespace CGullProject;
 
-[PrimaryKey(nameof(BundleId), nameof(InventoryId))]
+[PrimaryKey(nameof(BundleId), nameof(ProductId))]
 public class BundleItem {
     [Required]
     [ForeignKey("Bundle")]
-    [Column(TypeName = "varchar(6)")]
     public string BundleId { get; set; } = "";
+    public Bundle Bundle { get; set; }
 
     [Required]
-    [ForeignKey("Inventory")]
+    [ForeignKey("Product")]
     [Column(TypeName = "varchar(6)")]
-    public string InventoryId { get; set; } = "";
+    public string ProductId { get; set; } = "";
+    public Product Product { get; set; }
 }

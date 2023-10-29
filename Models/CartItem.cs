@@ -5,18 +5,18 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace CGullProject;
 
 [Owned]
-[PrimaryKey(nameof(CartId),nameof(InventoryId))]
+[PrimaryKey(nameof(CartId),nameof(ProductId))]
 public class CartItem {
 
     [Required]
-    [ForeignKey("Cart")]
     [Column(TypeName = "uniqueidentifier")]
+    [ForeignKey("Cart")]
     public Guid CartId { get; set; }
 
     [Required]
-    [ForeignKey("Inventory")]
+    [ForeignKey("Product")]
     [Column(TypeName = "varchar(6)")]
-    public string InventoryId { get; set; } = string.Empty;
+    public string ProductId { get; set; } = string.Empty;
 
     [Required]
     public int Quantity { get; set; }
