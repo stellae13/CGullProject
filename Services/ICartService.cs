@@ -1,7 +1,6 @@
 ﻿
 
 using CGullProject.Models;
-using Microsoft.AspNetCore.Mvc;
 
 namespace CGullProject.Services
 {
@@ -19,16 +18,8 @@ namespace CGullProject.Services
         public Task<Tuple<Cart, IEnumerable<CartItemView>>> GetCart(Guid cartId);
 
         public Task<TotalsDTO> GetTotals(Guid cartId);
-
-        public Task<bool> ProcessPayment(Guid cartId, String cardNumber, DateOnly exp, string cardHolderName, string cvc);
+        public Task<bool> ProcessPayment(ProcessPaymentDTO paymentInfo);
 
         public Task<Guid> CreateNewCart(String cartName);
-    }
-
-    public enum ServiceResult
-    {
-        OK,
-
-        public Task<bool> ProcessPayment(ProcessPaymentDTO paymentInfo);
     }
 }
