@@ -1,5 +1,4 @@
 ﻿using CGullProject.Data;
-using CGullProject.Models;
 using CGullProject.Models.DTO;
 using CGullProject.Services.ServiceInterfaces;
 using Microsoft.AspNetCore.Http;

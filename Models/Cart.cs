@@ -13,7 +13,7 @@ namespace CGullProject.Models
         [Column(TypeName = "varchar(64)")]
         public string Name { get; set; } = string.Empty;
 
-        public ICollection<CartItem> cartItems { get; set;}
+        public ICollection<CartItem> CartItems { get; set;}
         public ICollection<Review> Reviews { get; }
     }
 }

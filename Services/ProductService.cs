@@ -1,4 +1,5 @@
 ﻿using CGullProject.Data;
+using CGullProject.Models;
 using CGullProject.Services.ServiceInterfaces;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel;

@@ -1,5 +1,4 @@
-﻿using CGullProject.Models;
-using CGullProject.Models.DTO;
+﻿using CGullProject.Models.DTO;
 
 namespace CGullProject.Services.ServiceInterfaces
 {

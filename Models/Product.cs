@@ -1,9 +1,8 @@
-using CGullProject.Models;
 using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace CGullProject;
+namespace CGullProject.Models;
 
 public class Product {
 

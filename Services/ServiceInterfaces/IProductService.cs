@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using CGullProject.Models;
 
 namespace CGullProject.Services.ServiceInterfaces
 {

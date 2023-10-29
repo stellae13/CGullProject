@@ -4,7 +4,6 @@ using CGullProject.Models.DTO;
 using CGullProject.Services.ServiceInterfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using System.Linq.Expressions;
 using System.Text.RegularExpressions;
 
 namespace CGullProject.Services
@@ -80,10 +79,10 @@ namespace CGullProject.Services
             Dictionary<String, Product> productTable = 
                 await _context.Inventory.ToDictionaryAsync<Product, String>(entry => entry.Id);
             Cart? cart =
-                _context.Cart.Where(c => c.Id == cartId).Select(c => c).Include(c => c.cartItems).First() 
+                _context.Cart.Where(c => c.Id == cartId).Select(c => c).Include(c => c.CartItems).First() 
                     ?? throw new KeyNotFoundException($"Cart with Id {cartId} not found");
 
-            IEnumerable<CartDTO.AbsCartItemView> contents = cart.cartItems.Select((Func<CartItem, CartDTO.AbsCartItemView>) 
+            IEnumerable<CartDTO.AbsCartItemView> contents = cart.CartItems.Select((Func<CartItem, CartDTO.AbsCartItemView>) 
                 (entry => {
                     Product prod = productTable[entry.ProductId];
                     // We can omit this part if we feel that we don't need to show the
@@ -131,10 +130,10 @@ namespace CGullProject.Services
                 await _context.Inventory.ToDictionaryAsync<Product, String>(itm=> itm.Id);
             // The products this cart contains tupled together with the quantity of the item in the cart
             Cart? cart = 
-                _context.Cart.Where(c => c.Id == cartId).Select(c => c).Include(c => c.cartItems).First()
+                _context.Cart.Where(c => c.Id == cartId).Select(c => c).Include(c => c.CartItems).First()
                     ?? throw new KeyNotFoundException($"Cart with ID {cartId} not found.");
             IEnumerable<Tuple<Product, int>> cartContents =
-                cart.cartItems.Select((Func<CartItem, Tuple<Product, int>>) (
+                cart.CartItems.Select((Func<CartItem, Tuple<Product, int>>) (
                 itm => {
                     return new Tuple<Product, int>(productTable[itm.ProductId], itm.Quantity);
                 }));
