@@ -14,5 +14,6 @@ namespace CGullProject.Models
         public string Name { get; set; } = string.Empty;
 
         public ICollection<Review> Reviews { get; }
+        public ICollection<Order> Orders { get; }
     }
 }
