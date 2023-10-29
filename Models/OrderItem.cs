@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CGullProject.Models
 {
-    [PrimaryKey(nameof(OrderId),nameof(InventoryId))]
+    [PrimaryKey(nameof(OrderId),nameof(ProductId))]
     public class OrderItem
     {
 
@@ -14,11 +14,23 @@ namespace CGullProject.Models
         public Guid OrderId { get; set; }
 
         [Required]
-        [ForeignKey("Inventory")]
-        public string InventoryId { get; set; } 
-        public Inventory product { get; set; }
+        [ForeignKey("Product")]
+        public string ProductId { get; set; } 
+        public Product product { get; set; }
 
         [Required]
         public int Quantity { get; set; }
+
+        public OrderItem()
+        {
+
+        }
+
+        public OrderItem(Guid orderId, string productId, int quantity)
+        {
+            OrderId = orderId;
+            ProductId = productId;
+            Quantity = quantity;
+        }
     }
 }

@@ -95,5 +95,11 @@ namespace CGullProject.Controllers
 
             return BadRequest();
         }
+
+        [HttpGet("{Id}/Orders")]
+        public async Task<ActionResult> GetOrdersById(Guid Id)
+        {
+            return Ok(await _cartService.GetOrdersById(Id));
+        }
     }
 }

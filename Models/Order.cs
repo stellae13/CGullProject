@@ -27,5 +27,18 @@ namespace CGullProject.Models
         public decimal total { get; set; }
 
         public ICollection<OrderItem> Items { get; set; }
+
+        public Order()
+        {
+
+        }
+
+        public Order(Guid cartId, Guid orderId, DateTime orderedOn,  decimal total)
+        {
+            CartId = cartId;
+            OrderId = orderId;
+            OrderedOn = orderedOn;
+            this.total = total;
+        }
     }
 }
