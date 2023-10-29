@@ -41,14 +41,14 @@ namespace CGullProject.Services
 
 
             Dictionary<Tuple<Guid, String>, CartItem> cartItemTable =
-                await _context.CartItem.ToDictionaryAsync<CartItem, Tuple<Guid, String>>(cItm => new(cItm.CartId, cItm.InventoryId));
+                await _context.CartItem.ToDictionaryAsync<CartItem, Tuple<Guid, String>>(cItm => new(cItm.CartId, cItm.ProductId));
             Tuple<Guid, String> cartItemHandle = new(cartId, itemId);
             // If cart already has a quantity of this item, fetch its associated CartItem entry from the database
             // and then update its quantity to reflect the adjusted qty after adding this new qty to cart.
             if (cartItemTable.ContainsKey(cartItemHandle)) 
             {
 
-                cartItemTable[new(cartId, itemId)].Quantity += quantity;
+                cartItemTable[new(cartId, itemId)].Quantity += quantity;    
             }
             else
             {
@@ -56,7 +56,7 @@ namespace CGullProject.Services
                 CartItem cartItem = new CartItem
                 {
                     CartId = cartId,
-                    InventoryId = itemId,
+                    ProductId = itemId,
                     Quantity = quantity
                 };
                 await _context.CartItem.AddAsync(cartItem);
@@ -74,82 +74,45 @@ namespace CGullProject.Services
             return true;
         }
 
-        public async Task<Tuple<Cart, IEnumerable<CartItemView>>> GetCart(Guid cartId)
+        public async Task<CartDTO> GetCart(Guid cartId)
         {
-            Cart? result = await _context.Cart.FindAsync(cartId);
-            if (result is null)
-                throw new KeyNotFoundException($"Cart with ID {cartId} not found");
-            IEnumerable<CartItemView> cartItemsQuantitiesAndRunningTotals = await GetCartItemDetails(cartId);
-            return new(result, cartItemsQuantitiesAndRunningTotals);
-        }
+            Dictionary<String, Product> productTable = 
+                await _context.Inventory.ToDictionaryAsync<Product, String>(entry => entry.Id);
+            Cart? cart =
+                _context.Cart.Where(c => c.Id == cartId).Select(c => c).Include(c => c.CartItems).First() 
+                    ?? throw new KeyNotFoundException($"Cart with Id {cartId} not found");
 
-        // TODO: Will need to modify to account for DB changes
-        // after change in how bundles are going to be structured in DB
-        public async Task<IEnumerable<CartItemView>> GetItemTotals(Guid cartId)
-        {
-            return await GetCartItemDetails(cartId);
-        }
+            IEnumerable<CartDTO.AbsCartItemView> contents = cart.CartItems.Select((Func<CartItem, CartDTO.AbsCartItemView>) 
+                (entry => {
+                    Product prod = productTable[entry.ProductId];
+                    // We can omit this part if we feel that we don't need to show the
+                    // bundled products associated with a bundle to the end user.
+                    if (prod.isBundle)
+                    {
+                        Bundle bundle = 
+                            _context.Bundle.Where(b => b.ProductId == prod.Id).Select(b => b).Include(b => b.BundleItems).First();
 
-        private async Task<IEnumerable<CartItemView>> GetCartItemDetails(Guid cartId)
-        {
-            Dictionary<String, Inventory> inventoryById = await _context.Inventory.ToDictionaryAsync<Inventory, String>(itm => itm.Id);
-            List<CartItem> bundles = new();
-            List<CartItemView> idQtyCost = 
-                _context.CartItem.Where((Func<CartItem, bool>) (itm => 
-                {
-                    // Since we also need to sift out bundles,
-                    // Preemptively skip the remaining bundle sifting logic if
-                    // the cart ID of the current CartItem being queried is even
-                    // associated with the Cart we're pulling the item data for.
-                    if (itm.CartId != cartId)
-                    {
-                        return false;
+
+
+                        IEnumerable<String> bundledProductIds =
+                        from bundleProd in bundle.BundleItems
+                            select bundleProd.ProductId;
+
+                        return new CartDTO.BundleView(prod.Id, entry.Quantity, entry.Quantity * prod.SalePrice, bundledProductIds);
                     }
-                    else if (itm.InventoryId[0] == '1')
-                    {
-                        bundles.Add(itm);
-                        return false;
-                    }
-                    else
-                    {
-                        return true;
-                    }
-                })).Select((Func<CartItem, CartItemView>) (itm => 
-                {
-                    Inventory? productHandle = inventoryById.GetValueOrDefault(itm.InventoryId);
-                    decimal total = (productHandle is null) ? 0M : productHandle.SalePrice;
-                    total *= itm.Quantity;
-                    return new CartItemView
-                    {
-                        InventoryId = itm.InventoryId, 
-                        Quantity = itm.Quantity, 
-                        Total = total 
-                    };
-                })).ToList<CartItemView>();
-            foreach (CartItem bundle in bundles)
+                    return new CartDTO.ProductView(prod.Id, entry.Quantity, entry.Quantity * prod.SalePrice);
+                }));
+
+            return new CartDTO
             {
-                IEnumerable<Inventory> bundleContents = from BundleItem itm in _context.BundleItem
-                                            where itm.BundleId.Equals(bundle.InventoryId) && inventoryById.ContainsKey(itm.InventoryId)
-                                            select inventoryById[itm.InventoryId];
-                Bundle? bundleHandle = await _context.Bundle.FindAsync(bundle.InventoryId);
-                decimal total = 0;
-                foreach (Inventory bundledItem in bundleContents)
-                {
-                    total += bundledItem.SalePrice;
-                }
-                total *= bundle.Quantity;
-                // There should never be a case where the else operand gets chosen in this ternary operator expr.
-                // It's just there to make the VS's language server stop warning me that bundlehandle may be null.
-                total *= bundleHandle is not null ? bundleHandle.Discount : 1M;
-                idQtyCost.Add(new CartItemView
-                {
-                    InventoryId = bundle.InventoryId,
-                    Total = total,
-                    Quantity = bundle.Quantity
-                });
-            }
-            return idQtyCost;
+                Id = cart.Id,
+                Name = cart.Name,
+                Contents = contents
+            };
         }
+
+        
+        
         
         public async Task<Guid> CreateNewCart(String cartName)
         {
@@ -160,9 +123,42 @@ namespace CGullProject.Services
             return cart.Id;
         }
 
-        public Task<TotalsDTO> GetTotals(Guid cartId)
+
+        public async Task<TotalsDTO> GetTotals(Guid cartId)
         {
-            throw new NotImplementedException();
+            Dictionary<String, Product> productTable = 
+                await _context.Inventory.ToDictionaryAsync<Product, String>(itm=> itm.Id);
+            // The products this cart contains tupled together with the quantity of the item in the cart
+            Cart? cart = 
+                _context.Cart.Where(c => c.Id == cartId).Select(c => c).Include(c => c.CartItems).First()
+                    ?? throw new KeyNotFoundException($"Cart with ID {cartId} not found.");
+            IEnumerable<Tuple<Product, int>> cartContents =
+                cart.CartItems.Select((Func<CartItem, Tuple<Product, int>>) (
+                itm => {
+                    return new Tuple<Product, int>(productTable[itm.ProductId], itm.Quantity);
+                }));
+
+            TotalsDTO ret = 
+                new() { BundleTotal = 0, RegularTotal = 0, TotalWithTax = 0 };
+
+            // Return outcome of Aggregate of the product totals, split by bundle and item totals.
+            ret = cartContents.Aggregate<Tuple<Product, int>, TotalsDTO>(ret,
+                (Func<TotalsDTO, Tuple<Product, int>, TotalsDTO>)((curr, nxt) => {
+                    
+                    decimal toAdd = (nxt.Item1.SalePrice * nxt.Item2);
+                    
+                    if (nxt.Item1.isBundle)
+                        ret.BundleTotal += toAdd;
+                    else
+                        ret.RegularTotal += toAdd;
+
+                    return ret;
+                }));
+
+            ret.TotalWithTax = (ret.RegularTotal + ret.BundleTotal) + (1 + TotalsDTO.FederalSalesTaxRate);
+
+            return ret;
+
         }
 
 
