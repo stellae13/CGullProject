@@ -1,14 +1,15 @@
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CGullProject;
 
+
 public class Bundle {
     [Required]
-    [Column(TypeName = "varchar(6)")]
-    [ForeignKey("Inventory")]
-    public string Id { get; set; } = "";
-    public Product Product { get; set; }
+    [Key]
+    public string ProductId { get; set; } 
+
 
     [Required]
     [Column(TypeName = "datetime")]

@@ -8,7 +8,6 @@ namespace CGullProject;
 public class BundleItem {
     [Required]
     [ForeignKey("Bundle")]
-    [Column(TypeName = "varchar(6)")]
     public string BundleId { get; set; } = "";
     public Bundle Bundle { get; set; }
 

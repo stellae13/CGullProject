@@ -31,9 +31,7 @@ namespace CGullProject.Services
             IEnumerable<Product> inventory =
                await _context.Inventory.ToListAsync<Product>();
 
-            // Query to filter out bundles
-            inventory =
-                from item in inventory where item.Id[0] == '0' select item;
+         
             return inventory;
         }
 

@@ -24,21 +24,16 @@ namespace CGullProject.Migrations
 
             modelBuilder.Entity("CGullProject.Bundle", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("varchar(6)");
+                    b.Property<string>("ProductId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime");
 
-                    b.Property<string>("ProductId")
-                        .HasColumnType("varchar(6)");
-
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
+                    b.HasKey("ProductId");
 
                     b.ToTable("Bundle", (string)null);
                 });
@@ -46,7 +41,7 @@ namespace CGullProject.Migrations
             modelBuilder.Entity("CGullProject.BundleItem", b =>
                 {
                     b.Property<string>("BundleId")
-                        .HasColumnType("varchar(6)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProductId")
                         .HasColumnType("varchar(6)");
@@ -138,15 +133,6 @@ namespace CGullProject.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Inventory", (string)null);
-                });
-
-            modelBuilder.Entity("CGullProject.Bundle", b =>
-                {
-                    b.HasOne("CGullProject.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId");
-
-                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("CGullProject.BundleItem", b =>

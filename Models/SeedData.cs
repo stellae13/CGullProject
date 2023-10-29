@@ -445,28 +445,28 @@ namespace CGullProject.Models
 
                         new Bundle()
                         {
-                            Id = "100020",
+                            ProductId = "100020",
                             StartDate = DateTime.Now,
                             EndDate = DateTime.Now + TimeSpan.FromDays(100)
 
                         },
                         new Bundle()
                         {
-                            Id = "100021",
+                            ProductId = "100021",
                             StartDate = DateTime.Now,
                             EndDate = DateTime.Now + TimeSpan.FromDays(100)
 
                         },
                         new Bundle()
                         {
-                            Id = "100022",
+                            ProductId = "100022",
                             StartDate = DateTime.Now,
                             EndDate = DateTime.Now + TimeSpan.FromDays(100)
 
                         },
                         new Bundle()
                         {
-                            Id = "100028",
+                            ProductId = "100028",
                             StartDate = DateTime.Now,
                             EndDate = DateTime.Now + TimeSpan.FromDays(100)
 

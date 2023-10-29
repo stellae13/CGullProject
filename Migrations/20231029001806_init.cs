@@ -12,6 +12,19 @@ namespace CGullProject.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Bundle",
+                columns: table => new
+                {
+                    ProductId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    StartDate = table.Column<DateTime>(type: "datetime", nullable: false),
+                    EndDate = table.Column<DateTime>(type: "datetime", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Bundle", x => x.ProductId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Cart",
                 columns: table => new
                 {
@@ -80,29 +93,10 @@ namespace CGullProject.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Bundle",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "varchar(6)", nullable: false),
-                    ProductId = table.Column<string>(type: "varchar(6)", nullable: true),
-                    StartDate = table.Column<DateTime>(type: "datetime", nullable: false),
-                    EndDate = table.Column<DateTime>(type: "datetime", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Bundle", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Bundle_Inventory_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "Inventory",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "BundleItem",
                 columns: table => new
                 {
-                    BundleId = table.Column<string>(type: "varchar(6)", nullable: false),
+                    BundleId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ProductId = table.Column<string>(type: "varchar(6)", nullable: false)
                 },
                 constraints: table =>
@@ -112,7 +106,7 @@ namespace CGullProject.Migrations
                         name: "FK_BundleItem_Bundle_BundleId",
                         column: x => x.BundleId,
                         principalTable: "Bundle",
-                        principalColumn: "Id",
+                        principalColumn: "ProductId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_BundleItem_Inventory_ProductId",
@@ -121,11 +115,6 @@ namespace CGullProject.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Bundle_ProductId",
-                table: "Bundle",
-                column: "ProductId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_BundleItem_ProductId",
@@ -151,10 +140,10 @@ namespace CGullProject.Migrations
                 name: "Bundle");
 
             migrationBuilder.DropTable(
-                name: "Cart");
+                name: "Inventory");
 
             migrationBuilder.DropTable(
-                name: "Inventory");
+                name: "Cart");
 
             migrationBuilder.DropTable(
                 name: "Category");
