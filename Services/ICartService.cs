@@ -15,7 +15,7 @@ namespace CGullProject.Services
         /// </summary>
         /// <param name="cartId"> The ID of the cart whose relevant data the controller is requesting </param>
         /// <returns></returns>
-        public Task<Tuple<Cart, IEnumerable<CartItemView>>> GetCart(Guid cartId);
+        public Task<CartDTO> GetCart(Guid cartId);
 
         public Task<TotalsDTO> GetTotals(Guid cartId);
         public Task<bool> ProcessPayment(ProcessPaymentDTO paymentInfo);

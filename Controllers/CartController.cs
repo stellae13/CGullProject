@@ -28,7 +28,7 @@ namespace CGullProject.Controllers
         {
             try
             {
-                Tuple<Cart, IEnumerable<CartItemView>> cart = await _cartService.GetCart(cartId);
+                CartDTO cart = await _cartService.GetCart(cartId);
                 return Ok(cart);
             } catch (KeyNotFoundException e)
             {
@@ -52,7 +52,17 @@ namespace CGullProject.Controllers
         [HttpGet("GetTotals")]
         public async Task<ActionResult> GetTotals([Required] Guid cartId)
         {
-            throw new NotImplementedException();  // Ill finish this tomorrow I'm so tired. its 5 am i think lol
+            try
+            {
+                TotalsDTO totals = await _cartService.GetTotals(cartId);
+                return Ok(totals);
+            } catch (KeyNotFoundException e)
+            {
+                return NotFound(e.Message);
+            }
+
+
+
             
         }
 
