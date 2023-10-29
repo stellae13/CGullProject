@@ -85,7 +85,6 @@ namespace CGullProject.Migrations
                 {
                     Id = table.Column<string>(type: "varchar(6)", nullable: false),
                     ProductId = table.Column<string>(type: "varchar(6)", nullable: true),
-                    Name = table.Column<string>(type: "varchar(64)", nullable: false),
                     StartDate = table.Column<DateTime>(type: "datetime", nullable: false),
                     EndDate = table.Column<DateTime>(type: "datetime", nullable: false)
                 },

@@ -446,7 +446,6 @@ namespace CGullProject.Models
                         new Bundle()
                         {
                             Id = "100020",
-                            Name = "Costume Bundle",
                             StartDate = DateTime.Now,
                             EndDate = DateTime.Now + TimeSpan.FromDays(100)
 
@@ -454,7 +453,6 @@ namespace CGullProject.Models
                         new Bundle()
                         {
                             Id = "100021",
-                            Name = "Costume Bundle with Makeup",
                             StartDate = DateTime.Now,
                             EndDate = DateTime.Now + TimeSpan.FromDays(100)
 
@@ -462,7 +460,6 @@ namespace CGullProject.Models
                         new Bundle()
                         {
                             Id = "100022",
-                            Name = "Bookworm (Seagull-Worm) Bundle",
                             StartDate = DateTime.Now,
                             EndDate = DateTime.Now + TimeSpan.FromDays(100)
 
@@ -470,7 +467,6 @@ namespace CGullProject.Models
                         new Bundle()
                         {
                             Id = "100028",
-                            Name = "Seagull Plushies",
                             StartDate = DateTime.Now,
                             EndDate = DateTime.Now + TimeSpan.FromDays(100)
 

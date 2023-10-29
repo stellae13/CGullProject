@@ -30,10 +30,6 @@ namespace CGullProject.Migrations
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("varchar(64)");
-
                     b.Property<string>("ProductId")
                         .HasColumnType("varchar(6)");
 

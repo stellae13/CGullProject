@@ -11,11 +11,6 @@ public class Bundle {
     public Product Product { get; set; }
 
     [Required]
-    [Column(TypeName = "varchar(64)")]
-    public string Name { get; set; } = "";
-
-
-    [Required]
     [Column(TypeName = "datetime")]
     public DateTime StartDate { get; set; }
 

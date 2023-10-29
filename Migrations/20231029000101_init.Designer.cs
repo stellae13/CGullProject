@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CGullProject.Migrations
 {
     [DbContext(typeof(ShopContext))]
-    [Migration("20231028234425_init")]
+    [Migration("20231029000101_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -32,10 +32,6 @@ namespace CGullProject.Migrations
 
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("varchar(64)");
 
                     b.Property<string>("ProductId")
                         .HasColumnType("varchar(6)");
