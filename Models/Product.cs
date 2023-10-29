@@ -5,8 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CGullProject;
 
-public class Inventory
-{
+public class Product {
 
     [Required]
     [Column(TypeName = "varchar(6)")]
@@ -19,6 +18,8 @@ public class Inventory
     [ForeignKey("Category")]
     [Required]
     public int CategoryId { get; set; }
+
+    public Category Category { get; set; }
 
     [Required]
     [Column(TypeName = "decimal(18,2)")]
@@ -36,6 +37,9 @@ public class Inventory
     [Required]
     [Column(TypeName = "int")]
     public int Stock { get; set; }
+
+    [Required]
+    public bool isBundle {  get; set; }
 
     public ICollection<Review> Reviews { get; }
 }

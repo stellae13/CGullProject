@@ -62,7 +62,7 @@ namespace CGullProject.Models
                 if(!context.Inventory.Any())
                 {
                     context.Inventory.AddRange(
-                    new Inventory
+                    new Product
                     {
                         Id = "000001",
                         Name = "Seagull Drink",
@@ -70,9 +70,10 @@ namespace CGullProject.Models
                         MSRP = 1.75M,
                         SalePrice = 1.75M,
                         Rating = 2.6M,
-                        Stock = 20
+                        Stock = 20,
+                        isBundle = false
                     },
-                    new Inventory
+                    new Product
                     {
                         Id = "000002",
                         Name = "Seagull Chips",
@@ -80,9 +81,11 @@ namespace CGullProject.Models
                         SalePrice = 5.99M,
                         MSRP = 5.99M,
                         Rating = 4.5M,
-                        Stock = 25
+                        Stock = 25,
+                        isBundle = false
+
                     },
-                    new Inventory
+                    new Product
                     {
                         Id = "000003",
                         Name = "Seagull Cereal",
@@ -90,9 +93,11 @@ namespace CGullProject.Models
                         MSRP = 69.99M,
                         SalePrice = 69.99M,
                         Rating = 4.2M,
-                        Stock = 25
+                        Stock = 25,
+                        isBundle = false
+
                     },
-                    new Inventory
+                    new Product
                     {
                         Id = "000004",
                         Name = "Seagull Keychain",
@@ -100,9 +105,11 @@ namespace CGullProject.Models
                         MSRP = 12.99M,
                         SalePrice = 12.99M,
                         Rating = 4.0M,
-                        Stock = 30
+                        Stock = 30,
+                        isBundle = false
+
                     },
-                    new Inventory
+                    new Product
                     {
                         Id = "000005",
                         Name = "Seagull Action Figure",
@@ -110,9 +117,11 @@ namespace CGullProject.Models
                         MSRP = 50.99M,
                         SalePrice = 50.99M,
                         Rating = 5.0M,
-                        Stock = 20
+                        Stock = 20,
+                        isBundle = false
+
                     },
-                    new Inventory
+                    new Product
                     {
                         Id = "000006",
                         Name = "Seagull Ornament",
@@ -120,9 +129,11 @@ namespace CGullProject.Models
                         MSRP = 10.99M,
                         SalePrice = 10.99M,
                         Rating = 4.7M,
-                        Stock = 50
+                        Stock = 50,
+                        isBundle = false
+
                     },
-                    new Inventory
+                    new Product
                     {
                         Id = "000007",
                         Name = "Seagull Hat",
@@ -130,9 +141,11 @@ namespace CGullProject.Models
                         MSRP = 29.99M,
                         SalePrice = 29.99M,
                         Rating = 4.3M,
-                        Stock = 12
+                        Stock = 12,
+                        isBundle = false
+
                     },
-                    new Inventory
+                    new Product
                     {
                         Id = "000008",
                         Name = "Seagull Sweatshirt",
@@ -140,9 +153,11 @@ namespace CGullProject.Models
                         MSRP = 49.99M,
                         SalePrice = 49.99M,
                         Rating = 4.6M,
-                        Stock = 8
+                        Stock = 8,
+                        isBundle = false
+
                     },
-                    new Inventory
+                    new Product
                     {
                         Id = "000009",
                         Name = "Seagull T-Shirt",
@@ -150,9 +165,11 @@ namespace CGullProject.Models
                         MSRP = 40.99M,
                         SalePrice = 40.99M,
                         Rating = 4.1M,
-                        Stock = 40
+                        Stock = 40,
+                        isBundle = false
+
                     },
-                    new Inventory
+                    new Product
                     {
                         Id = "000010",
                         Name = "Seagull Sid Book",
@@ -160,9 +177,11 @@ namespace CGullProject.Models
                         MSRP = 23.49M,
                         SalePrice = 23.49M,
                         Rating = 2.8M,
-                        Stock = 50
+                        Stock = 50,
+                        isBundle = false
+
                     },
-                    new Inventory
+                    new Product
                     {
                         Id = "000011",
                         Name = "Seagull Soar Book",
@@ -170,9 +189,11 @@ namespace CGullProject.Models
                         MSRP = 21.49M,
                         SalePrice = 21.49M,
                         Rating = 4.8M,
-                        Stock = 50
+                        Stock = 50,
+                        isBundle = false
+
                     },
-                    new Inventory
+                    new Product
                     {
                         Id = "000012",
                         Name = "Jonathan Livingston Seagull Book",
@@ -180,9 +201,11 @@ namespace CGullProject.Models
                         MSRP = 29.49M,
                         SalePrice = 29.49M,
                         Rating = 2.8M,
-                        Stock = 100
+                        Stock = 100,
+                        isBundle = false
+
                     },
-                    new Inventory
+                    new Product
                     {
                         Id = "000013",
                         Name = "Seagull Board Game",
@@ -190,9 +213,11 @@ namespace CGullProject.Models
                         MSRP = 25.49M,
                         SalePrice = 25.49M,
                         Rating = 3.8M,
-                        Stock = 20
+                        Stock = 20,
+                        isBundle = false
+
                     }, 
-                    new Inventory
+                    new Product
                     {
                         Id = "000014",
                         Name = "Seagull Small Plushie",
@@ -200,9 +225,11 @@ namespace CGullProject.Models
                         MSRP = 9.49M,
                         SalePrice = 9.49M,
                         Rating = 4.8M,
-                        Stock = 100
+                        Stock = 100,
+                        isBundle = false
+
                     }, 
-                    new Inventory
+                    new Product
                     {
                         Id = "000015",
                         Name = "Seagull Big Plushie",
@@ -210,10 +237,12 @@ namespace CGullProject.Models
                         MSRP = 19.49M,
                         SalePrice = 19.49M,
                         Rating = 4.8M,
-                        Stock = 100
+                        Stock = 100,
+                        isBundle = false
+
 
                     }, 
-                    new Inventory
+                    new Product
                     {
                         Id = "000016",
                         Name = "Adult Seagull Costume",
@@ -221,9 +250,11 @@ namespace CGullProject.Models
                         MSRP = 119.49M,
                         SalePrice = 119.49M,
                         Rating = 4.8M,
-                        Stock = 30
+                        Stock = 30,
+                        isBundle = false
+
                     }, 
-                    new Inventory
+                    new Product
                     {
                         Id = "000017",
                         Name = "Child Seagull Costume",
@@ -231,9 +262,11 @@ namespace CGullProject.Models
                         MSRP = 79.49M,
                         SalePrice = 79.49M,
                         Rating = 4.8M,
-                        Stock = 35
+                        Stock = 35,
+                        isBundle = false
+
                     },
-                     new Inventory
+                     new Product
                      {
                          Id = "000018",
                          Name = "Seagull Hat Costume",
@@ -241,9 +274,11 @@ namespace CGullProject.Models
                          MSRP = 19.49M,
                          SalePrice = 19.49M,
                          Rating = 4.8M,
-                         Stock = 35
+                         Stock = 35,
+                         isBundle = false
+
                      },
-                     new Inventory
+                     new Product
                      {
                          Id = "000019",
                          Name = "Seagull Makeup Kit",
@@ -251,9 +286,11 @@ namespace CGullProject.Models
                          MSRP = 19.49M,
                          SalePrice = 19.49M,
                          Rating = 4.8M,
-                         Stock = 25
+                         Stock = 25,
+                         isBundle = false
+
                      },
-                     new Inventory
+                     new Product
                      {
                          Id = "000020",
                          Name = "Sounds of the Gull",
@@ -261,19 +298,34 @@ namespace CGullProject.Models
                          MSRP = 18.99M,
                          SalePrice = 18.99M,
                          Rating = 4.9M,
-                         Stock = 35
+                         Stock = 35,
+                         isBundle = false
+
                      },
-                     new Inventory
+                     new Product
                      {
                          Id = "100021",
                          Name = "Costume Bundle",
+                         CategoryId = 6,
+                         MSRP = 18.99M,
+                         SalePrice = 18.99M,
+                         Rating = 4.9M,
+                         Stock = 1,
+                         isBundle = true
+
                      },
-                     new Inventory
+                     new Product
                      {
                          Id = "100022",
                          Name = "Costume Bundle with Makeup",
+                         CategoryId = 6,
+                         MSRP = 18.99M,
+                         SalePrice = 18.99M,
+                         Rating = 4.9M,
+                         Stock = 1,
+                         isBundle = true
                      },
-                     new Inventory
+                     new Product
                      {
                          Id = "000023",
                          Name = "Seagull Teapot",
@@ -281,9 +333,11 @@ namespace CGullProject.Models
                          MSRP = 99.99M,
                          SalePrice = 89.99M,
                          Rating = 4.9M,
-                         Stock = 40
+                         Stock = 40,
+                         isBundle = false
+
                      },
-                     new Inventory
+                     new Product
                      {
                          Id = "000024",
                          Name = "Seagull 3D Phone Case",
@@ -291,9 +345,11 @@ namespace CGullProject.Models
                          MSRP = 29.49M,
                          SalePrice = 19.49M,
                          Rating = 3.8M,
-                         Stock = 25
+                         Stock = 25,
+                         isBundle = false
+
                      },
-                     new Inventory
+                     new Product
                      {
                          Id = "000025",
                          Name = "Seagull Painted Case",
@@ -301,9 +357,11 @@ namespace CGullProject.Models
                          MSRP = 17.99M,
                          SalePrice = 15.99M,
                          Rating = 4.5M,
-                         Stock = 35
+                         Stock = 35,
+                         isBundle = false
+
                      },
-                     new Inventory
+                     new Product
                      {
                          Id = "000026",
                          Name = "Seagull Jean Case",
@@ -311,9 +369,11 @@ namespace CGullProject.Models
                          MSRP = 15.99M,
                          SalePrice = 10.99M,
                          Rating = 4.9M,
-                         Stock = 45
+                         Stock = 45,
+                         isBundle = false
+
                      },
-                     new Inventory
+                     new Product
                      {
                          Id = "000027",
                          Name = "Seagull Mug",
@@ -321,14 +381,22 @@ namespace CGullProject.Models
                          MSRP = 17.99M,
                          SalePrice = 15.99M,
                          Rating = 4.2M,
-                         Stock = 50
+                         Stock = 50,
+                         isBundle = false
+
                      },
-                     new Inventory
+                     new Product
                      {
                          Id = "100028",
-                         Name = "Seagull Plushies"
+                         Name = "Seagull Plushies",
+                          CategoryId = 5,
+                         MSRP = 17.99M,
+                         SalePrice = 15.99M,
+                         Rating = 4.2M,
+                         Stock = 1,
+                         isBundle = true
                      },
-                     new Inventory
+                     new Product
                      {
                          Id = "000029",
                          Name = "Decorative Seagull License Plate",
@@ -336,7 +404,8 @@ namespace CGullProject.Models
                          MSRP = 37.99M,
                          SalePrice = 35.99M,
                          Rating = 4.2M,
-                         Stock = 20
+                         Stock = 20,
+                         isBundle = false
                      }
 
                      );
@@ -376,36 +445,28 @@ namespace CGullProject.Models
 
                         new Bundle()
                         {
-                            Id = "100020",
-                            Name = "Costume Bundle",
-                            Discount = 0.20M,
+                            ProductId = "100020",
                             StartDate = DateTime.Now,
                             EndDate = DateTime.Now + TimeSpan.FromDays(100)
 
                         },
                         new Bundle()
                         {
-                            Id = "100021",
-                            Name = "Costume Bundle with Makeup",
-                            Discount = 0.20M,
+                            ProductId = "100021",
                             StartDate = DateTime.Now,
                             EndDate = DateTime.Now + TimeSpan.FromDays(100)
 
                         },
                         new Bundle()
                         {
-                            Id = "100022",
-                            Name = "Bookworm (Seagull-Worm) Bundle",
-                            Discount = 0.20M,
+                            ProductId = "100022",
                             StartDate = DateTime.Now,
                             EndDate = DateTime.Now + TimeSpan.FromDays(100)
 
                         },
                         new Bundle()
                         {
-                            Id = "100028",
-                            Name = "Seagull Plushies",
-                            Discount = 0.20M,
+                            ProductId = "100028",
                             StartDate = DateTime.Now,
                             EndDate = DateTime.Now + TimeSpan.FromDays(100)
 
@@ -421,61 +482,61 @@ namespace CGullProject.Models
                         new BundleItem()
                         {
                             BundleId = "100020",
-                            InventoryId = "000016"
+                            ProductId = "000016"
 
                         },
                         new BundleItem()
                         {
                             BundleId = "100020",
-                            InventoryId = "000017"
+                            ProductId = "000017"
 
                         },
                         new BundleItem()
                         {
                             BundleId = "100021",
-                            InventoryId = "000016"
+                            ProductId = "000016"
 
                         },
                         new BundleItem()
                         {
                             BundleId = "100021",
-                            InventoryId = "000017"
+                            ProductId = "000017"
 
                         },
                         new BundleItem()
                         {
                             BundleId = "100021",
-                            InventoryId = "000019"
+                            ProductId = "000019"
 
                         },
                         new BundleItem()
                         {
                             BundleId = "100022",
-                            InventoryId = "000010"
+                            ProductId = "000010"
 
                         },
                         new BundleItem()
                         {
                             BundleId = "100022",
-                            InventoryId = "000011"
+                            ProductId = "000011"
 
                         },
                         new BundleItem()
                         {
                             BundleId = "100022",
-                            InventoryId = "000012"
+                            ProductId = "000012"
 
                         },
                         new BundleItem()
                         {
                             BundleId = "100028",
-                            InventoryId = "000014"
+                            ProductId = "000014"
 
                         },
                         new BundleItem()
                         {
                             BundleId = "100028",
-                            InventoryId = "000015"
+                            ProductId = "000015"
 
                         }
                     );
