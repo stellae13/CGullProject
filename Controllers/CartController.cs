@@ -19,10 +19,7 @@ namespace CGullProject.Controllers
             _cartService = cartService;
         }
 
-        private readonly ICartService _cartService;
-
-     
-
+  
         // return details about the cart
         [HttpGet("GetCart")]
         public async Task<ActionResult> GetCart([Required] Guid cartId)
