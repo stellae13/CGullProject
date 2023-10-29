@@ -1,11 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace CGullProject.Models
+namespace CGullProject.Models.DTO
 {
     public class ProcessPaymentDTO
     {
 
-       public  ProcessPaymentDTO(Guid cartID, string cardNumber, DateOnly exp, string cardHolderName, string cvv)
+        public ProcessPaymentDTO(Guid cartID, string cardNumber, DateOnly exp, string cardHolderName, string cvv)
         {
             this.cartID = cartID;
             this.cardNumber = cardNumber;
@@ -18,15 +18,15 @@ namespace CGullProject.Models
         public Guid cartID { get; set; }
 
         [Required]
-        public String cardNumber { get; set; }
+        public string cardNumber { get; set; }
 
         [Required]
-        public DateOnly exp {  get; set; }
+        public DateOnly exp { get; set; }
 
         [Required]
-        public String cardHolderName { get; set; }
+        public string cardHolderName { get; set; }
 
         [Required]
-        public String cvv {  get; set; }
+        public string cvv { get; set; }
     }
 }

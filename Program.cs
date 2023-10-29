@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using CGullProject.Data;
 using CGullProject.Models;
 using CGullProject.Services;
+using CGullProject.Services.ServiceInterfaces;
 
 namespace CGullProject
 {
@@ -22,6 +23,7 @@ namespace CGullProject
             builder.Services.AddSwaggerGen();
             builder.Services.AddScoped<IProductService, ProductService>();
             builder.Services.AddScoped<ICartService, CartService>();
+            builder.Services.AddScoped<IReviewService, ReviewService>();
 
             var app = builder.Build();
 

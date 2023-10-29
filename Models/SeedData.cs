@@ -348,22 +348,22 @@ namespace CGullProject.Models
                     
                         new Cart()
                         {
-                            Id = Guid.NewGuid(),
+                            Id = Guid.Parse("c0c2ce33-81a5-4f6d-88e2-419d41e135fb"),
                             Name = "Ryan"
                         },
                         new Cart()
                         {
-                            Id = Guid.NewGuid(),
+                            Id = Guid.Parse("2c6dce67-a449-4eab-b4df-1641172fbd92"),
                             Name = "Stella"
                         },
                         new Cart()
                         {
-                            Id = Guid.NewGuid(),
+                            Id = Guid.Parse("8df2e0f0-4bf0-41e5-ab9d-c7fd82842bdf"),
                             Name = "Burt"
                         },
                         new Cart()
                         {
-                            Id = Guid.NewGuid(),
+                            Id = Guid.Parse("7a2066e6-b9c6-4ccb-8b20-38837d54a45b"),
                             Name = "Brent"
                         }
                     );

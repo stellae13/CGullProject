@@ -19,7 +19,7 @@
 
 	<ItemGroup>
 		<Folder Include="Migrations\" />
-		<Folder Include="Models\Images\" />
+		<Folder Include="Images\" />
 	</ItemGroup>
 
 </Project>

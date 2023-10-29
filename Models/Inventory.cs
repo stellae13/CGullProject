@@ -1,10 +1,12 @@
+using CGullProject.Models;
 using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CGullProject;
 
-public class Inventory {
+public class Inventory
+{
 
     [Required]
     [Column(TypeName = "varchar(6)")]
@@ -24,14 +26,16 @@ public class Inventory {
 
     [Required]
     [Column(TypeName = "decimal(18,2)")]
-    public decimal SalePrice {  get; set; }
+    public decimal SalePrice { get; set; }
 
     [Required]
-    [Column(TypeName ="decimal(3,2)")]
-    [Range(0,5)]
+    [Column(TypeName = "decimal(3,2)")]
+    [Range(0, 5)]
     public decimal Rating { get; set; }
 
     [Required]
     [Column(TypeName = "int")]
     public int Stock { get; set; }
+
+    public ICollection<Review> Reviews { get; }
 }

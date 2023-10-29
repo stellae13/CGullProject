@@ -1,8 +1,7 @@
-﻿
+﻿using CGullProject.Models;
+using CGullProject.Models.DTO;
 
-using CGullProject.Models;
-
-namespace CGullProject.Services
+namespace CGullProject.Services.ServiceInterfaces
 {
     public interface ICartService
     {
@@ -20,6 +19,6 @@ namespace CGullProject.Services
         public Task<TotalsDTO> GetTotals(Guid cartId);
         public Task<bool> ProcessPayment(ProcessPaymentDTO paymentInfo);
 
-        public Task<Guid> CreateNewCart(String cartName);
+        public Task<Guid> CreateNewCart(string cartName);
     }
 }
