@@ -29,5 +29,6 @@ namespace CGullProject.Services
     {
         OK,
 
+        public Task<bool> ProcessPayment(ProcessPaymentDTO paymentInfo);
     }
 }

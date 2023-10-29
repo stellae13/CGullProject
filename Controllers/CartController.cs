@@ -19,6 +19,10 @@ namespace CGullProject.Controllers
             _cartService = cartService;
         }
 
+        private readonly ICartService _cartService;
+
+     
+
         // return details about the cart
         [HttpGet("GetCart")]
         public async Task<ActionResult> GetCart([Required] Guid cartId)
@@ -69,6 +73,18 @@ namespace CGullProject.Controllers
                 return NotFound(e.Message);
             }
 
+        }
+        [HttpPost("ProcessPayment")]
+        public async Task<ActionResult> ProcessPayment([Required] Guid cartId, [Required] String cardNumber, [Required] DateOnly exp, [Required] String cardHolderName, [Required] String cvv)
+        {
+
+           ProcessPaymentDTO paymentInfo = new ProcessPaymentDTO(cartId,cardNumber, exp, cardHolderName, cvv);
+            if (await _cartService.ProcessPayment(paymentInfo))
+            {
+                return Ok();
+            }
+
+            return BadRequest();
         }
     }
 }
