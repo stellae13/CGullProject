@@ -19,7 +19,9 @@ namespace CGullProject.Controllers
             _cartService = cartService;
         }
 
-        //private readonly ICartService _cartService;
+        private readonly ICartService _cartService;
+
+     
 
         // return details about the cart
         [HttpGet("GetCart")]
