@@ -15,5 +15,6 @@ namespace CGullProject.Models
 
         public ICollection<CartItem> CartItems { get; set;}
         public ICollection<Review> Reviews { get; }
+        public ICollection<Order> Orders { get; }
     }
 }

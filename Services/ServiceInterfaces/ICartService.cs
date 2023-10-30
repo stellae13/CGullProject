@@ -1,4 +1,5 @@
-﻿using CGullProject.Models.DTO;
+﻿using CGullProject.Models;
+using CGullProject.Models.DTO;
 
 namespace CGullProject.Services.ServiceInterfaces
 {
@@ -19,5 +20,7 @@ namespace CGullProject.Services.ServiceInterfaces
         public Task<bool> ProcessPayment(ProcessPaymentDTO paymentInfo);
 
         public Task<Guid> CreateNewCart(string cartName);
+
+        public Task<IEnumerable<Order>> GetOrdersById(Guid CartId);
     }
 }
