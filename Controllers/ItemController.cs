@@ -1,12 +1,7 @@
-using System.ComponentModel.DataAnnotations;
-using System.Linq.Expressions;
-using CGullProject.Data;
 using CGullProject.Models;
 using CGullProject.Models.DTO;
 using CGullProject.Services.ServiceInterfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.IdentityModel.Tokens;
 
 namespace CGullProject.Controllers
@@ -83,11 +78,28 @@ namespace CGullProject.Controllers
             try
             {
                 var img = System.IO.File.OpenRead($"./Image/{id}.jpg");
-                return File(img, "image/jpeg");
+                return Ok(File(img, "image/jpeg"));
             }
             catch (FileNotFoundException e)
             {
                 return NotFound($"Item with ID {id} not found in database or doesn't have accompanying photo.");
+            }
+            
+        }
+
+        [HttpGet("GetAssociatedBundles")]
+        public async Task<ActionResult> GetAssociatedBundles(String id)
+        {
+            try
+            {
+                IEnumerable<Bundle> bundles = await _productService.GetAssociatedBundles(id);
+                if (bundles.IsNullOrEmpty())
+                    return NotFound($"Item with ID {id} either DNE or has no associated bundles.");
+                return Ok(bundles);
+            }
+            catch (BadHttpRequestException e)
+            {
+                return BadRequest(e.Message);
             }
             
         }

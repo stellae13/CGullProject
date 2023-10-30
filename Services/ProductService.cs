@@ -2,8 +2,6 @@
 using CGullProject.Models;
 using CGullProject.Services.ServiceInterfaces;
 using Microsoft.EntityFrameworkCore;
-using System.ComponentModel;
-using System.Text.RegularExpressions;
 
 namespace CGullProject.Services
 {
@@ -102,6 +100,9 @@ namespace CGullProject.Services
             if (bundleId[0] != '1')
                 throw new BadHttpRequestException(
                     $"Bundle ID malformatted {bundleId}; missing bundle flag digit.");
+            if (bundleId.Length != 6)
+                throw new BadHttpRequestException(
+                    $"Bundle ID malformatted {bundleId}.");
             Dictionary<String, Product> productTable = 
                 await _context.Inventory.ToDictionaryAsync<Product, String>(p => p.Id);
             Bundle? bundle = 
@@ -111,6 +112,23 @@ namespace CGullProject.Services
                 from bndItm in bundle.BundleItems
                 where productTable.ContainsKey(bndItm.ProductId) 
                 select productTable[bndItm.ProductId];
+            return ret;
+        }
+
+        public async Task<IEnumerable<Bundle>> GetAssociatedBundles(String itemId)
+        {
+            Dictionary<String, Bundle> bundles = 
+                await _context.Bundle.ToDictionaryAsync<Bundle, String>(b => b.ProductId);
+
+            if (itemId[0] != '0')
+                throw new BadHttpRequestException($"ID {itemId} is a Bundle ID not an Item ID.");
+            if (itemId.Length != 6)
+                throw new BadHttpRequestException($"Item ID malformmated {itemId}.");
+
+            IEnumerable<Bundle> ret =
+                _context.BundleItem.Where(itm => itm.ProductId == itemId && bundles.ContainsKey(itm.BundleId)).
+                Select(itm => bundles[itm.BundleId]).Include(bndl => bndl.BundleItems);
+
             return ret;
         }
 
