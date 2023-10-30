@@ -19,9 +19,7 @@ namespace CGullProject.Controllers
             _cartService = cartService;
         }
 
-
-     
-
+  
         // return details about the cart
         [HttpGet("GetCart")]
         public async Task<ActionResult> GetCart([Required] Guid cartId)
@@ -36,9 +34,6 @@ namespace CGullProject.Controllers
             }
         }
 
-        
-
-        
 
         [HttpPost("CreateNewCart")]
         public async Task<ActionResult> CreateNewCart(String name)
@@ -83,6 +78,7 @@ namespace CGullProject.Controllers
             }
 
         }
+
         [HttpPost("ProcessPayment")]
         public async Task<ActionResult> ProcessPayment([Required] Guid cartId, [Required] String cardNumber, [Required] DateOnly exp, [Required] String cardHolderName, [Required] String cvv)
         {
