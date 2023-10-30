@@ -17,7 +17,7 @@ namespace CGullProject.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.10")
+                .HasAnnotation("ProductVersion", "7.0.13")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -101,7 +101,7 @@ namespace CGullProject.Migrations
                     b.ToTable("Cart", (string)null);
                 });
 
-            modelBuilder.Entity("CGullProject.Product", b =>
+            modelBuilder.Entity("CGullProject.Models.Product", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("varchar(6)");
@@ -117,9 +117,7 @@ namespace CGullProject.Migrations
                         .HasColumnType("varchar(32)");
 
                     b.Property<decimal>("Rating")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("decimal(3,2)")
-                        .HasComputedColumnSql("select avg(Inventory.rating) from Reviews, Inventory where Inventory.Id = Reviews.InventoryId");
+                        .HasColumnType("decimal(3,2)");
 
                     b.Property<decimal>("SalePrice")
                         .HasColumnType("decimal(18,2)");
@@ -137,67 +135,21 @@ namespace CGullProject.Migrations
                     b.ToTable("Inventory", (string)null);
                 });
 
-            modelBuilder.Entity("CGullProject.BundleItem", b =>
-                {
-                    b.HasOne("CGullProject.Bundle", "Bundle")
-                        .WithMany("BundleItems")
-                        .HasForeignKey("BundleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CGullProject.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Bundle");
-
-                    b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("CGullProject.CartItem", b =>
-                {
-                    b.HasOne("CGullProject.Models.Cart", null)
-                        .WithMany("cartItems")
-                        .HasForeignKey("CartId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("CGullProject.Product", b =>
-                {
-                    b.HasOne("CGullProject.Category", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("CGullProject.Bundle", b =>
-                {
-                    b.Navigation("BundleItems");
-                });
-
-            modelBuilder.Entity("CGullProject.Models.Cart", b =>
-                {
-                    b.Navigation("cartItems");
-                });
-
             modelBuilder.Entity("CGullProject.Models.Review", b =>
                 {
                     b.Property<Guid>("CartId")
                         .HasColumnType("uniqueidentifier default NEWID()");
 
                     b.Property<string>("InventoryId")
-                        .HasColumnType("varchar(6)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("getdate()");
+
+                    b.Property<string>("ProductId")
+                        .HasColumnType("varchar(6)");
 
                     b.Property<string>("comment")
                         .HasColumnType("nvarchar(max)");
@@ -212,9 +164,48 @@ namespace CGullProject.Migrations
 
                     b.HasKey("CartId", "InventoryId");
 
-                    b.HasIndex("InventoryId");
+                    b.HasIndex("ProductId");
 
                     b.ToTable("reviews", (string)null);
+                });
+
+            modelBuilder.Entity("CGullProject.BundleItem", b =>
+                {
+                    b.HasOne("CGullProject.Bundle", "Bundle")
+                        .WithMany("BundleItems")
+                        .HasForeignKey("BundleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CGullProject.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Bundle");
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("CGullProject.CartItem", b =>
+                {
+                    b.HasOne("CGullProject.Models.Cart", null)
+                        .WithMany("CartItems")
+                        .HasForeignKey("CartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("CGullProject.Models.Product", b =>
+                {
+                    b.HasOne("CGullProject.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
                 });
 
             modelBuilder.Entity("CGullProject.Models.Review", b =>
@@ -225,19 +216,24 @@ namespace CGullProject.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CGullProject.Inventory", null)
+                    b.HasOne("CGullProject.Models.Product", null)
                         .WithMany("Reviews")
-                        .HasForeignKey("InventoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ProductId");
                 });
 
-            modelBuilder.Entity("CGullProject.Inventory", b =>
+            modelBuilder.Entity("CGullProject.Bundle", b =>
                 {
-                    b.Navigation("Reviews");
+                    b.Navigation("BundleItems");
                 });
 
             modelBuilder.Entity("CGullProject.Models.Cart", b =>
+                {
+                    b.Navigation("CartItems");
+
+                    b.Navigation("Reviews");
+                });
+
+            modelBuilder.Entity("CGullProject.Models.Product", b =>
                 {
                     b.Navigation("Reviews");
                 });
