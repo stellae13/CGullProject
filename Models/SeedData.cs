@@ -5,11 +5,11 @@ namespace CGullProject.Models
 {
     public class SeedData
     {
-        public static void Initialize( IServiceProvider serviceProvider)
+        public static void Initialize(IServiceProvider serviceProvider)
         {
-            using(var context = new ShopContext(serviceProvider.GetRequiredService<DbContextOptions<ShopContext>>()))
+            using (var context = new ShopContext(serviceProvider.GetRequiredService<DbContextOptions<ShopContext>>()))
             {
-                
+
                 if (!context.Category.Any())
                 {
                     context.Category.AddRange(
@@ -17,49 +17,49 @@ namespace CGullProject.Models
                         new Category
                         {
                             Name = "food_and_beverage",
-            
+
                         },
                         new Category
                         {
                             Name = "trinkets",
-                         
+
                         },
                         new Category
                         {
                             Name = "clothing",
-                            
+
                         },
                         new Category
                         {
                             Name = "books",
-                            
+
                         },
                         new Category
                         {
                             Name = "toys_and_stuffed_animals",
-                           
+
                         },
                         new Category
                         {
                             Name = "costumes",
-                            
+
                         },
                         new Category
                         {
                             Name = "health_and_beauty",
-                           
+
                         },
                         new Category
                         {
                             Name = "misc",
-                            
+
                         }
 
                         );
 
                 }
                 // end of category seed data 
-                if(!context.Inventory.Any())
+                if (!context.Inventory.Any())
                 {
                     context.Inventory.AddRange(
                     new Product
@@ -68,7 +68,7 @@ namespace CGullProject.Models
                         Name = "Seagull Drink",
                         CategoryId = 1,
                         MSRP = 1.75M,
-                        SalePrice = 1.65M,
+                        SalePrice = 1.75M,
                         Rating = 2.6M,
                         Stock = 20,
                         isBundle = false
@@ -78,7 +78,7 @@ namespace CGullProject.Models
                         Id = "000002",
                         Name = "Seagull Chips",
                         CategoryId = 1,
-                        SalePrice = 4.99M,
+                        SalePrice = 5.99M,
                         MSRP = 5.99M,
                         Rating = 4.5M,
                         Stock = 25,
@@ -91,7 +91,7 @@ namespace CGullProject.Models
                         Name = "Seagull Cereal",
                         CategoryId = 1,
                         MSRP = 69.99M,
-                        SalePrice = 59.99M,
+                        SalePrice = 69.99M,
                         Rating = 4.2M,
                         Stock = 25,
                         isBundle = false
@@ -103,7 +103,7 @@ namespace CGullProject.Models
                         Name = "Seagull Keychain",
                         CategoryId = 2,
                         MSRP = 12.99M,
-                        SalePrice = 11.99M,
+                        SalePrice = 12.99M,
                         Rating = 4.0M,
                         Stock = 30,
                         isBundle = false
@@ -115,7 +115,7 @@ namespace CGullProject.Models
                         Name = "Seagull Action Figure",
                         CategoryId = 2,
                         MSRP = 50.99M,
-                        SalePrice = 49.99M,
+                        SalePrice = 50.99M,
                         Rating = 5.0M,
                         Stock = 20,
                         isBundle = false
@@ -127,7 +127,7 @@ namespace CGullProject.Models
                         Name = "Seagull Ornament",
                         CategoryId = 2,
                         MSRP = 10.99M,
-                        SalePrice = 9.99M,
+                        SalePrice = 10.99M,
                         Rating = 4.7M,
                         Stock = 50,
                         isBundle = false
@@ -139,7 +139,7 @@ namespace CGullProject.Models
                         Name = "Seagull Hat",
                         CategoryId = 3,
                         MSRP = 29.99M,
-                        SalePrice = 25.99M,
+                        SalePrice = 29.99M,
                         Rating = 4.3M,
                         Stock = 12,
                         isBundle = false
@@ -151,7 +151,7 @@ namespace CGullProject.Models
                         Name = "Seagull Sweatshirt",
                         CategoryId = 3,
                         MSRP = 49.99M,
-                        SalePrice = 47.99M,
+                        SalePrice = 49.99M,
                         Rating = 4.6M,
                         Stock = 8,
                         isBundle = false
@@ -163,7 +163,7 @@ namespace CGullProject.Models
                         Name = "Seagull T-Shirt",
                         CategoryId = 3,
                         MSRP = 40.99M,
-                        SalePrice = 38.99M,
+                        SalePrice = 40.99M,
                         Rating = 4.1M,
                         Stock = 40,
                         isBundle = false
@@ -175,7 +175,7 @@ namespace CGullProject.Models
                         Name = "Seagull Sid Book",
                         CategoryId = 4,
                         MSRP = 23.49M,
-                        SalePrice = 22.49M,
+                        SalePrice = 23.49M,
                         Rating = 2.8M,
                         Stock = 50,
                         isBundle = false
@@ -187,7 +187,7 @@ namespace CGullProject.Models
                         Name = "Seagull Soar Book",
                         CategoryId = 4,
                         MSRP = 21.49M,
-                        SalePrice = 20.49M,
+                        SalePrice = 21.49M,
                         Rating = 4.8M,
                         Stock = 50,
                         isBundle = false
@@ -199,7 +199,7 @@ namespace CGullProject.Models
                         Name = "Jonathan Livingston Seagull Book",
                         CategoryId = 4,
                         MSRP = 29.49M,
-                        SalePrice = 21.49M,
+                        SalePrice = 29.49M,
                         Rating = 2.8M,
                         Stock = 100,
                         isBundle = false
@@ -211,56 +211,56 @@ namespace CGullProject.Models
                         Name = "Seagull Board Game",
                         CategoryId = 5,
                         MSRP = 25.49M,
-                        SalePrice = 23.49M,
+                        SalePrice = 25.49M,
                         Rating = 3.8M,
                         Stock = 20,
                         isBundle = false
 
-                    }, 
+                    },
                     new Product
                     {
                         Id = "000014",
                         Name = "Seagull Small Plushie",
                         CategoryId = 5,
                         MSRP = 9.49M,
-                        SalePrice = 8.49M,
+                        SalePrice = 9.49M,
                         Rating = 4.8M,
                         Stock = 100,
                         isBundle = false
 
-                    }, 
+                    },
                     new Product
                     {
                         Id = "000015",
                         Name = "Seagull Big Plushie",
                         CategoryId = 5,
                         MSRP = 19.49M,
-                        SalePrice = 18.49M,
+                        SalePrice = 19.49M,
                         Rating = 4.8M,
                         Stock = 100,
                         isBundle = false
 
 
-                    }, 
+                    },
                     new Product
                     {
                         Id = "000016",
                         Name = "Adult Seagull Costume",
                         CategoryId = 6,
                         MSRP = 119.49M,
-                        SalePrice = 118.49M,
+                        SalePrice = 119.49M,
                         Rating = 4.8M,
                         Stock = 30,
                         isBundle = false
 
-                    }, 
+                    },
                     new Product
                     {
                         Id = "000017",
                         Name = "Child Seagull Costume",
                         CategoryId = 6,
                         MSRP = 79.49M,
-                        SalePrice = 69.49M,
+                        SalePrice = 79.49M,
                         Rating = 4.8M,
                         Stock = 35,
                         isBundle = false
@@ -272,7 +272,7 @@ namespace CGullProject.Models
                          Name = "Seagull Hat Costume",
                          CategoryId = 6,
                          MSRP = 19.49M,
-                         SalePrice = 13.49M,
+                         SalePrice = 19.49M,
                          Rating = 4.8M,
                          Stock = 35,
                          isBundle = false
@@ -284,7 +284,7 @@ namespace CGullProject.Models
                          Name = "Seagull Makeup Kit",
                          CategoryId = 7,
                          MSRP = 19.49M,
-                         SalePrice = 17.49M,
+                         SalePrice = 19.49M,
                          Rating = 4.8M,
                          Stock = 25,
                          isBundle = false
@@ -296,7 +296,7 @@ namespace CGullProject.Models
                          Name = "Sounds of the Gull",
                          CategoryId = 7,
                          MSRP = 18.99M,
-                         SalePrice = 17.99M,
+                         SalePrice = 18.99M,
                          Rating = 4.9M,
                          Stock = 35,
                          isBundle = false
@@ -308,7 +308,7 @@ namespace CGullProject.Models
                          Name = "Costume Bundle",
                          CategoryId = 6,
                          MSRP = 18.99M,
-                         SalePrice = 16.99M,
+                         SalePrice = 18.99M,
                          Rating = 4.9M,
                          Stock = 1,
                          isBundle = true
@@ -320,7 +320,7 @@ namespace CGullProject.Models
                          Name = "Costume Bundle with Makeup",
                          CategoryId = 6,
                          MSRP = 18.99M,
-                         SalePrice = 17.99M,
+                         SalePrice = 18.99M,
                          Rating = 4.9M,
                          Stock = 1,
                          isBundle = true
@@ -331,7 +331,7 @@ namespace CGullProject.Models
                          Name = "Seagull Teapot",
                          CategoryId = 2,
                          MSRP = 99.99M,
-                         SalePrice = 88.99M,
+                         SalePrice = 89.99M,
                          Rating = 4.9M,
                          Stock = 40,
                          isBundle = false
@@ -389,7 +389,7 @@ namespace CGullProject.Models
                      {
                          Id = "100028",
                          Name = "Seagull Plushies",
-                          CategoryId = 5,
+                         CategoryId = 5,
                          MSRP = 17.99M,
                          SalePrice = 15.99M,
                          Rating = 4.2M,
@@ -414,7 +414,7 @@ namespace CGullProject.Models
                 if (!context.Cart.Any())
                 {
                     context.AddRange(
-                    
+
                         new Cart()
                         {
                             Id = Guid.Parse("c0c2ce33-81a5-4f6d-88e2-419d41e135fb"),
@@ -467,13 +467,6 @@ namespace CGullProject.Models
                         new Bundle()
                         {
                             ProductId = "100028",
-                            StartDate = DateTime.Now,
-                            EndDate = DateTime.Now + TimeSpan.FromDays(100)
-
-                        },
-                        new Bundle()
-                        {
-                            ProductId= "100029",
                             StartDate = DateTime.Now,
                             EndDate = DateTime.Now + TimeSpan.FromDays(100)
 
@@ -545,24 +538,6 @@ namespace CGullProject.Models
                             BundleId = "100028",
                             ProductId = "000015"
 
-                        },
-                        new BundleItem()
-                        {
-                            BundleId = "100029",
-                            ProductId = "000007"
-
-                        },
-                        new BundleItem()
-                        {
-                            BundleId = "100029",
-                            ProductId = "000008"
-
-                        },
-                        new BundleItem()
-                        {
-                            BundleId = "100098",
-                            ProductId = "000009"
-
                         }
                     );
 
@@ -573,5 +548,5 @@ namespace CGullProject.Models
             }
         }
     }
-    
+
 }
