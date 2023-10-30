@@ -56,27 +56,7 @@ namespace CGullProject.Controllers
                 return NotFound(e.Message);
             }
 
-
-
             
-        }
-
-
-        [HttpPost("AddItemToCart")]
-        public async Task<ActionResult> AddItemToCart([Required] Guid cartId, [Required] string itemId, [Required] int quantity)
-        {
-            try
-            {
-                await _cartService.AddItemToCart(cartId, itemId, quantity);
-                return Ok($"Product with ID {itemId} added to cart with ID {cartId}.");
-            } catch (BadHttpRequestException e)
-            {
-                return BadRequest(e.Message);
-            } catch (KeyNotFoundException e)
-            {
-                return NotFound(e.Message);
-            }
-
         }
 
         [HttpPost("ProcessPayment")]

@@ -8,6 +8,8 @@ namespace CGullProject.Services.ServiceInterfaces
         public Task<bool> RemoveProduct(string productId);
         public Task<IEnumerable<Product>> GetAllProducts();
 
+        public Task<bool> AddItemToCart(Guid cartId, string itemId, int quantity);
+
         /// <summary> Get products that match keywords provided, sorted by relevance </summary>
         public Task<IEnumerable<Product>> GetProductsByKeyword(String keywords);
 

@@ -6,7 +6,7 @@ namespace CGullProject.Services.ServiceInterfaces
     public interface ICartService
     {
 
-        public Task<bool> AddItemToCart(Guid cartId, string itemId, int quantity);
+        
 
         /// <summary>
         /// Get the cart instance, as well as a list of tuples that show all items in cart (by ID), the quantity of ea. respective item,
