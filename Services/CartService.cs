@@ -4,6 +4,7 @@ using CGullProject.Models.DTO;
 using CGullProject.Services.ServiceInterfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using System.Net;
 using System.Text.RegularExpressions;
 
 namespace CGullProject.Services
@@ -176,7 +177,17 @@ namespace CGullProject.Services
             {
                 return false;
             }
+            //create order
+            var totals = await this.GetTotals(paymentInfo.cartID);
+            Guid OrderId = Guid.NewGuid();
+            Order newOrder = new Order(paymentInfo.cartID, OrderId, DateTime.Now,totals.TotalWithTax );
+            _context.Order.Add(newOrder);
+            foreach(CartItem cartitem in cartItems)
+            {
+                OrderItem i = new OrderItem(OrderId,cartitem.ProductId,cartitem.Quantity);
+                _context.OrderItem.Add(i);
 
+            }
             //clear cartitems 
             foreach(CartItem cartItem in cartItems)
             {
@@ -187,6 +198,13 @@ namespace CGullProject.Services
             return true;
 
         }
+
+        public async Task<IEnumerable<Order>> GetOrdersById(Guid CartId)
+        {
+            var orders = await _context.Order.Where(c => c.CartId == CartId).Include(Order => Order.Items).ThenInclude(Items => Items.product).ToListAsync();
+            return orders;
+        }
+
 
         //Uses luhn algroithm to check for valid credit card numbers 
         private static bool ValidateCreditCard(string cardNum)
@@ -221,5 +239,7 @@ namespace CGullProject.Services
 
             return r.IsMatch(cvv);
         }
+
+    
     }
 }
