@@ -3,6 +3,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CGullProject;
 
+/// <summary>
+/// Model for a Products category
+/// </summary>
 public class Category {
     
     [Required]

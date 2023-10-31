@@ -4,6 +4,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CGullProject.Models
 {
+    /// <summary>
+    /// Model for an order history
+    /// </summary>
     [PrimaryKey(nameof(OrderId))]
     public class Order
     {

@@ -2,10 +2,12 @@
 
 namespace CGullProject.Models.DTO
 {
-    // Used by GetCart endpoint, so that GetCart can Tuple together
-    // the cart info (name & id) with an IEnumerable of CartItem entries,
-    // with named fields, provided by this struct, when FE receives them
-    // in js object literal notation.
+    /// <summary>
+    /// Used by GetCart endpoint, so that GetCart can tuple cart info (name & id)
+    /// with an IEnumerable of CartItem entries. These entries contain named fields,
+    /// provided by this struct when the frontend receives them in JS object
+    /// literal notation.
+    /// </summary>
     public class CartDTO
     {
         public Guid Id { get; set; }

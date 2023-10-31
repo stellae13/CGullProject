@@ -5,6 +5,9 @@ using CGullProject.Models;
 
 namespace CGullProject;
 
+/// <summary>
+/// Table model for what Products are contained in what Bundle
+/// </summary>
 [PrimaryKey(nameof(BundleId), nameof(ProductId))]
 public class BundleItem {
     [Required]

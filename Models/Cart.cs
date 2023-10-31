@@ -4,6 +4,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CGullProject.Models
 {
+    /// <summary>
+    /// Model for shopping cart
+    /// </summary>
     public class Cart
     {
         [Column(TypeName = "uniqueidentifier default NEWID()")]
