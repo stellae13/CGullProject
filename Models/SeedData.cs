@@ -69,7 +69,7 @@ namespace CGullProject.Models
                         CategoryId = 1,
                         MSRP = 1.75M,
                         SalePrice = 1.75M,
-                        Rating = 2.6M,
+                        Rating = 0.0M,
                         Stock = 20,
                         isBundle = false
                     },
