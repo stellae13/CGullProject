@@ -80,7 +80,7 @@ namespace CGullProject.Services
         {
             HashSet<String> tokensChecked = new();
 
-            // Filter out any punctuation
+            
             String[] nameTok = itemName.Split(" ");
             int ret = 0;
             foreach (String token in nameTok)
@@ -105,42 +105,46 @@ namespace CGullProject.Services
                     $"Bundle ID malformatted {bundleId}.");
             Dictionary<String, Product> productTable = 
                 await _context.Inventory.ToDictionaryAsync<Product, String>(p => p.Id);
-            Bundle? bundle = 
-                _context.Bundle.Where(b => b.ProductId == bundleId).Include(b => b.BundleItems).First()
-                    ?? throw new KeyNotFoundException($"Bundle with given ID {bundleId} does not exist");
-            IEnumerable<Product> ret =
-                from bndItm in bundle.BundleItems
-                where productTable.ContainsKey(bndItm.ProductId) 
-                select productTable[bndItm.ProductId];
-            return ret;
+            try
+            {
+                Bundle? bundle =
+                    _context.Bundle.Where(b => b.ProductId == bundleId).Select(b => b).Include(b => b.BundleItems).First();
+
+                IEnumerable<Product> ret =
+                    from bndItm in bundle.BundleItems
+                    where productTable.ContainsKey(bndItm.ProductId)
+                    select productTable[bndItm.ProductId];
+                return ret;
+            }
+            catch (InvalidOperationException e)
+            {
+                throw new KeyNotFoundException($"Bundle with ID {bundleId} not found", e);
+            }
+
         }
 
-        public async Task<IEnumerable<Bundle>> GetAssociatedBundles(String itemId)
-        {
-            Dictionary<String, Bundle> bundles = 
-                await _context.Bundle.ToDictionaryAsync<Bundle, String>(b => b.ProductId);
 
+        /*public async Task<IEnumerable<Bundle>> GetAssociatedBundles(String itemId)
+        {
             if (itemId[0] != '0')
                 throw new BadHttpRequestException($"ID {itemId} is a Bundle ID not an Item ID.");
             if (itemId.Length != 6)
-                throw new BadHttpRequestException($"Item ID malformmated {itemId}.");
-
-            IEnumerable<Bundle> ret =
-                _context.BundleItem.Where(itm => itm.ProductId == itemId && bundles.ContainsKey(itm.BundleId)).
-                Select(itm => bundles[itm.BundleId]).Include(bndl => bndl.BundleItems);
+                throw new BadHttpRequestException($"Item ID malformatted {itemId}.");
+            IEnumerable<Bundle> ret = _context.Bundle.Where()
 
             return ret;
-        }
+        }*/
+
 
         public async Task<IEnumerable<Product>> GetProductsByKeyword(String keywords)
         {
-            HashSet<String> keySet = new(keywords.Split("&"));
+            HashSet<String> keySet = new(keywords.ToLower().Split("&"));
             return await 
                 Task.Run((Func<IEnumerable<Product>>) 
                 (() => {
                     IEnumerable<KeyValuePair<Product, int>> itemsAndRelevance =
                         from item in _context.Inventory
-                        select new KeyValuePair<Product, int>(item, ScoreItemRelevance(item.Name, keySet));
+                        select new KeyValuePair<Product, int>(item, ScoreItemRelevance(item.Name.ToLower(), keySet));
 
                     return
                         from kv in itemsAndRelevance

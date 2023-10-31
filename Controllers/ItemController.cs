@@ -71,23 +71,21 @@ namespace CGullProject.Controllers
 
 
         [HttpGet("Image/{id}")]
-        public IActionResult GetProductImage(String id)
+        public ActionResult GetProductImage(String id)
         {
-            if (id[0] == '1')
-                return BadRequest($"Given ID {id} belongs to a Bundle, which do not have accompanying photo.");
             try
             {
-                var img = System.IO.File.OpenRead($"./Image/{id}.jpg");
-                return Ok(File(img, "image/jpeg"));
-            }
-            catch (FileNotFoundException e)
+                var img = System.IO.File.OpenRead($"./Images/{id}.jpg");
+                return File(img, "image/jpeg");
+            } catch (FileNotFoundException e)
             {
-                return NotFound($"Item with ID {id} not found in database or doesn't have accompanying photo.");
+                return NotFound($"No image found matching Item with ID, {id}");
             }
             
         }
 
-        [HttpGet("GetAssociatedBundles")]
+        /* Commented out until cycle issue with Bundle.BundleItem gets
+         [HttpGet("GetAssociatedBundles")]
         public async Task<ActionResult> GetAssociatedBundles(String id)
         {
             try
@@ -102,7 +100,7 @@ namespace CGullProject.Controllers
                 return BadRequest(e.Message);
             }
             
-        }
+        }*/
 
         [HttpGet("Category/{id}")]
         public async Task<ActionResult> GetProductByCategory(int id)

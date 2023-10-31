@@ -16,13 +16,16 @@ namespace CGullProject
 
             builder.Services.AddCors(options =>
             {
-                options.AddPolicy(name: CGullAllowSpecificOrigins, policy => { 
-                    policy.WithOrigins("http://localhost:8000"); 
+                options.AddPolicy(name: CGullAllowSpecificOrigins, policy => {
+                    policy.AllowAnyOrigin();  // To allow front end to request and receive data from DB
                 });
             });
 
+
+
             builder.Services.AddDbContext<ShopContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("ShopContext") ?? throw new InvalidOperationException("Connection string 'ProductContext' not found.")));
+
 
             // Add services to the container1.
 
@@ -48,6 +51,8 @@ namespace CGullProject
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+            app.UseCors(CGullAllowSpecificOrigins);
 
             app.UseHttpsRedirection();
 
