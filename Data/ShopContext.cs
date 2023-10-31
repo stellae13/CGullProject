@@ -24,6 +24,9 @@ namespace CGullProject.Data
 
         public DbSet<Review> Review { get; set; }
 
+        public DbSet<Order> Order { get; set; }
+        public DbSet<OrderItem> OrderItem { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -48,6 +51,8 @@ namespace CGullProject.Data
               .HasDefaultValueSql("getdate()");
                 
             modelBuilder.Entity<Review>().ToTable("reviews");
+            modelBuilder.Entity<Order>().ToTable("Orders");
+            modelBuilder.Entity<OrderItem>().ToTable("OrderItems");
         }
 
 

@@ -1,5 +1,6 @@
 using CGullProject.Models;
 using CGullProject.Models.DTO;
+using CGullProject.Services;
 using CGullProject.Services.ServiceInterfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -37,6 +38,25 @@ namespace CGullProject.Controllers
             }
 
             return Ok(products);
+        }
+
+        [HttpPost("AddItemToCart")]
+        public async Task<ActionResult> AddItemToCart(Guid cartId, string itemId, int quantity)
+        {
+            try
+            {
+                await _productService.AddItemToCart(cartId, itemId, quantity);
+                return Ok($"Product with ID {itemId} added to cart with ID {cartId}.");
+            }
+            catch (BadHttpRequestException e)
+            {
+                return BadRequest(e.Message);
+            }
+            catch (KeyNotFoundException e)
+            {
+                return NotFound(e.Message);
+            }
+
         }
 
         [HttpGet("GetByKeyword")]
@@ -140,6 +160,8 @@ namespace CGullProject.Controllers
 
             return BadRequest();
         }
+
+        
 
     }
 }

@@ -1,11 +1,12 @@
-﻿using CGullProject.Models.DTO;
+﻿using CGullProject.Models;
+using CGullProject.Models.DTO;
 
 namespace CGullProject.Services.ServiceInterfaces
 {
     public interface ICartService
     {
 
-        public Task<bool> AddItemToCart(Guid cartId, string itemId, int quantity);
+        
 
         /// <summary>
         /// Get the cart instance, as well as a list of tuples that show all items in cart (by ID), the quantity of ea. respective item,
@@ -19,5 +20,7 @@ namespace CGullProject.Services.ServiceInterfaces
         public Task<bool> ProcessPayment(ProcessPaymentDTO paymentInfo);
 
         public Task<Guid> CreateNewCart(string cartName);
+
+        public Task<IEnumerable<Order>> GetOrdersById(Guid CartId);
     }
 }

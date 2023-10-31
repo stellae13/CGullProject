@@ -19,9 +19,7 @@ namespace CGullProject.Controllers
             _cartService = cartService;
         }
 
-
-     
-
+  
         // return details about the cart
         [HttpGet("GetCart")]
         public async Task<ActionResult> GetCart([Required] Guid cartId)
@@ -36,9 +34,6 @@ namespace CGullProject.Controllers
             }
         }
 
-        
-
-        
 
         [HttpPost("CreateNewCart")]
         public async Task<ActionResult> CreateNewCart(String name)
@@ -61,28 +56,9 @@ namespace CGullProject.Controllers
                 return NotFound(e.Message);
             }
 
-
-
             
         }
 
-
-        [HttpPost("AddItemToCart")]
-        public async Task<ActionResult> AddItemToCart([Required] Guid cartId, [Required] string itemId, [Required] int quantity)
-        {
-            try
-            {
-                await _cartService.AddItemToCart(cartId, itemId, quantity);
-                return Ok($"Product with ID {itemId} added to cart with ID {cartId}.");
-            } catch (BadHttpRequestException e)
-            {
-                return BadRequest(e.Message);
-            } catch (KeyNotFoundException e)
-            {
-                return NotFound(e.Message);
-            }
-
-        }
         [HttpPost("ProcessPayment")]
         public async Task<ActionResult> ProcessPayment([Required] Guid cartId, [Required] String cardNumber, [Required] DateOnly exp, [Required] String cardHolderName, [Required] String cvv)
         {
@@ -94,6 +70,12 @@ namespace CGullProject.Controllers
             }
 
             return BadRequest();
+        }
+
+        [HttpGet("{Id}/Orders")]
+        public async Task<ActionResult> GetOrdersById(Guid Id)
+        {
+            return Ok(await _cartService.GetOrdersById(Id));
         }
     }
 }

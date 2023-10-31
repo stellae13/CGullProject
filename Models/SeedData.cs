@@ -5,11 +5,11 @@ namespace CGullProject.Models
 {
     public class SeedData
     {
-        public static void Initialize( IServiceProvider serviceProvider)
+        public static void Initialize(IServiceProvider serviceProvider)
         {
-            using(var context = new ShopContext(serviceProvider.GetRequiredService<DbContextOptions<ShopContext>>()))
+            using (var context = new ShopContext(serviceProvider.GetRequiredService<DbContextOptions<ShopContext>>()))
             {
-                
+
                 if (!context.Category.Any())
                 {
                     context.Category.AddRange(
@@ -17,49 +17,49 @@ namespace CGullProject.Models
                         new Category
                         {
                             Name = "food_and_beverage",
-            
+
                         },
                         new Category
                         {
                             Name = "trinkets",
-                         
+
                         },
                         new Category
                         {
                             Name = "clothing",
-                            
+
                         },
                         new Category
                         {
                             Name = "books",
-                            
+
                         },
                         new Category
                         {
                             Name = "toys_and_stuffed_animals",
-                           
+
                         },
                         new Category
                         {
                             Name = "costumes",
-                            
+
                         },
                         new Category
                         {
                             Name = "health_and_beauty",
-                           
+
                         },
                         new Category
                         {
                             Name = "misc",
-                            
+
                         }
 
                         );
 
                 }
                 // end of category seed data 
-                if(!context.Inventory.Any())
+                if (!context.Inventory.Any())
                 {
                     context.Inventory.AddRange(
                     new Product
@@ -69,7 +69,7 @@ namespace CGullProject.Models
                         CategoryId = 1,
                         MSRP = 1.75M,
                         SalePrice = 1.75M,
-                        Rating = 2.6M,
+                        Rating = 0.0M,
                         Stock = 20,
                         isBundle = false
                     },
@@ -216,7 +216,7 @@ namespace CGullProject.Models
                         Stock = 20,
                         isBundle = false
 
-                    }, 
+                    },
                     new Product
                     {
                         Id = "000014",
@@ -228,7 +228,7 @@ namespace CGullProject.Models
                         Stock = 100,
                         isBundle = false
 
-                    }, 
+                    },
                     new Product
                     {
                         Id = "000015",
@@ -241,7 +241,7 @@ namespace CGullProject.Models
                         isBundle = false
 
 
-                    }, 
+                    },
                     new Product
                     {
                         Id = "000016",
@@ -253,7 +253,7 @@ namespace CGullProject.Models
                         Stock = 30,
                         isBundle = false
 
-                    }, 
+                    },
                     new Product
                     {
                         Id = "000017",
@@ -389,7 +389,7 @@ namespace CGullProject.Models
                      {
                          Id = "100028",
                          Name = "Seagull Plushies",
-                          CategoryId = 5,
+                         CategoryId = 5,
                          MSRP = 17.99M,
                          SalePrice = 15.99M,
                          Rating = 4.2M,
@@ -414,7 +414,7 @@ namespace CGullProject.Models
                 if (!context.Cart.Any())
                 {
                     context.AddRange(
-                    
+
                         new Cart()
                         {
                             Id = Guid.Parse("c0c2ce33-81a5-4f6d-88e2-419d41e135fb"),
@@ -548,5 +548,5 @@ namespace CGullProject.Models
             }
         }
     }
-    
+
 }

@@ -10,7 +10,6 @@ public class Bundle {
     [Key]
     public string ProductId { get; set; } 
 
-
     [Required]
     [Column(TypeName = "datetime")]
     public DateTime StartDate { get; set; }

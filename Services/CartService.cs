@@ -4,6 +4,7 @@ using CGullProject.Models.DTO;
 using CGullProject.Services.ServiceInterfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using System.Net;
 using System.Text.RegularExpressions;
 
 namespace CGullProject.Services
@@ -15,63 +16,6 @@ namespace CGullProject.Services
         public CartService(ShopContext context)
         {
             _context = context;
-        }
-
-        public async Task<bool> AddItemToCart(Guid cartId, string itemId, int quantity)
-        {
-            var cart = await _context.Cart.FindAsync(cartId);
-
-            if (cart == null)
-            {
-                throw new KeyNotFoundException($"Cart with ID {cartId} not found");
-            }
-            else if (quantity == 0)
-            {
-                throw new BadHttpRequestException($"Cannot add 0 items to cart");
-            }
-
-            var itemQuantity = from i in _context.Inventory
-                               where i.Id == itemId
-                               select i.Stock;
-
-            if (quantity > itemQuantity.First())
-            {
-                throw new BadHttpRequestException($"Tring to add too many of this item. This item only has {itemQuantity} left in stock");
-            }
-
-
-            Dictionary<Tuple<Guid, String>, CartItem> cartItemTable =
-                await _context.CartItem.ToDictionaryAsync<CartItem, Tuple<Guid, String>>(cItm => new(cItm.CartId, cItm.ProductId));
-            Tuple<Guid, String> cartItemHandle = new(cartId, itemId);
-            // If cart already has a quantity of this item, fetch its associated CartItem entry from the database
-            // and then update its quantity to reflect the adjusted qty after adding this new qty to cart.
-            if (cartItemTable.ContainsKey(cartItemHandle)) 
-            {
-
-                cartItemTable[new(cartId, itemId)].Quantity += quantity;    
-            }
-            else
-            {
-                // Otherwise, make new entry in DB and add it to the CartItem DBSet
-                CartItem cartItem = new CartItem
-                {
-                    CartId = cartId,
-                    ProductId = itemId,
-                    Quantity = quantity
-                };
-                await _context.CartItem.AddAsync(cartItem);
-
-            }
-            
-            var item = from i in _context.Inventory
-                       where i.Id == itemId
-                       select i;
-
-            
-            item.First().Stock = item.First().Stock - quantity;
-            await _context.SaveChangesAsync();
-
-            return true;
         }
 
         public async Task<CartDTO> GetCart(Guid cartId)
@@ -176,7 +120,17 @@ namespace CGullProject.Services
             {
                 return false;
             }
+            //create order
+            var totals = await this.GetTotals(paymentInfo.cartID);
+            Guid OrderId = Guid.NewGuid();
+            Order newOrder = new Order(paymentInfo.cartID, OrderId, DateTime.Now,totals.TotalWithTax );
+            _context.Order.Add(newOrder);
+            foreach(CartItem cartitem in cartItems)
+            {
+                OrderItem i = new OrderItem(OrderId,cartitem.ProductId,cartitem.Quantity);
+                _context.OrderItem.Add(i);
 
+            }
             //clear cartitems 
             foreach(CartItem cartItem in cartItems)
             {
@@ -187,6 +141,13 @@ namespace CGullProject.Services
             return true;
 
         }
+
+        public async Task<IEnumerable<Order>> GetOrdersById(Guid CartId)
+        {
+            var orders = await _context.Order.Where(c => c.CartId == CartId).Include(Order => Order.Items).ThenInclude(Items => Items.product).ToListAsync();
+            return orders;
+        }
+
 
         //Uses luhn algroithm to check for valid credit card numbers 
         private static bool ValidateCreditCard(string cardNum)
@@ -221,5 +182,7 @@ namespace CGullProject.Services
 
             return r.IsMatch(cvv);
         }
+
+    
     }
 }
