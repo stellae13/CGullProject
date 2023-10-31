@@ -3,6 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CGullProject.Models
 {
+    /// <summary>
+    /// Contains data that will populate the database for testing purposes.
+    /// </summary>
     public class SeedData
     {
         public static void Initialize(IServiceProvider serviceProvider)

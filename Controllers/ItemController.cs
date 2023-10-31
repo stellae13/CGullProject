@@ -7,19 +7,37 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace CGullProject.Controllers
 {
+    /// <summary>
+    /// Stores the Item endpoints
+    /// </summary>
     [ApiController]
     [Route("[controller]")]
     public class ItemController : ControllerBase {
 
+        /// <summary>
+        /// IProductService that the controller will use to perform Product related data operations
+        /// </summary>
         private readonly IProductService _productService;
+        /// <summary>
+        /// IReviewService that the controller will use to perform Review related data operations
+        /// </summary>
         private readonly IReviewService _reviewService;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="productService">Target IProductService</param>
+        /// <param name="reviewService">Target IReviewService</param>
         public ItemController(IProductService productService, IReviewService reviewService)
         {
             _productService = productService;
             _reviewService = reviewService;
         }
 
+        /// <summary>
+        /// Returns all Products present in the database.
+        /// </summary>
+        /// <returns>IEnumerable&lt;Product&gt;</returns>
         [HttpGet("GetAllItems")]
         public async Task<ActionResult> GetAllItems()
         {
@@ -28,6 +46,11 @@ namespace CGullProject.Controllers
             return Ok(inventory);
         }
         
+        /// <summary>
+        /// Get a List of Products based on a delimited Id string
+        /// </summary>
+        /// <param name="idList">String of delimited Ids</param>
+        /// <returns>IEnumerable&lt;Product&gt;</returns>
         [HttpGet("GetById")]
         public async Task<ActionResult> GetById(String idList)
         {
@@ -40,6 +63,13 @@ namespace CGullProject.Controllers
             return Ok(products);
         }
 
+        /// <summary>
+        /// Add a Product to a Cart
+        /// </summary>
+        /// <param name="cartId">Guid cartId of the cart to be added to</param>
+        /// <param name="itemId">String id of the item</param>
+        /// <param name="quantity">int quantity of items to add to cart</param>
+        /// <returns>ActionResult</returns>
         [HttpPost("AddItemToCart")]
         public async Task<ActionResult> AddItemToCart(Guid cartId, string itemId, int quantity)
         {
@@ -59,6 +89,11 @@ namespace CGullProject.Controllers
 
         }
 
+        /// <summary>
+        /// Get a list of relevant Products that match a string of keywords.
+        /// </summary>
+        /// <param name="keywordList">String keywords</param>
+        /// <returns>IEnumerable&lt;Product&gt;</returns>
         [HttpGet("GetByKeyword")]
         public async Task<ActionResult> GetByKeyword(String keywordList)
         {
@@ -70,6 +105,11 @@ namespace CGullProject.Controllers
             return Ok(products);
         }
 
+        /// <summary>
+        /// Get the contents of a Bundle
+        /// </summary>
+        /// <param name="bundleId">String bundleId</param>
+        /// <returns>IEnumerable&lt;Product&gt;</returns>
         [HttpGet("GetBundleProducts")]
         public async Task<ActionResult> GetBundleProducts(String bundleId) 
         {
@@ -89,7 +129,11 @@ namespace CGullProject.Controllers
             }
         }
 
-
+        /// <summary>
+        /// Get the image associated with a Product
+        /// </summary>
+        /// <param name="id">String productId</param>
+        /// <returns>File</returns>
         [HttpGet("Image/{id}")]
         public ActionResult GetProductImage(String id)
         {
@@ -122,6 +166,11 @@ namespace CGullProject.Controllers
             
         }*/
 
+        /// <summary>
+        /// Get all Products that belong to a Category
+        /// </summary>
+        /// <param name="id">int id of the Category</param>
+        /// <returns>IEnumerable&lt;Product&gt;</returns>
         [HttpGet("Category/{id}")]
         public async Task<ActionResult> GetProductByCategory(int id)
         {
@@ -135,6 +184,10 @@ namespace CGullProject.Controllers
             return Ok(products);
         }
 
+        /// <summary>
+        /// Get a list of all Categories
+        /// </summary>
+        /// <returns>IEnumerable&lt;Category&gt;</returns>
         [HttpGet("Category")]
         public async Task<ActionResult> GetCategories()
         {
@@ -143,14 +196,24 @@ namespace CGullProject.Controllers
             return Ok(categories);
         }
 
+        /// <summary>
+        /// Get a list of all reviews for a specific product
+        /// </summary>
+        /// <param name="id">String id of Product</param>
+        /// <returns>IEnumerable&lt;Review&gt;</returns>
         [HttpGet("{id}/Review")]
         public async Task<ActionResult> GetReviews(String id)
         {
             return Ok(await _reviewService.GetReviewsById(id));
         }
 
+        /// <summary>
+        /// Create a new Review for a Product
+        /// </summary>
+        /// <param name="review">CreateReviewDTO review</param>
+        /// <param name="id">String id of Product</param>
+        /// <returns>ActionResult</returns>
         [HttpPost("{id}/Review")]
-
         public async Task<ActionResult> CreateReview(CreateReviewDTO review,String id)
         {
             if(await _reviewService.AddReview(review, id))

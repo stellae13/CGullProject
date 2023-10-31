@@ -2,6 +2,9 @@
 
 namespace CGullProject.Models.DTO
 {
+    /// <summary>
+    /// ProcessPaymentDTO
+    /// </summary>
     public class ProcessPaymentDTO
     {
 

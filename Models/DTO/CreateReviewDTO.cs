@@ -2,10 +2,15 @@
 
 namespace CGullProject.Models.DTO
 {
+    /// <summary>
+    /// CreateReviewDTO
+    /// </summary>
     public class CreateReviewDTO
     {
 
-        //this should be a user but the requirements have the cart acting as a user 
+        /// <summary>
+        /// CartId is the same as a user id
+        /// </summary>
         [Required]
         public Guid CartId { get; set; }
 

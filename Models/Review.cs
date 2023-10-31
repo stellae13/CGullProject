@@ -5,6 +5,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CGullProject.Models
 {
+    /// <summary>
+    /// Model for a review of an item
+    /// </summary>
     [PrimaryKey(nameof(CartId), nameof(InventoryId))]
     public class Review
     {

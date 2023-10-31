@@ -6,6 +6,9 @@ using System.Security.Permissions;
 
 namespace CGullProject.Models
 {
+    /// <summary>
+    /// Model for a users Address
+    /// </summary>
     [PrimaryKey(nameof(OrderId))]
     public class Address
     {

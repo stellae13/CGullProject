@@ -4,6 +4,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CGullProject.Models
 {
+    /// <summary>
+    /// Table model for when an order was placed on a specific product
+    /// </summary>
     [PrimaryKey(nameof(OrderId),nameof(ProductId))]
     public class OrderItem
     {

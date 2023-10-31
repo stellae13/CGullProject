@@ -4,7 +4,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CGullProject;
 
-
+/// <summary>
+/// Model for a Bundle
+/// </summary>
 public class Bundle {
     [Required]
     [Key]
