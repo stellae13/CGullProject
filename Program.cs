@@ -1,5 +1,4 @@
-﻿#define FOR_REMOTE_DEPLOYMENT
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using CGullProject.Data;
 using CGullProject.Models;
 using CGullProject.Services;
