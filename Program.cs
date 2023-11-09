@@ -1,5 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
+﻿#define FOR_REMOTE_DEPLOYMENT
+using Microsoft.EntityFrameworkCore;
 using CGullProject.Data;
 using CGullProject.Models;
 using CGullProject.Services;
@@ -18,10 +18,11 @@ namespace CGullProject
             {
                 options.AddPolicy(name: CGullAllowSpecificOrigins, policy => {
                     policy.AllowAnyOrigin();  // To allow front end to request and receive data from DB
+                    // Additional policy change, allows any origin to make state-altering http req's like POST, PUT, etc
+                    policy.AllowAnyHeader();
+                    
                 });
             });
-
-
 
             builder.Services.AddDbContext<ShopContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("ShopContext") ?? throw new InvalidOperationException("Connection string 'ProductContext' not found.")));
