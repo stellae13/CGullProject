@@ -16,7 +16,10 @@ namespace CGullProject
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy(name: CGullAllowSpecificOrigins, policy => {
-                    policy.AllowAnyOrigin();  // To allow front end to request and receive data from DB
+                    policy.WithOrigins(new string[2] { 
+                        "http://localhost:8000",  // Allow local FE host
+                        "http://cgulls.ddns.net"  // Allow remote FE host
+                    });
                     // Additional policy change, allows any origin to make state-altering http req's like POST, PUT, etc
                     policy.AllowAnyHeader();
                     
