@@ -18,6 +18,7 @@ namespace CGullProject
             {
                 options.AddPolicy(name: CGullAllowSpecificOrigins, policy => {
                     policy.AllowAnyOrigin();  // To allow front end to request and receive data from DB
+                    policy.AllowAnyHeader();  // Allow front end to make db state-altering requests (i.e.: put, post, etc)
                 });
             });
 

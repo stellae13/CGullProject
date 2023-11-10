@@ -409,8 +409,18 @@ namespace CGullProject.Models
                          Rating = 4.2M,
                          Stock = 20,
                          isBundle = false
+                     },
+                     new Product
+                     {
+                         Id = "000030",
+                         Name = "Authentic Canned Seagull Meat",
+                         CategoryId = 1,
+                         MSRP = 100M,
+                         SalePrice = 2M,
+                         Rating = 4.2M,
+                         Stock = 100,
+                         isBundle = false
                      }
-
                      );
                 }
                 //end of product seed data
