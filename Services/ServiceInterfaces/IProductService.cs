@@ -1,4 +1,5 @@
 ﻿using CGullProject.Models;
+using System.Runtime.CompilerServices;
 
 namespace CGullProject.Services.ServiceInterfaces
 {
@@ -38,14 +39,14 @@ namespace CGullProject.Services.ServiceInterfaces
         /// </summary>
         /// <param name="keywords"></param>
         /// <returns>IEnumerable&lt;Product&gt;</returns>
-        public Task<IEnumerable<Product>> GetProductsByKeyword(String keywords);
+        public Task<IEnumerable<Product>> GetProductsByKeyword(string keywords);
 
         /// <summary>
         /// Get a list of products by a string of delimited Ids
         /// </summary>
-        /// <param name="ids">String of delimited ids</param>
+        /// <param name="ids">string of delimited ids</param>
         /// <returns>IEnumerable&lt;Product&gt;</returns>
-        public Task<IEnumerable<Product>> GetProductsById(String ids);
+        public Task<IEnumerable<Product>> GetProductsById(string ids);
 
         /// <summary>
         /// Get a list of Products that belong to a specific category
@@ -65,9 +66,7 @@ namespace CGullProject.Services.ServiceInterfaces
         /// </summary>
         /// <param name="bundleIds">ID of the bundles</param>
         /// <returns>IEnumerable&lt;Product&gt;</returns>
-        public Task<IEnumerable<Product>> GetBundledProducts(String bundleIds);
-
-        /*public Task<IEnumerable<Bundle>> GetAssociatedBundles(String itemId);*/
+        public Task<IEnumerable<Product>> GetBundledProducts(string bundleIds);
 
         /// <summary>
         /// Update the stock of a specific product
@@ -76,6 +75,13 @@ namespace CGullProject.Services.ServiceInterfaces
         /// <param name="newQuantity">New quanitty of the product</param>
         /// <returns></returns>
         public Task<bool> UpdateStock(string id, int newQuantity);
+
+        /// <summary>
+        /// Get all bundles associated with a specific Product
+        /// </summary>
+        /// <param name="itemId"></param>
+        /// <returns>IEnumerable&lt;Bundle&gt;</returns>
+        public Task<IEnumerable<Bundle>> GetAssociatedBundles(string itemId);
 
     }
 }

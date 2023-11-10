@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using CGullProject.Data;
 using CGullProject.Models;
 using CGullProject.Services;
@@ -17,12 +16,15 @@ namespace CGullProject
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy(name: CGullAllowSpecificOrigins, policy => {
-                    policy.AllowAnyOrigin();  // To allow front end to request and receive data from DB
-                    policy.AllowAnyHeader();  // Allow front end to make db state-altering requests (i.e.: put, post, etc)
+                    policy.WithOrigins(new string[2] { 
+                        "http://localhost:8000",  // Allow local FE host
+                        "http://cgulls.ddns.net"  // Allow remote FE host
+                    });
+                    // Additional policy change, allows any origin to make state-altering http req's like POST, PUT, etc
+                    policy.AllowAnyHeader();
+                    
                 });
             });
-
-
 
             builder.Services.AddDbContext<ShopContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("ShopContext") ?? throw new InvalidOperationException("Connection string 'ProductContext' not found.")));

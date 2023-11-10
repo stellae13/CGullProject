@@ -182,23 +182,25 @@ namespace CGullProject.Services
         }
 
 
-        /*public async Task<IEnumerable<Bundle>> GetAssociatedBundles(String itemId)
+        public async Task<IEnumerable<Bundle>> GetAssociatedBundles(String itemId)
         {
             if (itemId[0] != '0')
                 throw new BadHttpRequestException($"ID {itemId} is a Bundle ID not an Item ID.");
             if (itemId.Length != 6)
                 throw new BadHttpRequestException($"Item ID malformatted {itemId}.");
-            IEnumerable<Bundle> ret = _context.Bundle.Where()
+            IEnumerable<Bundle> ret = from bndlItm in _context.BundleItem
+                           where bndlItm.ProductId == itemId
+                           select bndlItm.Bundle;
+
 
             return ret;
-        }*/
+        }
 
 
         public async Task<IEnumerable<Product>> GetProductsByKeyword(String keywords)
         {
             HashSet<String> keySet = new(keywords.ToLower().Split("&"));
-            return await 
-                Task.Run((Func<IEnumerable<Product>>) 
+            return await Task.Run((Func<IEnumerable<Product>>) 
                 (() => {
                     IEnumerable<KeyValuePair<Product, int>> itemsAndRelevance =
                         from item in _context.Inventory

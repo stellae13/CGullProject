@@ -52,7 +52,7 @@ namespace CGullProject.Controllers
         /// <param name="idList">String of delimited Ids</param>
         /// <returns>IEnumerable&lt;Product&gt;</returns>
         [HttpGet("GetById")]
-        public async Task<ActionResult> GetById(String idList)
+        public async Task<ActionResult> GetById(string idList)
         {
             var products = await _productService.GetProductsById(idList);
 
@@ -95,7 +95,7 @@ namespace CGullProject.Controllers
         /// <param name="keywordList">String keywords</param>
         /// <returns>IEnumerable&lt;Product&gt;</returns>
         [HttpGet("GetByKeyword")]
-        public async Task<ActionResult> GetByKeyword(String keywordList)
+        public async Task<ActionResult> GetByKeyword(string keywordList)
         {
             var products = await _productService.GetProductsByKeyword(keywordList);
             if (products.IsNullOrEmpty())
@@ -111,7 +111,7 @@ namespace CGullProject.Controllers
         /// <param name="bundleId">String bundleId</param>
         /// <returns>IEnumerable&lt;Product&gt;</returns>
         [HttpGet("GetBundleProducts")]
-        public async Task<ActionResult> GetBundleProducts(String bundleId) 
+        public async Task<ActionResult> GetBundleProducts(string bundleId) 
         {
             try
             {
@@ -135,22 +135,26 @@ namespace CGullProject.Controllers
         /// <param name="id">String productId</param>
         /// <returns>File</returns>
         [HttpGet("Image/{id}")]
-        public ActionResult GetProductImage(String id)
+        public ActionResult GetProductImage(string id)
         {
             try
             {
                 var img = System.IO.File.OpenRead($"./Images/{id}.jpg");
                 return File(img, "image/jpeg");
-            } catch (FileNotFoundException e)
+            } catch (FileNotFoundException)
             {
                 return NotFound($"No image found matching Item with ID, {id}");
             }
             
         }
 
-        /* Commented out until cycle issue with Bundle.BundleItem gets
-         [HttpGet("GetAssociatedBundles")]
-        public async Task<ActionResult> GetAssociatedBundles(String id)
+        /// <summary>
+        /// Get all Bundles associated with a Product
+        /// </summary>
+        /// <param name="id">String Id of the Product</param>
+        /// <returns>IEnumerable&lt;Bundle&gt;</returns>
+        [HttpGet("GetAssociatedBundles")]
+        public async Task<ActionResult> GetAssociatedBundles(string id)
         {
             try
             {
@@ -164,7 +168,7 @@ namespace CGullProject.Controllers
                 return BadRequest(e.Message);
             }
             
-        }*/
+        }
 
         /// <summary>
         /// Get all Products that belong to a Category
@@ -202,7 +206,7 @@ namespace CGullProject.Controllers
         /// <param name="id">String id of Product</param>
         /// <returns>IEnumerable&lt;Review&gt;</returns>
         [HttpGet("{id}/Review")]
-        public async Task<ActionResult> GetReviews(String id)
+        public async Task<ActionResult> GetReviews(string id)
         {
             return Ok(await _reviewService.GetReviewsById(id));
         }
@@ -214,7 +218,7 @@ namespace CGullProject.Controllers
         /// <param name="id">String id of Product</param>
         /// <returns>ActionResult</returns>
         [HttpPost("{id}/Review")]
-        public async Task<ActionResult> CreateReview(CreateReviewDTO review,String id)
+        public async Task<ActionResult> CreateReview(CreateReviewDTO review,string id)
         {
             if(await _reviewService.AddReview(review, id))
             {
