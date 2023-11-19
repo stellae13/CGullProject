@@ -1,12 +1,6 @@
-using CGullProject.Data;
-using CGullProject.Models;
 using CGullProject.Models.DTO;
 using CGullProject.Services;
-using CGullProject.Services.ServiceInterfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
 
 namespace CGullProject.Controllers
 {
@@ -29,7 +23,7 @@ namespace CGullProject.Controllers
         /// <param name="itemId">Id of Product</param>
         /// <param name="quantity">Amount to increase(+) or decrease(-) the stock by</param>
         /// <returns>Success/Failure</returns>
-        [HttpPost]
+        [HttpPost("UpdateStock")]
         public async Task<ActionResult<bool>> UpdateStock(string itemId, int quantity) {
             return Ok(await _service.UpdateStock(itemId, quantity));
         }
@@ -40,7 +34,7 @@ namespace CGullProject.Controllers
         /// <param name="itemId">Id of Product</param>
         /// <param name="price">New price</param>
         /// <returns>Success/Failure</returns>
-        [HttpPost]
+        [HttpPost("ChangePrice")]
         public async Task<ActionResult<bool>> ChangePrice(string itemId, decimal price) {
             return Ok(await _service.ChangePrice(itemId, price));
         }
@@ -48,11 +42,11 @@ namespace CGullProject.Controllers
         /// <summary>
         /// Add a new product to inventory
         /// </summary>
-        /// <param name="p">New product</param>
+        /// <param name="product">New product</param>
         /// <returns>Success/Failure</returns>
-        [HttpPost]
-        public async Task<ActionResult<bool>> AddNewItem(Product p) {
-            return Ok(await _service.AddNewItem(p));
+        [HttpPost("AddNewItem")]
+        public async Task<ActionResult<bool>> AddNewItem(ProductDTO product) {
+            return Ok(await _service.AddNewItem(product));
         }
 
     }
