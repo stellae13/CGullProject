@@ -6,4 +6,4 @@ Seagull-themed merchandise of questionable sanity.
 - [The unit testing repo](https://github.com/stellae13/CGullTests)
 
 ## Endpoint Descriptions
-For extended details about the endpoints, please see [the wiki page](https://github.com/stellae13/CGullProject/wiki/Endpoints).
+For extended details about the endpoints, please see [this wiki page](https://github.com/stellae13/CGullProject/wiki/Endpoints).
