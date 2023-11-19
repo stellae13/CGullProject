@@ -1,5 +1,6 @@
 using CGullProject.Data;
 using CGullProject.Models;
+using CGullProject.Models.DTO;
 
 namespace CGullProject.Services
 {
@@ -12,7 +13,7 @@ namespace CGullProject.Services
             _context = context;
         }
 
-        public async Task<bool> AddNewItem(Product p)
+        public async Task<bool> AddNewItem(ProductDTO p)
         {
             // search for existing product
             Product? product = await _context.Inventory.FindAsync(p.Id);
@@ -29,7 +30,7 @@ namespace CGullProject.Services
                 SalePrice = p.SalePrice,
                 Rating = p.Rating,
                 Stock = p.Stock,
-                isBundle = p.isBundle
+                isBundle = p.IsBundle
             };
 
             // add and save changes

@@ -1,4 +1,4 @@
-using CGullProject.Models;
+using CGullProject.Models.DTO;
 
 namespace CGullProject.Services
 {
@@ -23,9 +23,9 @@ namespace CGullProject.Services
         /// <summary>
         /// Add a new Product to the Inventory
         /// </summary>
-        /// <param name="p">Product to add</param>
+        /// <param name="product">Product to add</param>
         /// <returns>True iff successful, false otherwise</returns>
-        public Task<bool> AddNewItem(Product p);
+        public Task<bool> AddNewItem(ProductDTO product);
 
     }
 }
