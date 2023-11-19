@@ -43,5 +43,9 @@ public class Product {
     [Required]
     public bool isBundle {  get; set; }
 
+    public String Description { get; set; } = "";
+
+    public bool OnSale { get; set; } = false;
+
     public ICollection<Review> Reviews { get; }
 }
