@@ -438,6 +438,18 @@ namespace CGullProject.Models
                          Stock = 100,
                          isBundle = false,
                          OnSale = true
+                     },
+                     new Product
+                     {
+                         Id = "000031",
+                         Name = "Armored Seagull Figurine",
+                         CategoryId = 2,
+                         MSRP = 30M,
+                         SalePrice = 29M,
+                         Rating = 1M,
+                         Stock = 100,
+                         isBundle = false,
+                         OnSale = true
                      }
 
                      );
