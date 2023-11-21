@@ -27,5 +27,7 @@ namespace CGullProject.Services
         /// <returns>True iff successful, false otherwise</returns>
         public Task<bool> AddNewItem(ProductDTO product);
 
+       
+
     }
 }
