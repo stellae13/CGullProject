@@ -90,6 +90,17 @@ namespace CGullProject.Controllers
         }
 
         /// <summary>
+        /// Remove an item from a Cart
+        /// </summary>
+        /// <param name="cartId">Id of the Cart</param>
+        /// <param name="itemId">Id of the item</param>
+        /// <returns>Success/Failure</returns>
+        [HttpDelete("RemoveFromCart")]
+        public async Task<ActionResult> RemoveFromCart(Guid cartId, string itemId) {
+            return Ok(await _productService.RemoveItemFromCart(cartId, itemId));
+        }
+
+        /// <summary>
         /// Get a list of relevant Products that match a string of keywords.
         /// </summary>
         /// <param name="keywordList">String keywords</param>
