@@ -224,7 +224,19 @@ namespace CGullProject.Controllers
             return BadRequest();
         }
 
-        
+        [HttpPut("ChangeSaleStatus")]
+        public async Task<ActionResult<bool>> ChangeSaleStus(string itemId, bool status)
+        {
+            return Ok(await _productService.ChangeSalesStatus(itemId, status));
+        }
+
+        [HttpGet("GetAllSalesProducts")]
+        public async Task<ActionResult> GetAllSalesProducts()
+        {
+            return Ok(await _productService.GetAllSalesProducts());
+        }
+
+
 
     }
 }

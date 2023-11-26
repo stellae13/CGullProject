@@ -77,5 +77,19 @@ namespace CGullProject.Services.ServiceInterfaces
         /// <returns></returns>
         public Task<bool> UpdateStock(string id, int newQuantity);
 
+        /// <summary>
+        /// Changes the sale status of an item to either true or false
+        /// </summary>
+        /// <param name="itemID"></param>
+        /// <param name="status"></param>
+        /// <returns></returns>
+        public Task<bool> ChangeSalesStatus(string itemId, bool status);
+
+        /// <summary>
+        /// returns all of the items on sale
+        /// </summary>
+        /// <returns></returns>
+        public Task<IEnumerable<Product>> GetAllSalesProducts();
+
     }
 }

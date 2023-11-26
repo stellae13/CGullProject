@@ -49,6 +49,8 @@ namespace CGullProject.Controllers
             return Ok(await _service.AddNewItem(product));
         }
 
+      
+
     }
 
 }

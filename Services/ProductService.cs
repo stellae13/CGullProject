@@ -213,6 +213,24 @@ namespace CGullProject.Services
             );
         }
 
+        public async Task<bool> ChangeSalesStatus(string itemId, bool status)
+        {
+            // search for the product in inventory
+            Product? product = await _context.Inventory.FindAsync(itemId);
+            if (product == null)
+            {
+                return false;
+            }
+
+            // change the status 
+            product.OnSale = status;
+
+            // save changes
+            await _context.SaveChangesAsync();
+
+            return true;
+        }
+
         public async Task<bool> RemoveProduct(string productId)
         {
             throw new NotImplementedException();
@@ -221,6 +239,24 @@ namespace CGullProject.Services
         public async Task<bool> UpdateStock(string id, int newQuantity)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<IEnumerable<Product>> GetAllSalesProducts()
+
+        {
+            IEnumerable<Product> inventory =
+               await _context.Inventory.ToListAsync<Product>();
+
+            List<Product> toReturn = new List<Product>();
+            foreach (Product product in inventory)
+            {
+                if (product.OnSale)
+                {
+                    toReturn.Add(product);
+                }
+            }
+
+            return toReturn;
         }
     }
 }
