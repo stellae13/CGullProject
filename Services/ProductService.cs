@@ -78,6 +78,18 @@ namespace CGullProject.Services
         }
 
 
+        public async Task<bool> RemoveItemFromCart(Guid cartId, string itemId) {
+            var record = await _context.CartItem.FindAsync(cartId, itemId);
+            if (record == null) {
+                return false;
+            } else {
+                _context.CartItem.Remove(record);
+                await _context.SaveChangesAsync();
+
+                return true;
+            }
+        }
+
         public async Task<IEnumerable<Category>> GetAllCategories()
         {
             List<Category> categories = await _context.Category.ToListAsync();

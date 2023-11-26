@@ -34,6 +34,14 @@ namespace CGullProject.Services.ServiceInterfaces
         public Task<bool> AddItemToCart(Guid cartId, string itemId, int quantity);
 
         /// <summary>
+        /// Removes an item from a Cart.
+        /// </summary>
+        /// <param name="cartId">Id of the Cart</param>
+        /// <param name="itemId">Id of the item</param>
+        /// <returns>True iff item is found and successfully remove, false otherwise</returns>
+        public Task<bool> RemoveItemFromCart(Guid cartId, string itemId);
+
+        /// <summary>
         /// Get products that match keywords provided, sorted by relevance.
         /// </summary>
         /// <param name="keywords"></param>
