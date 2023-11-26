@@ -66,13 +66,35 @@ namespace CGullProject.Services
                 return false;
             }
 
-            // add to the quantity
-            product.Stock += quantity;
+            // no negative stock values
+            if (quantity >= 0) {
+                product.Stock = quantity;
 
-            // save changes
-            await _context.SaveChangesAsync();
+                // save changes
+                await _context.SaveChangesAsync();
+                return true;
+            } else {
+                return false;
+            }
+        }
 
-            return true;
+        public async Task<bool> AdjustStock(string itemId, int amount) {
+            // search for the product in inventory
+            Product? product = await _context.Inventory.FindAsync(itemId);
+            if (product == null) {
+                return false;
+            }
+
+            // no negative stock values
+            if (product.Stock + amount >= 0) {
+                product.Stock += amount;
+
+                // save changes
+                await _context.SaveChangesAsync();
+                return true;
+            } else {
+                return false;
+            }
         }
 
 

@@ -21,11 +21,22 @@ namespace CGullProject.Controllers
         /// Update the stock of a Product
         /// </summary>
         /// <param name="itemId">Id of Product</param>
-        /// <param name="quantity">Amount to increase(+) or decrease(-) the stock by</param>
+        /// <param name="quantity">Quantity to set the stock to</param>
         /// <returns>Success/Failure</returns>
-        [HttpPost("UpdateStock")]
+        [HttpPut("UpdateStock")]
         public async Task<ActionResult<bool>> UpdateStock(string itemId, int quantity) {
             return Ok(await _service.UpdateStock(itemId, quantity));
+        }
+
+        /// <summary>
+        /// Increment or decrement the stock
+        /// </summary>
+        /// <param name="itemId">Id of Product</param>
+        /// <param name="amount">Amount to increase(+) or decrease(-) the stock by</param>
+        /// <returns>Success/Failure</returns>
+        [HttpPut("AdjustStock")]
+        public async Task<ActionResult<bool>> AdjustStock(string itemId, int amount) {
+            return Ok(await _service.AdjustStock(itemId, amount));
         }
 
         /// <summary>
