@@ -30,7 +30,7 @@ namespace CGullProject.Services
                 SalePrice = p.SalePrice,
                 Rating = p.Rating,
                 Stock = p.Stock,
-                isBundle = p.IsBundle
+                IsBundle = p.IsBundle
             };
 
             // add and save changes

@@ -187,6 +187,9 @@ namespace CGullProject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsBundle")
+                        .HasColumnType("bit");
+
                     b.Property<decimal>("MSRP")
                         .HasColumnType("decimal(18,2)");
 
@@ -205,9 +208,6 @@ namespace CGullProject.Migrations
 
                     b.Property<int>("Stock")
                         .HasColumnType("int");
-
-                    b.Property<bool>("isBundle")
-                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 

@@ -41,7 +41,7 @@ public class Product {
     public int Stock { get; set; }
 
     [Required]
-    public bool isBundle {  get; set; }
+    public bool IsBundle {  get; set; }
 
     public String Description { get; set; } = "";
 

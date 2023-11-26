@@ -202,7 +202,7 @@ namespace CGullProject.Migrations
                     b.Property<int>("Stock")
                         .HasColumnType("int");
 
-                    b.Property<bool>("isBundle")
+                    b.Property<bool>("IsBundle")
                         .HasColumnType("bit");
 
                     b.HasKey("Id");

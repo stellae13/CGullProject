@@ -31,7 +31,7 @@ namespace CGullProject.Services
                     Product prod = productTable[entry.ProductId];
                     // We can omit this part if we feel that we don't need to show the
                     // bundled products associated with a bundle to the end user.
-                    if (prod.isBundle)
+                    if (prod.IsBundle)
                     {
                         Bundle bundle = 
                             _context.Bundle.Where(b => b.ProductId == prod.Id).Select(b => b).Include(b => b.BundleItems).First();
@@ -91,7 +91,7 @@ namespace CGullProject.Services
                     
                     decimal toAdd = (nxt.Item1.SalePrice * nxt.Item2);
                     
-                    if (nxt.Item1.isBundle)
+                    if (nxt.Item1.IsBundle)
                         ret.BundleTotal += toAdd;
                     else
                         ret.RegularTotal += toAdd;

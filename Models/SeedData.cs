@@ -74,7 +74,7 @@ namespace CGullProject.Models
                         SalePrice = 1.60M,
                         Rating = 0.0M,
                         Stock = 20,
-                        isBundle = false,
+                        IsBundle = false,
                         OnSale = true
                     },
                     new Product
@@ -86,7 +86,7 @@ namespace CGullProject.Models
                         MSRP = 5.99M,
                         Rating = 4.5M,
                         Stock = 25,
-                        isBundle = false,
+                        IsBundle = false,
                         OnSale = false
 
                     },
@@ -99,7 +99,7 @@ namespace CGullProject.Models
                         SalePrice = 67.99M,
                         Rating = 4.2M,
                         Stock = 25,
-                        isBundle = false,
+                        IsBundle = false,
                         OnSale = true
 
                     },
@@ -112,7 +112,7 @@ namespace CGullProject.Models
                         SalePrice = 11.99M,
                         Rating = 4.0M,
                         Stock = 30,
-                        isBundle = false,
+                        IsBundle = false,
                         OnSale = false
 
                     },
@@ -125,7 +125,7 @@ namespace CGullProject.Models
                         SalePrice = 47.99M,
                         Rating = 5.0M,
                         Stock = 20,
-                        isBundle = false,
+                        IsBundle = false,
                         OnSale = true
 
                     },
@@ -138,7 +138,7 @@ namespace CGullProject.Models
                         SalePrice = 8.99M,
                         Rating = 4.7M,
                         Stock = 50,
-                        isBundle = false,
+                        IsBundle = false,
                         OnSale = true
 
                     },
@@ -151,7 +151,7 @@ namespace CGullProject.Models
                         SalePrice = 28.99M,
                         Rating = 4.3M,
                         Stock = 12,
-                        isBundle = false,
+                        IsBundle = false,
                         OnSale = false
 
                     },
@@ -164,7 +164,7 @@ namespace CGullProject.Models
                         SalePrice = 47.99M,
                         Rating = 4.6M,
                         Stock = 8,
-                        isBundle = false,
+                        IsBundle = false,
                         OnSale = true
 
                     },
@@ -177,7 +177,7 @@ namespace CGullProject.Models
                         SalePrice = 39.99M,
                         Rating = 4.1M,
                         Stock = 40,
-                        isBundle = false,
+                        IsBundle = false,
                         OnSale = false
 
                     },
@@ -190,7 +190,7 @@ namespace CGullProject.Models
                         SalePrice = 22.49M,
                         Rating = 2.8M,
                         Stock = 50,
-                        isBundle = false,
+                        IsBundle = false,
                         OnSale = true
 
                     },
@@ -203,7 +203,7 @@ namespace CGullProject.Models
                         SalePrice = 20.49M,
                         Rating = 4.8M,
                         Stock = 50,
-                        isBundle = false,
+                        IsBundle = false,
                         OnSale = true
 
                     },
@@ -216,7 +216,7 @@ namespace CGullProject.Models
                         SalePrice = 28.49M,
                         Rating = 2.8M,
                         Stock = 100,
-                        isBundle = false,
+                        IsBundle = false,
                         OnSale = true
 
                     },
@@ -229,7 +229,7 @@ namespace CGullProject.Models
                         SalePrice = 24.49M,
                         Rating = 3.8M,
                         Stock = 20,
-                        isBundle = false,
+                        IsBundle = false,
                         OnSale = true
 
                     },
@@ -242,7 +242,7 @@ namespace CGullProject.Models
                         SalePrice = 8.49M,
                         Rating = 4.8M,
                         Stock = 100,
-                        isBundle = false,
+                        IsBundle = false,
                         OnSale = false
 
                     },
@@ -255,7 +255,7 @@ namespace CGullProject.Models
                         SalePrice = 18.49M,
                         Rating = 4.8M,
                         Stock = 100,
-                        isBundle = false,
+                        IsBundle = false,
                         OnSale = true
 
 
@@ -269,7 +269,7 @@ namespace CGullProject.Models
                         SalePrice = 109.49M,
                         Rating = 4.8M,
                         Stock = 30,
-                        isBundle = false,
+                        IsBundle = false,
                         OnSale = false
 
                     },
@@ -282,7 +282,7 @@ namespace CGullProject.Models
                         SalePrice = 69.49M,
                         Rating = 4.8M,
                         Stock = 35,
-                        isBundle = false,
+                        IsBundle = false,
                         OnSale = true
 
                     },
@@ -295,7 +295,7 @@ namespace CGullProject.Models
                          SalePrice = 18.49M,
                          Rating = 4.8M,
                          Stock = 35,
-                         isBundle = false,
+                         IsBundle = false,
                          OnSale = true
 
                      },
@@ -308,7 +308,7 @@ namespace CGullProject.Models
                          SalePrice = 18.49M,
                          Rating = 4.8M,
                          Stock = 25,
-                         isBundle = false,
+                         IsBundle = false,
                          OnSale = false
 
                      },
@@ -321,7 +321,7 @@ namespace CGullProject.Models
                          SalePrice = 16.99M,
                          Rating = 4.9M,
                          Stock = 35,
-                         isBundle = false,
+                         IsBundle = false,
                          OnSale = true
 
                      },
@@ -334,7 +334,7 @@ namespace CGullProject.Models
                          SalePrice = 179.99M,
                          Rating = 4.9M,
                          Stock = 1,
-                         isBundle = true,
+                         IsBundle = true,
                          OnSale = false
 
                      },
@@ -347,7 +347,7 @@ namespace CGullProject.Models
                          SalePrice = 89.99M,
                          Rating = 4.9M,
                          Stock = 40,
-                         isBundle = false,
+                         IsBundle = false,
                          OnSale = true
 
                      },
@@ -360,7 +360,7 @@ namespace CGullProject.Models
                          SalePrice = 19.49M,
                          Rating = 3.8M,
                          Stock = 25,
-                         isBundle = false,
+                         IsBundle = false,
                          OnSale = false
 
                      },
@@ -373,7 +373,7 @@ namespace CGullProject.Models
                          SalePrice = 15.99M,
                          Rating = 4.5M,
                          Stock = 35,
-                         isBundle = false,
+                         IsBundle = false,
                          OnSale = false
 
                      },
@@ -386,7 +386,7 @@ namespace CGullProject.Models
                          SalePrice = 10.99M,
                          Rating = 4.9M,
                          Stock = 45,
-                         isBundle = false,
+                         IsBundle = false,
                          OnSale = true
 
                      },
@@ -399,7 +399,7 @@ namespace CGullProject.Models
                          SalePrice = 15.99M,
                          Rating = 4.2M,
                          Stock = 50,
-                         isBundle = false,
+                         IsBundle = false,
                          OnSale = true
 
                      },
@@ -412,7 +412,7 @@ namespace CGullProject.Models
                          SalePrice = 15.99M,
                          Rating = 4.2M,
                          Stock = 1,
-                         isBundle = true,
+                         IsBundle = true,
                          OnSale = false
                      },
                      new Product
@@ -424,7 +424,7 @@ namespace CGullProject.Models
                          SalePrice = 35.99M,
                          Rating = 4.2M,
                          Stock = 20,
-                         isBundle = false,
+                         IsBundle = false,
                          OnSale = true
 
                      },
@@ -436,7 +436,7 @@ namespace CGullProject.Models
                          SalePrice = 2M,
                          Rating = 1M,
                          Stock = 100,
-                         isBundle = false,
+                         IsBundle = false,
                          OnSale = true
                      },
                      new Product
@@ -448,7 +448,7 @@ namespace CGullProject.Models
                          SalePrice = 29M,
                          Rating = 1M,
                          Stock = 100,
-                         isBundle = false,
+                         IsBundle = false,
                          OnSale = true
                      }
 
