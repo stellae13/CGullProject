@@ -88,8 +88,16 @@ namespace CGullProject.Services
             // Return outcome of Aggregate of the product totals, split by bundle and item totals.
             ret = cartContents.Aggregate<Tuple<Product, int>, TotalsDTO>(ret,
                 (Func<TotalsDTO, Tuple<Product, int>, TotalsDTO>)((curr, nxt) => {
-                    
-                    decimal toAdd = (nxt.Item1.SalePrice * nxt.Item2);
+
+                    decimal toAdd;
+                    if (nxt.Item1.OnSale)
+                    {
+                        toAdd = (nxt.Item1.SalePrice * nxt.Item2);
+                    }
+                    else
+                    {
+                        toAdd = (nxt.Item1.MSRP * nxt.Item2);
+                    }
                     
                     if (nxt.Item1.IsBundle)
                         ret.BundleTotal += toAdd;
