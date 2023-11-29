@@ -35,4 +35,3 @@ namespace CGullProject.Controllers
         }
     }
 }
-x

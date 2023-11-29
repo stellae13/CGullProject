@@ -27,7 +27,7 @@ namespace CGullProject.Data
         public DbSet<Review> Review { get; set; }
         public DbSet<Order> Order { get; set; }
         public DbSet<OrderItem> OrderItem { get; set; }
-        public DbSet<OrderItem> Admins { get; set; }
+        public DbSet<Admins> Admins { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
