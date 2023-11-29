@@ -15,7 +15,7 @@ namespace CGullProject.Services
 
         public async Task<bool> Login(string username, string password)
         {
-            Admins? admin = await _context.Admins.Where(a => a.Username == username).First()
+            Admins? admin = _context.Admins.Where(a => a.Username == username).First()
                 ?? throw new KeyNotFoundException($"User with {username} not found"); 
 
             if(admin.Password == password)
@@ -26,9 +26,6 @@ namespace CGullProject.Services
             {
                 return false;
             }
-
-        
-            throw new NotImplementedException();
         }
     }
 }
