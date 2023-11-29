@@ -17,12 +17,6 @@ namespace CGullProject.Services.ServiceInterfaces
         /// <param name="productId">string productId</param>
         /// <returns>bool</returns>
         public Task<bool> RemoveProduct(string productId);
-
-        /// <summary>
-        /// Get all Products in the database
-        /// </summary>
-        /// <returns>IEnumerable&lt;Product&gt;</returns>
-        public Task<IEnumerable<Product>> GetAllProducts();
         
         /// <summary>
         /// Add a Product to a specific Cart
@@ -84,20 +78,6 @@ namespace CGullProject.Services.ServiceInterfaces
         /// <param name="newQuantity">New quanitty of the product</param>
         /// <returns></returns>
         public Task<bool> UpdateStock(string id, int newQuantity);
-
-        /// <summary>
-        /// Changes the sale status of an item to either true or false
-        /// </summary>
-        /// <param name="itemID"></param>
-        /// <param name="status"></param>
-        /// <returns></returns>
-        public Task<bool> ChangeSalesStatus(string itemId, bool status);
-
-        /// <summary>
-        /// returns all of the items on sale
-        /// </summary>
-        /// <returns></returns>
-        public Task<IEnumerable<Product>> GetAllSalesProducts();
 
     }
 }

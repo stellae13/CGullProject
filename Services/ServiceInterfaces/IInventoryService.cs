@@ -1,9 +1,16 @@
+using CGullProject.Models;
 using CGullProject.Models.DTO;
 
 namespace CGullProject.Services
 {
     public interface IInventoryService {
-        
+
+        /// <summary>
+        /// Gets the Inventory (all items)
+        /// </summary>
+        /// <returns></returns>
+        public Task<IEnumerable<Product>> GetInventory();
+
         /// <summary>
         /// Sets current stock of the Product to quantity
         /// </summary>
@@ -35,7 +42,23 @@ namespace CGullProject.Services
         /// <returns>True iff successful, false otherwise</returns>
         public Task<bool> AddNewItem(ProductDTO product);
 
+        /// <summary>
+        /// returns all of the items on sale
+        /// </summary>
+        /// <returns></returns>
+        public Task<IEnumerable<Product>> GetAllSalesItems();
+
+        /// <summary>
+        /// Changes the sale status of an item to either true or false
+        /// </summary>
+        /// <param name="itemID"></param>
+        /// <param name="status"></param>
+        /// <returns></returns>
+        public Task<bool> ChangeSalesStatus(string itemId, bool status);
+
        
+
+
 
     }
 }

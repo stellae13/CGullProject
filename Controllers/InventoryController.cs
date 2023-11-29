@@ -1,5 +1,6 @@
 using CGullProject.Models.DTO;
 using CGullProject.Services;
+using CGullProject.Services.ServiceInterfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CGullProject.Controllers
@@ -15,6 +16,18 @@ namespace CGullProject.Controllers
 
         public InventoryController(IInventoryService service) {
             _service = service;
+        }
+
+        /// <summary>
+        /// Returns all Products present in the database.
+        /// </summary>
+        /// <returns>IEnumerable&lt;Product&gt;</returns>
+        [HttpGet("GetInventory")]
+        public async Task<ActionResult> GetAllItems()
+        {
+            var inventory = await _service.GetInventory();
+
+            return Ok(inventory);
         }
 
         /// <summary>
@@ -60,7 +73,20 @@ namespace CGullProject.Controllers
             return Ok(await _service.AddNewItem(product));
         }
 
-      
+        [HttpGet("GetAllSalesItems")]
+        public async Task<ActionResult> GetAllSalesItems()
+        {
+            return Ok(await _service.GetAllSalesItems());
+        }
+
+        [HttpPut("ChangeSaleStatus")]
+        public async Task<ActionResult<bool>> ChangeSaleStus(string itemId, bool status)
+        {
+            return Ok(await _service.ChangeSalesStatus(itemId, status));
+        }
+ 
+
+
 
     }
 
