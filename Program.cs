@@ -41,6 +41,7 @@ namespace CGullProject
             builder.Services.AddScoped<ICartService, CartService>();
             builder.Services.AddScoped<IReviewService, ReviewService>();
             builder.Services.AddScoped<IInventoryService, InventoryService>();
+            builder.Services.AddScoped<IAdminService, AdminService>();
 
             var app = builder.Build();
 

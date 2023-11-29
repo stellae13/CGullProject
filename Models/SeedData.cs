@@ -562,6 +562,22 @@ namespace CGullProject.Models
 
                 }
 
+                if (!context.Admins.Any())
+                {
+                    context.AddRange(
+                        new Admins()
+                        {
+                            Username = "stellagarcia",
+                            Password = "password"
+                        },
+                        new Admins()
+                        {
+                            Username = "manager",
+                            Password = "password"
+                        }
+                    );
+                }
+
                 context.SaveChanges();
 
             }
