@@ -34,17 +34,6 @@ namespace CGullProject.Controllers
             _reviewService = reviewService;
         }
 
-        /// <summary>
-        /// Returns all Products present in the database.
-        /// </summary>
-        /// <returns>IEnumerable&lt;Product&gt;</returns>
-        [HttpGet("GetAllItems")]
-        public async Task<ActionResult> GetAllItems()
-        {
-           var inventory = await _productService.GetAllProducts();
-
-            return Ok(inventory);
-        }
         
         /// <summary>
         /// Get a List of Products based on a delimited Id string
@@ -234,20 +223,6 @@ namespace CGullProject.Controllers
 
             return BadRequest();
         }
-
-        [HttpPut("ChangeSaleStatus")]
-        public async Task<ActionResult<bool>> ChangeSaleStus(string itemId, bool status)
-        {
-            return Ok(await _productService.ChangeSalesStatus(itemId, status));
-        }
-
-        [HttpGet("GetAllSalesProducts")]
-        public async Task<ActionResult> GetAllSalesProducts()
-        {
-            return Ok(await _productService.GetAllSalesProducts());
-        }
-
-
 
     }
 }

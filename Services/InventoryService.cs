@@ -1,6 +1,7 @@
 using CGullProject.Data;
 using CGullProject.Models;
 using CGullProject.Models.DTO;
+using Microsoft.EntityFrameworkCore;
 
 namespace CGullProject.Services
 {
@@ -11,6 +12,15 @@ namespace CGullProject.Services
         public InventoryService(ShopContext context)
         {
             _context = context;
+        }
+
+        public async Task<IEnumerable<Product>> GetInventory()
+        {
+            IEnumerable<Product> inventory =
+               await _context.Inventory.ToListAsync<Product>();
+
+
+            return inventory;
         }
 
         public async Task<bool> AddNewItem(ProductDTO p)
@@ -95,6 +105,40 @@ namespace CGullProject.Services
             } else {
                 return false;
             }
+        }
+        public async Task<IEnumerable<Product>> GetAllSalesItems()
+
+        {
+            IEnumerable<Product> inventory =
+               await _context.Inventory.ToListAsync<Product>();
+
+            List<Product> toReturn = new List<Product>();
+            foreach (Product product in inventory)
+            {
+                if (product.OnSale)
+                {
+                    toReturn.Add(product);
+                }
+            }
+
+            return toReturn;
+        }
+        public async Task<bool> ChangeSalesStatus(string itemId, bool status)
+        {
+            // search for the product in inventory
+            Product? product = await _context.Inventory.FindAsync(itemId);
+            if (product == null)
+            {
+                return false;
+            }
+
+            // change the status 
+            product.OnSale = status;
+
+            // save changes
+            await _context.SaveChangesAsync();
+
+            return true;
         }
 
 
