@@ -15,25 +15,65 @@ namespace CGullProject.Services
             _context = context;
         }
 
+        public async Task<IEnumerable<Admins>> GetAllAdmins()
+        {
+            IEnumerable<Admins> admin =
+               await _context.Admins.ToListAsync<Admins>();
+
+
+            return admin;
+        }
+
         public async Task<bool> Login(string username, string password)
         {
             IEnumerable<Admins> admin =  _context.Admins.Where(a => a.Username == username);
-                //?? throw new KeyNotFoundException($"User with {username} not found");
             
             if(!admin.Any())
             {
-                return false;
+                return false; // this username does not exist 
             }
 
             Admins a = admin.First();
 
-            if(a.Password == password)
+            if(a.Password == password) // check to make sure passwords match
             {
                 return true;
             }
             else
             {
                 return false;
+            }
+        }
+
+        public async Task<bool> AddAdmin(string currentU, string currentP, string username, string password)
+        {
+
+            if (Login(currentU, currentP).Result) // valid current Admin 
+            {
+                IEnumerable<Admins> admin = _context.Admins.Where(a => a.Username == username);
+
+                // make sure no username exists 
+                if (!admin.Any())
+                {
+                    Admins newAdmin = new()
+                    {
+                        Username = username,
+                        Password = password
+                    };
+
+                    // add and save changes
+                    await _context.Admins.AddAsync(newAdmin);
+                    await _context.SaveChangesAsync();
+
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            } else
+            {
+                    return false;
             }
         }
     }
