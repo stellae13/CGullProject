@@ -574,6 +574,16 @@ namespace CGullProject.Models
                         {
                             Username = "manager",
                             Password = "password"
+                        },
+                        new Admins()
+                        {
+                            Username = "thatmanryan",
+                            Password = "otto_are_you_married?"
+                        }, 
+                        new Admins()
+                        {
+                            Username ="o's_husband_44",
+                            Password = "password"
                         }
                     );
                 }

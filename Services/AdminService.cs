@@ -1,6 +1,7 @@
 ﻿using CGullProject.Data;
 using CGullProject.Models;
 using CGullProject.Services.ServiceInterfaces;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 
 namespace CGullProject.Services
@@ -16,10 +17,17 @@ namespace CGullProject.Services
 
         public async Task<bool> Login(string username, string password)
         {
-            Admins? admin = await _context.Admins.Where(a => a.Username == username).FirstAsync()
-                ?? throw new KeyNotFoundException($"User with {username} not found"); 
+            IEnumerable<Admins> admin =  _context.Admins.Where(a => a.Username == username);
+                //?? throw new KeyNotFoundException($"User with {username} not found");
+            
+            if(!admin.Any())
+            {
+                return false;
+            }
 
-            if(admin.Password == password)
+            Admins a = admin.First();
+
+            if(a.Password == password)
             {
                 return true;
             }
