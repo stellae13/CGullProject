@@ -37,7 +37,7 @@ namespace CGullProject
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             
-            builder.Services.AddScoped<IProductService, ProductService>();
+            builder.Services.AddScoped<IItemService, ItemService>();
             builder.Services.AddScoped<ICartService, CartService>();
             builder.Services.AddScoped<IReviewService, ReviewService>();
             builder.Services.AddScoped<IInventoryService, InventoryService>();

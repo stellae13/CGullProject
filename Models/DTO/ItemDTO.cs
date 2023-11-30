@@ -1,8 +1,8 @@
 ﻿namespace CGullProject.Models.DTO {
     /// <summary>
-    /// DAta transfer object for the Product entity
+    /// Data transfer object for the Item entity
     /// </summary>
-    public class ProductDTO
+    public class ItemDTO
     {
         public string Id { get; set; } = string.Empty;
 

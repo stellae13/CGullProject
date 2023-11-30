@@ -65,7 +65,7 @@ namespace CGullProject.Models
                 if (!context.Inventory.Any())
                 {
                     context.Inventory.AddRange(
-                    new Product
+                    new Item
                     {
                         Id = "000001",
                         Name = "Seagull Drink",
@@ -77,7 +77,7 @@ namespace CGullProject.Models
                         IsBundle = false,
                         OnSale = true
                     },
-                    new Product
+                    new Item
                     {
                         Id = "000002",
                         Name = "Seagull Chips",
@@ -90,7 +90,7 @@ namespace CGullProject.Models
                         OnSale = false
 
                     },
-                    new Product
+                    new Item
                     {
                         Id = "000003",
                         Name = "Seagull Cereal",
@@ -103,7 +103,7 @@ namespace CGullProject.Models
                         OnSale = true
 
                     },
-                    new Product
+                    new Item
                     {
                         Id = "000004",
                         Name = "Seagull Keychain",
@@ -116,7 +116,7 @@ namespace CGullProject.Models
                         OnSale = false
 
                     },
-                    new Product
+                    new Item
                     {
                         Id = "000005",
                         Name = "Seagull Action Figure",
@@ -129,7 +129,7 @@ namespace CGullProject.Models
                         OnSale = true
 
                     },
-                    new Product
+                    new Item
                     {
                         Id = "000006",
                         Name = "Seagull Ornament",
@@ -142,7 +142,7 @@ namespace CGullProject.Models
                         OnSale = true
 
                     },
-                    new Product
+                    new Item
                     {
                         Id = "000007",
                         Name = "Seagull Hat",
@@ -155,7 +155,7 @@ namespace CGullProject.Models
                         OnSale = false
 
                     },
-                    new Product
+                    new Item
                     {
                         Id = "000008",
                         Name = "Seagull Sweatshirt",
@@ -168,7 +168,7 @@ namespace CGullProject.Models
                         OnSale = true
 
                     },
-                    new Product
+                    new Item
                     {
                         Id = "000009",
                         Name = "Seagull T-Shirt",
@@ -181,7 +181,7 @@ namespace CGullProject.Models
                         OnSale = false
 
                     },
-                    new Product
+                    new Item
                     {
                         Id = "000010",
                         Name = "Seagull Sid Book",
@@ -194,7 +194,7 @@ namespace CGullProject.Models
                         OnSale = true
 
                     },
-                    new Product
+                    new Item
                     {
                         Id = "000011",
                         Name = "Seagull Soar Book",
@@ -207,7 +207,7 @@ namespace CGullProject.Models
                         OnSale = true
 
                     },
-                    new Product
+                    new Item
                     {
                         Id = "000012",
                         Name = "Jonathan Livingston Seagull Book",
@@ -220,7 +220,7 @@ namespace CGullProject.Models
                         OnSale = true
 
                     },
-                    new Product
+                    new Item
                     {
                         Id = "000013",
                         Name = "Seagull Board Game",
@@ -233,7 +233,7 @@ namespace CGullProject.Models
                         OnSale = true
 
                     },
-                    new Product
+                    new Item
                     {
                         Id = "000014",
                         Name = "Seagull Small Plushie",
@@ -246,7 +246,7 @@ namespace CGullProject.Models
                         OnSale = false
 
                     },
-                    new Product
+                    new Item
                     {
                         Id = "000015",
                         Name = "Seagull Big Plushie",
@@ -260,7 +260,7 @@ namespace CGullProject.Models
 
 
                     },
-                    new Product
+                    new Item
                     {
                         Id = "000016",
                         Name = "Adult Seagull Costume",
@@ -273,7 +273,7 @@ namespace CGullProject.Models
                         OnSale = false
 
                     },
-                    new Product
+                    new Item
                     {
                         Id = "000017",
                         Name = "Child Seagull Costume",
@@ -286,7 +286,7 @@ namespace CGullProject.Models
                         OnSale = true
 
                     },
-                     new Product
+                     new Item
                      {
                          Id = "000018",
                          Name = "Seagull Hat Costume",
@@ -299,7 +299,7 @@ namespace CGullProject.Models
                          OnSale = true
 
                      },
-                     new Product
+                     new Item
                      {
                          Id = "000019",
                          Name = "Seagull Makeup Kit",
@@ -312,7 +312,7 @@ namespace CGullProject.Models
                          OnSale = false
 
                      },
-                     new Product
+                     new Item
                      {
                          Id = "000020",
                          Name = "Sounds of the Gull",
@@ -325,7 +325,7 @@ namespace CGullProject.Models
                          OnSale = true
 
                      },
-                     new Product
+                     new Item
                      {
                          Id = "100021",
                          Name = "Costume Bundle",
@@ -338,7 +338,7 @@ namespace CGullProject.Models
                          OnSale = false
 
                      },
-                     new Product
+                     new Item
                      {
                          Id = "000023",
                          Name = "Seagull Teapot",
@@ -351,7 +351,7 @@ namespace CGullProject.Models
                          OnSale = true
 
                      },
-                     new Product
+                     new Item
                      {
                          Id = "000024",
                          Name = "Seagull 3D Phone Case",
@@ -364,7 +364,7 @@ namespace CGullProject.Models
                          OnSale = false
 
                      },
-                     new Product
+                     new Item
                      {
                          Id = "000025",
                          Name = "Seagull Painted Case",
@@ -377,7 +377,7 @@ namespace CGullProject.Models
                          OnSale = false
 
                      },
-                     new Product
+                     new Item
                      {
                          Id = "000026",
                          Name = "Seagull Jean Case",
@@ -390,7 +390,7 @@ namespace CGullProject.Models
                          OnSale = true
 
                      },
-                     new Product
+                     new Item
                      {
                          Id = "000027",
                          Name = "Seagull Mug",
@@ -403,7 +403,7 @@ namespace CGullProject.Models
                          OnSale = true
 
                      },
-                     new Product
+                     new Item
                      {
                          Id = "100028",
                          Name = "Seagull Plushies",
@@ -415,7 +415,7 @@ namespace CGullProject.Models
                          IsBundle = true,
                          OnSale = false
                      },
-                     new Product
+                     new Item
                      {
                          Id = "000029",
                          Name = "Decorative Seagull License Plate",
@@ -428,7 +428,7 @@ namespace CGullProject.Models
                          OnSale = true
 
                      },
-                     new Product { 
+                     new Item { 
                          Id = "000030",
                          Name = "Authentic Canned Seagull Meat",
                          CategoryId = 1,
@@ -439,7 +439,7 @@ namespace CGullProject.Models
                          IsBundle = false,
                          OnSale = true
                      },
-                     new Product
+                     new Item
                      {
                          Id = "000031",
                          Name = "Armored Seagull Figurine",

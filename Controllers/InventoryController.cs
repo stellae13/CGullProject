@@ -19,9 +19,9 @@ namespace CGullProject.Controllers
         }
 
         /// <summary>
-        /// Returns all Products present in the database.
+        /// Returns all Items present in the database.
         /// </summary>
-        /// <returns>IEnumerable&lt;Product&gt;</returns>
+        /// <returns><see cref="IEnumerable{Item}"/></returns>
         [HttpGet("GetInventory")]
         public async Task<ActionResult> GetAllItems()
         {
@@ -31,9 +31,9 @@ namespace CGullProject.Controllers
         }
 
         /// <summary>
-        /// Update the stock of a Product
+        /// Update the stock of an Item
         /// </summary>
-        /// <param name="itemId">Id of Product</param>
+        /// <param name="itemId">Id of Item</param>
         /// <param name="quantity">Quantity to set the stock to</param>
         /// <returns>Success/Failure</returns>
         [HttpPut("UpdateStock")]
@@ -44,7 +44,7 @@ namespace CGullProject.Controllers
         /// <summary>
         /// Increment or decrement the stock
         /// </summary>
-        /// <param name="itemId">Id of Product</param>
+        /// <param name="itemId">Id of Item</param>
         /// <param name="amount">Amount to increase(+) or decrease(-) the stock by</param>
         /// <returns>Success/Failure</returns>
         [HttpPut("AdjustStock")]
@@ -53,9 +53,9 @@ namespace CGullProject.Controllers
         }
 
         /// <summary>
-        /// Change the price of a Product
+        /// Change the price of an Item
         /// </summary>
-        /// <param name="itemId">Id of Product</param>
+        /// <param name="itemId">Id of Item</param>
         /// <param name="price">New price</param>
         /// <returns>Success/Failure</returns>
         [HttpPost("ChangePrice")]
@@ -64,13 +64,13 @@ namespace CGullProject.Controllers
         }
 
         /// <summary>
-        /// Add a new product to inventory
+        /// Add a new Item to the inventory
         /// </summary>
-        /// <param name="product">New product</param>
+        /// <param name="item">New item</param>
         /// <returns>Success/Failure</returns>
         [HttpPost("AddNewItem")]
-        public async Task<ActionResult<bool>> AddNewItem(ProductDTO product) {
-            return Ok(await _service.AddNewItem(product));
+        public async Task<ActionResult<bool>> AddNewItem(ItemDTO item) {
+            return Ok(await _service.AddNewItem(item));
         }
 
         [HttpGet("GetAllSalesItems")]
@@ -85,9 +85,6 @@ namespace CGullProject.Controllers
             return Ok(await _service.ChangeSalesStatus(itemId, status));
         }
  
-
-
-
     }
 
 }

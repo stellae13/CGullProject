@@ -2,28 +2,28 @@
 
 namespace CGullProject.Services.ServiceInterfaces
 {
-    public interface IProductService
+    public interface IItemService
     {
         /// <summary>
-        /// Add a new Product to the database
+        /// Add a new Item to the database
         /// </summary>
-        /// <param name="Product">Product product</param>
+        /// <param name="item">Item to add</param>
         /// <returns>bool</returns>
-        public Task<bool> AddProduct(Product Product);
+        public Task<bool> AddItem(Item item);
 
         /// <summary>
-        /// Remove a Product from the database
+        /// Remove an Item from the database
         /// </summary>
-        /// <param name="productId">string productId</param>
+        /// <param name="itemId">string itemId</param>
         /// <returns>bool</returns>
-        public Task<bool> RemoveProduct(string productId);
+        public Task<bool> RemoveItem(string itemId);
         
         /// <summary>
-        /// Add a Product to a specific Cart
+        /// Add an Item to a specific Cart
         /// </summary>
         /// <param name="cartId">Id of the cart</param>
-        /// <param name="itemId">Id of the product</param>
-        /// <param name="quantity">Number of the product to add</param>
+        /// <param name="itemId">Id of the item</param>
+        /// <param name="quantity">Number of the Item to add</param>
         /// <returns>bool</returns>
         public Task<bool> AddItemToCart(Guid cartId, string itemId, int quantity);
 
@@ -36,25 +36,25 @@ namespace CGullProject.Services.ServiceInterfaces
         public Task<bool> RemoveItemFromCart(Guid cartId, string itemId);
 
         /// <summary>
-        /// Get products that match keywords provided, sorted by relevance.
+        /// Get Items that match keywords provided, sorted by relevance.
         /// </summary>
         /// <param name="keywords"></param>
-        /// <returns>IEnumerable&lt;Product&gt;</returns>
-        public Task<IEnumerable<Product>> GetProductsByKeyword(String keywords);
+        /// <returns><see cref="IEnumerable{Item}"/></returns>
+        public Task<IEnumerable<Item>> GetItemsByKeyword(String keywords);
 
         /// <summary>
-        /// Get a list of products by a string of delimited Ids
+        /// Get a list of Items by a string of delimited Ids
         /// </summary>
         /// <param name="ids">String of delimited ids</param>
-        /// <returns>IEnumerable&lt;Product&gt;</returns>
-        public Task<IEnumerable<Product>> GetProductsById(String ids);
+        /// <returns><see cref="IEnumerable{Item}"/></returns>
+        public Task<IEnumerable<Item>> GetItemsById(String ids);
 
         /// <summary>
-        /// Get a list of Products that belong to a specific category
+        /// Get a list of Items that belong to a specific category
         /// </summary>
         /// <param name="categoryId">Id of the category</param>
-        /// <returns>IEnumerable&lt;Product&gt;</returns>
-        public Task<IEnumerable<Product>> GetProductsbyCategory(int categoryId);
+        /// <returns><see cref="IEnumerable{Item}"/></returns>
+        public Task<IEnumerable<Item>> GetItemsByCategory(int categoryId);
 
         /// <summary>
         /// Get a list all categories from database
@@ -63,19 +63,19 @@ namespace CGullProject.Services.ServiceInterfaces
         public Task<IEnumerable<Category>> GetAllCategories();
 
         /// <summary>
-        /// Get a list of Products that belong to a specific Bundle
+        /// Get a list of Items that belong to a specific Bundle
         /// </summary>
         /// <param name="bundleIds">ID of the bundles</param>
-        /// <returns>IEnumerable&lt;Product&gt;</returns>
-        public Task<IEnumerable<Product>> GetBundledProducts(String bundleIds);
+        /// <returns><see cref="IEnumerable{Item}"/></returns>
+        public Task<IEnumerable<Item>> GetBundledItems(String bundleIds);
 
         /*public Task<IEnumerable<Bundle>> GetAssociatedBundles(String itemId);*/
 
         /// <summary>
-        /// Update the stock of a specific product
+        /// Update the stock of a specific Item
         /// </summary>
-        /// <param name="id">Id of the product</param>
-        /// <param name="newQuantity">New quanitty of the product</param>
+        /// <param name="id">Id of the Item</param>
+        /// <param name="newQuantity">New quanitty of the item</param>
         /// <returns></returns>
         public Task<bool> UpdateStock(string id, int newQuantity);
 

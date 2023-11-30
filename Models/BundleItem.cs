@@ -19,5 +19,5 @@ public class BundleItem {
     [ForeignKey("Product")]
     [Column(TypeName = "varchar(6)")]
     public string ProductId { get; set; } = "";
-    public Product Product { get; set; }
+    public Item Product { get; set; }
 }

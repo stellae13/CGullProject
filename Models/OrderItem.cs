@@ -19,7 +19,7 @@ namespace CGullProject.Models
         [Required]
         [ForeignKey("Product")]
         public string ProductId { get; set; } 
-        public Product product { get; set; }
+        public Item product { get; set; }
 
         [Required]
         public int Quantity { get; set; }
