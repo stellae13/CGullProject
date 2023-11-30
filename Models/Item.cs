@@ -7,7 +7,7 @@ namespace CGullProject.Models;
 /// <summary>
 /// Model for an item in the shop
 /// </summary>
-public class Product {
+public class Item {
 
     [Required]
     [Column(TypeName = "varchar(6)")]

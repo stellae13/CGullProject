@@ -21,16 +21,16 @@ namespace CGullProject.Services
             return reviews;
         }
 
-        public async Task<bool> AddReview(CreateReviewDTO review, string productID)
+        public async Task<bool> AddReview(CreateReviewDTO review, string itemId)
         {
-            Review r = new Review(review, productID);
+            Review r = new Review(review, itemId);
             try
             {
                 await _Context.Review.AddAsync(r);
                 await _Context.SaveChangesAsync();
-                var avgRating = _Context.Review.Where(c => c.InventoryId == productID).Average(c => c.rating);
-                var product = _Context.Inventory.First(c => c.Id == productID);
-                product.Rating = avgRating;
+                var avgRating = _Context.Review.Where(c => c.InventoryId == itemId).Average(c => c.rating);
+                var item = _Context.Inventory.First(c => c.Id == itemId);
+                item.Rating = avgRating;
                 await _Context.SaveChangesAsync();
             }
             catch(Exception e )

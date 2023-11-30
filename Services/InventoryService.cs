@@ -14,25 +14,25 @@ namespace CGullProject.Services
             _context = context;
         }
 
-        public async Task<IEnumerable<Product>> GetInventory()
+        public async Task<IEnumerable<Item>> GetInventory()
         {
-            IEnumerable<Product> inventory =
-               await _context.Inventory.ToListAsync<Product>();
+            IEnumerable<Item> inventory =
+               await _context.Inventory.ToListAsync<Item>();
 
 
             return inventory;
         }
 
-        public async Task<bool> AddNewItem(ProductDTO p)
+        public async Task<bool> AddNewItem(ItemDTO p)
         {
-            // search for existing product
-            Product? product = await _context.Inventory.FindAsync(p.Id);
-            if (product != null) {
+            // search for existing item
+            Item? item = await _context.Inventory.FindAsync(p.Id);
+            if (item != null) {
                 return false;
             }
 
-            // create new product
-            Product newProduct = new() {
+            // create new item
+            Item newItem = new() {
                 Id = p.Id,
                 Name = p.Name,
                 CategoryId = p.CategoryId,
@@ -44,7 +44,7 @@ namespace CGullProject.Services
             };
 
             // add and save changes
-            await _context.Inventory.AddAsync(newProduct);
+            await _context.Inventory.AddAsync(newItem);
             await _context.SaveChangesAsync();
 
             return true;
@@ -52,15 +52,15 @@ namespace CGullProject.Services
 
         public async Task<bool> ChangePrice(string itemId, decimal newPrice)
         {
-            // search for the product in inventory
-            Product? product = await _context.Inventory.FindAsync(itemId);
-            if (product == null) {
+            // search for the item in inventory
+            Item? item = await _context.Inventory.FindAsync(itemId);
+            if (item == null) {
                 return false;
             }
 
             // set the new price
-            product.MSRP = newPrice;
-            product.SalePrice = newPrice;
+            item.MSRP = newPrice;
+            item.SalePrice = newPrice;
 
             // save changes
             await _context.SaveChangesAsync();
@@ -70,15 +70,15 @@ namespace CGullProject.Services
 
         public async Task<bool> UpdateStock(string itemId, int quantity)
         {
-            // search for the product in inventory
-            Product? product = await _context.Inventory.FindAsync(itemId);
-            if (product == null) {
+            // search for the item in inventory
+            Item? item = await _context.Inventory.FindAsync(itemId);
+            if (item == null) {
                 return false;
             }
 
             // no negative stock values
             if (quantity >= 0) {
-                product.Stock = quantity;
+                item.Stock = quantity;
 
                 // save changes
                 await _context.SaveChangesAsync();
@@ -89,15 +89,15 @@ namespace CGullProject.Services
         }
 
         public async Task<bool> AdjustStock(string itemId, int amount) {
-            // search for the product in inventory
-            Product? product = await _context.Inventory.FindAsync(itemId);
-            if (product == null) {
+            // search for the item in inventory
+            Item? item = await _context.Inventory.FindAsync(itemId);
+            if (item == null) {
                 return false;
             }
 
             // no negative stock values
-            if (product.Stock + amount >= 0) {
-                product.Stock += amount;
+            if (item.Stock + amount >= 0) {
+                item.Stock += amount;
 
                 // save changes
                 await _context.SaveChangesAsync();
@@ -106,18 +106,18 @@ namespace CGullProject.Services
                 return false;
             }
         }
-        public async Task<IEnumerable<Product>> GetAllSalesItems()
+        public async Task<IEnumerable<Item>> GetAllSalesItems()
 
         {
-            IEnumerable<Product> inventory =
-               await _context.Inventory.ToListAsync<Product>();
+            IEnumerable<Item> inventory =
+               await _context.Inventory.ToListAsync<Item>();
 
-            List<Product> toReturn = new List<Product>();
-            foreach (Product product in inventory)
+            List<Item> toReturn = new List<Item>();
+            foreach (Item item in inventory)
             {
-                if (product.OnSale)
+                if (item.OnSale)
                 {
-                    toReturn.Add(product);
+                    toReturn.Add(item);
                 }
             }
 
@@ -125,15 +125,15 @@ namespace CGullProject.Services
         }
         public async Task<bool> ChangeSalesStatus(string itemId, bool status)
         {
-            // search for the product in inventory
-            Product? product = await _context.Inventory.FindAsync(itemId);
-            if (product == null)
+            // search for the item in inventory
+            Item? item = await _context.Inventory.FindAsync(itemId);
+            if (item == null)
             {
                 return false;
             }
 
             // change the status 
-            product.OnSale = status;
+            item.OnSale = status;
 
             // save changes
             await _context.SaveChangesAsync();
