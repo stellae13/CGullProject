@@ -11,14 +11,9 @@ namespace CGullProject.Models.DTO
     public class CartDTO
     {
         public Guid Id { get; set; }
-        public string Name { get; set; }
+        public string Name { get; set; } = "";
 
-        public IEnumerable<AbsCartItemView> Contents { get; set; }
-
-
-
-
-
+        public IEnumerable<AbsCartItemView> Contents { get; set; } = new List<AbsCartItemView>();
 
         public abstract class AbsCartItemView
         {

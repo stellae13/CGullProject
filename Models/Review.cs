@@ -36,7 +36,7 @@ namespace CGullProject.Models
         
         public Review() {}
 
-        public Review(CreateReviewDTO reviewDTO, String id)
+        public Review(CreateReviewDTO reviewDTO, string id)
         {
             CartId = reviewDTO.CartId;
             ItemId = id;
