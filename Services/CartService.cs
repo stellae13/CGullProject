@@ -20,29 +20,29 @@ namespace CGullProject.Services
 
         public async Task<CartDTO> GetCart(Guid cartId)
         {
-            Dictionary<String, Product> productTable = 
-                await _context.Inventory.ToDictionaryAsync<Product, String>(entry => entry.Id);
+            Dictionary<String, Item> itemTable = 
+                await _context.Inventory.ToDictionaryAsync<Item, String>(entry => entry.Id);
             Cart? cart =
                 _context.Cart.Where(c => c.Id == cartId).Select(c => c).Include(c => c.CartItems).First() 
                     ?? throw new KeyNotFoundException($"Cart with Id {cartId} not found");
 
             IEnumerable<CartDTO.AbsCartItemView> contents = cart.CartItems.Select((Func<CartItem, CartDTO.AbsCartItemView>) 
                 (entry => {
-                    Product prod = productTable[entry.ProductId];
+                    Item prod = itemTable[entry.ProductId];
                     // We can omit this part if we feel that we don't need to show the
-                    // bundled products associated with a bundle to the end user.
-                    if (prod.isBundle)
+                    // bundled items associated with a bundle to the end user.
+                    if (prod.IsBundle)
                     {
                         Bundle bundle = 
                             _context.Bundle.Where(b => b.ProductId == prod.Id).Select(b => b).Include(b => b.BundleItems).First();
 
 
 
-                        IEnumerable<String> bundledProductIds =
+                        IEnumerable<String> bundledItemIds =
                         from bundleProd in bundle.BundleItems
                             select bundleProd.ProductId;
 
-                        return new CartDTO.BundleView(prod.Id, entry.Quantity, entry.Quantity * prod.SalePrice, bundledProductIds);
+                        return new CartDTO.BundleView(prod.Id, entry.Quantity, entry.Quantity * prod.SalePrice, bundledItemIds);
                     }
                     return new CartDTO.ProductView(prod.Id, entry.Quantity, entry.Quantity * prod.SalePrice);
                 }));
@@ -70,28 +70,36 @@ namespace CGullProject.Services
 
         public async Task<TotalsDTO> GetTotals(Guid cartId)
         {
-            Dictionary<String, Product> productTable = 
-                await _context.Inventory.ToDictionaryAsync<Product, String>(itm=> itm.Id);
-            // The products this cart contains tupled together with the quantity of the item in the cart
+            Dictionary<String, Item> itemTable = 
+                await _context.Inventory.ToDictionaryAsync<Item, String>(itm=> itm.Id);
+            // The items this cart contains tupled together with the quantity of the item in the cart
             Cart? cart = 
                 _context.Cart.Where(c => c.Id == cartId).Select(c => c).Include(c => c.CartItems).First()
                     ?? throw new KeyNotFoundException($"Cart with ID {cartId} not found.");
-            IEnumerable<Tuple<Product, int>> cartContents =
-                cart.CartItems.Select((Func<CartItem, Tuple<Product, int>>) (
+            IEnumerable<Tuple<Item, int>> cartContents =
+                cart.CartItems.Select((Func<CartItem, Tuple<Item, int>>) (
                 itm => {
-                    return new Tuple<Product, int>(productTable[itm.ProductId], itm.Quantity);
+                    return new Tuple<Item, int>(itemTable[itm.ProductId], itm.Quantity);
                 }));
 
             TotalsDTO ret = 
                 new() { BundleTotal = 0, RegularTotal = 0, TotalWithTax = 0 };
 
-            // Return outcome of Aggregate of the product totals, split by bundle and item totals.
-            ret = cartContents.Aggregate<Tuple<Product, int>, TotalsDTO>(ret,
-                (Func<TotalsDTO, Tuple<Product, int>, TotalsDTO>)((curr, nxt) => {
+            // Return outcome of Aggregate of the item totals, split by bundle and item totals.
+            ret = cartContents.Aggregate<Tuple<Item, int>, TotalsDTO>(ret,
+                (Func<TotalsDTO, Tuple<Item, int>, TotalsDTO>)((curr, nxt) => {
+
+                    decimal toAdd;
+                    if (nxt.Item1.OnSale)
+                    {
+                        toAdd = (nxt.Item1.SalePrice * nxt.Item2);
+                    }
+                    else
+                    {
+                        toAdd = (nxt.Item1.MSRP * nxt.Item2);
+                    }
                     
-                    decimal toAdd = (nxt.Item1.SalePrice * nxt.Item2);
-                    
-                    if (nxt.Item1.isBundle)
+                    if (nxt.Item1.IsBundle)
                         ret.BundleTotal += toAdd;
                     else
                         ret.RegularTotal += toAdd;

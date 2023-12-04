@@ -65,270 +65,280 @@ namespace CGullProject.Models
                 if (!context.Inventory.Any())
                 {
                     context.Inventory.AddRange(
-                    new Product
+                    new Item
                     {
                         Id = "000001",
                         Name = "Seagull Drink",
                         CategoryId = 1,
                         MSRP = 1.75M,
-                        SalePrice = 1.75M,
+                        SalePrice = 1.60M,
                         Rating = 0.0M,
                         Stock = 20,
-                        isBundle = false
+                        IsBundle = false,
+                        OnSale = true
                     },
-                    new Product
+                    new Item
                     {
                         Id = "000002",
                         Name = "Seagull Chips",
                         CategoryId = 1,
-                        SalePrice = 5.99M,
+                        SalePrice = 5.80M,
                         MSRP = 5.99M,
                         Rating = 4.5M,
                         Stock = 25,
-                        isBundle = false
+                        IsBundle = false,
+                        OnSale = false
 
                     },
-                    new Product
+                    new Item
                     {
                         Id = "000003",
                         Name = "Seagull Cereal",
                         CategoryId = 1,
                         MSRP = 69.99M,
-                        SalePrice = 69.99M,
+                        SalePrice = 67.99M,
                         Rating = 4.2M,
                         Stock = 25,
-                        isBundle = false
+                        IsBundle = false,
+                        OnSale = true
 
                     },
-                    new Product
+                    new Item
                     {
                         Id = "000004",
                         Name = "Seagull Keychain",
                         CategoryId = 2,
                         MSRP = 12.99M,
-                        SalePrice = 12.99M,
+                        SalePrice = 11.99M,
                         Rating = 4.0M,
                         Stock = 30,
-                        isBundle = false
+                        IsBundle = false,
+                        OnSale = false
 
                     },
-                    new Product
+                    new Item
                     {
                         Id = "000005",
                         Name = "Seagull Action Figure",
                         CategoryId = 2,
                         MSRP = 50.99M,
-                        SalePrice = 50.99M,
+                        SalePrice = 47.99M,
                         Rating = 5.0M,
                         Stock = 20,
-                        isBundle = false
+                        IsBundle = false,
+                        OnSale = true
 
                     },
-                    new Product
+                    new Item
                     {
                         Id = "000006",
                         Name = "Seagull Ornament",
                         CategoryId = 2,
                         MSRP = 10.99M,
-                        SalePrice = 10.99M,
+                        SalePrice = 8.99M,
                         Rating = 4.7M,
                         Stock = 50,
-                        isBundle = false
+                        IsBundle = false,
+                        OnSale = true
 
                     },
-                    new Product
+                    new Item
                     {
                         Id = "000007",
                         Name = "Seagull Hat",
                         CategoryId = 3,
                         MSRP = 29.99M,
-                        SalePrice = 29.99M,
+                        SalePrice = 28.99M,
                         Rating = 4.3M,
                         Stock = 12,
-                        isBundle = false
+                        IsBundle = false,
+                        OnSale = false
 
                     },
-                    new Product
+                    new Item
                     {
                         Id = "000008",
                         Name = "Seagull Sweatshirt",
                         CategoryId = 3,
                         MSRP = 49.99M,
-                        SalePrice = 49.99M,
+                        SalePrice = 47.99M,
                         Rating = 4.6M,
                         Stock = 8,
-                        isBundle = false
+                        IsBundle = false,
+                        OnSale = true
 
                     },
-                    new Product
+                    new Item
                     {
                         Id = "000009",
                         Name = "Seagull T-Shirt",
                         CategoryId = 3,
                         MSRP = 40.99M,
-                        SalePrice = 40.99M,
+                        SalePrice = 39.99M,
                         Rating = 4.1M,
                         Stock = 40,
-                        isBundle = false
+                        IsBundle = false,
+                        OnSale = false
 
                     },
-                    new Product
+                    new Item
                     {
                         Id = "000010",
                         Name = "Seagull Sid Book",
                         CategoryId = 4,
                         MSRP = 23.49M,
-                        SalePrice = 23.49M,
+                        SalePrice = 22.49M,
                         Rating = 2.8M,
                         Stock = 50,
-                        isBundle = false
+                        IsBundle = false,
+                        OnSale = true
 
                     },
-                    new Product
+                    new Item
                     {
                         Id = "000011",
                         Name = "Seagull Soar Book",
                         CategoryId = 4,
                         MSRP = 21.49M,
-                        SalePrice = 21.49M,
+                        SalePrice = 20.49M,
                         Rating = 4.8M,
                         Stock = 50,
-                        isBundle = false
+                        IsBundle = false,
+                        OnSale = true
 
                     },
-                    new Product
+                    new Item
                     {
                         Id = "000012",
                         Name = "Jonathan Livingston Seagull Book",
                         CategoryId = 4,
                         MSRP = 29.49M,
-                        SalePrice = 29.49M,
+                        SalePrice = 28.49M,
                         Rating = 2.8M,
                         Stock = 100,
-                        isBundle = false
+                        IsBundle = false,
+                        OnSale = true
 
                     },
-                    new Product
+                    new Item
                     {
                         Id = "000013",
                         Name = "Seagull Board Game",
                         CategoryId = 5,
                         MSRP = 25.49M,
-                        SalePrice = 25.49M,
+                        SalePrice = 24.49M,
                         Rating = 3.8M,
                         Stock = 20,
-                        isBundle = false
+                        IsBundle = false,
+                        OnSale = true
 
                     },
-                    new Product
+                    new Item
                     {
                         Id = "000014",
                         Name = "Seagull Small Plushie",
                         CategoryId = 5,
                         MSRP = 9.49M,
-                        SalePrice = 9.49M,
+                        SalePrice = 8.49M,
                         Rating = 4.8M,
                         Stock = 100,
-                        isBundle = false
+                        IsBundle = false,
+                        OnSale = false
 
                     },
-                    new Product
+                    new Item
                     {
                         Id = "000015",
                         Name = "Seagull Big Plushie",
                         CategoryId = 5,
                         MSRP = 19.49M,
-                        SalePrice = 19.49M,
+                        SalePrice = 18.49M,
                         Rating = 4.8M,
                         Stock = 100,
-                        isBundle = false
+                        IsBundle = false,
+                        OnSale = true
 
 
                     },
-                    new Product
+                    new Item
                     {
                         Id = "000016",
                         Name = "Adult Seagull Costume",
                         CategoryId = 6,
                         MSRP = 119.49M,
-                        SalePrice = 119.49M,
+                        SalePrice = 109.49M,
                         Rating = 4.8M,
                         Stock = 30,
-                        isBundle = false
+                        IsBundle = false,
+                        OnSale = false
 
                     },
-                    new Product
+                    new Item
                     {
                         Id = "000017",
                         Name = "Child Seagull Costume",
                         CategoryId = 6,
                         MSRP = 79.49M,
-                        SalePrice = 79.49M,
+                        SalePrice = 69.49M,
                         Rating = 4.8M,
                         Stock = 35,
-                        isBundle = false
+                        IsBundle = false,
+                        OnSale = true
 
                     },
-                     new Product
+                     new Item
                      {
                          Id = "000018",
                          Name = "Seagull Hat Costume",
                          CategoryId = 6,
                          MSRP = 19.49M,
-                         SalePrice = 19.49M,
+                         SalePrice = 18.49M,
                          Rating = 4.8M,
                          Stock = 35,
-                         isBundle = false
+                         IsBundle = false,
+                         OnSale = true
 
                      },
-                     new Product
+                     new Item
                      {
                          Id = "000019",
                          Name = "Seagull Makeup Kit",
                          CategoryId = 7,
                          MSRP = 19.49M,
-                         SalePrice = 19.49M,
+                         SalePrice = 18.49M,
                          Rating = 4.8M,
                          Stock = 25,
-                         isBundle = false
+                         IsBundle = false,
+                         OnSale = false
 
                      },
-                     new Product
+                     new Item
                      {
                          Id = "000020",
                          Name = "Sounds of the Gull",
                          CategoryId = 7,
                          MSRP = 18.99M,
-                         SalePrice = 18.99M,
+                         SalePrice = 16.99M,
                          Rating = 4.9M,
                          Stock = 35,
-                         isBundle = false
+                         IsBundle = false,
+                         OnSale = true
 
                      },
-                     new Product
+                     new Item
                      {
                          Id = "100021",
                          Name = "Costume Bundle",
                          CategoryId = 6,
-                         MSRP = 18.99M,
-                         SalePrice = 18.99M,
+                         MSRP = 189.99M,
+                         SalePrice = 179.99M,
                          Rating = 4.9M,
                          Stock = 1,
-                         isBundle = true
+                         IsBundle = true,
+                         OnSale = false
 
                      },
-                     new Product
-                     {
-                         Id = "100022",
-                         Name = "Costume Bundle with Makeup",
-                         CategoryId = 6,
-                         MSRP = 18.99M,
-                         SalePrice = 18.99M,
-                         Rating = 4.9M,
-                         Stock = 1,
-                         isBundle = true
-                     },
-                     new Product
+                     new Item
                      {
                          Id = "000023",
                          Name = "Seagull Teapot",
@@ -337,10 +347,11 @@ namespace CGullProject.Models
                          SalePrice = 89.99M,
                          Rating = 4.9M,
                          Stock = 40,
-                         isBundle = false
+                         IsBundle = false,
+                         OnSale = true
 
                      },
-                     new Product
+                     new Item
                      {
                          Id = "000024",
                          Name = "Seagull 3D Phone Case",
@@ -349,10 +360,11 @@ namespace CGullProject.Models
                          SalePrice = 19.49M,
                          Rating = 3.8M,
                          Stock = 25,
-                         isBundle = false
+                         IsBundle = false,
+                         OnSale = false
 
                      },
-                     new Product
+                     new Item
                      {
                          Id = "000025",
                          Name = "Seagull Painted Case",
@@ -361,10 +373,11 @@ namespace CGullProject.Models
                          SalePrice = 15.99M,
                          Rating = 4.5M,
                          Stock = 35,
-                         isBundle = false
+                         IsBundle = false,
+                         OnSale = false
 
                      },
-                     new Product
+                     new Item
                      {
                          Id = "000026",
                          Name = "Seagull Jean Case",
@@ -373,10 +386,11 @@ namespace CGullProject.Models
                          SalePrice = 10.99M,
                          Rating = 4.9M,
                          Stock = 45,
-                         isBundle = false
+                         IsBundle = false,
+                         OnSale = true
 
                      },
-                     new Product
+                     new Item
                      {
                          Id = "000027",
                          Name = "Seagull Mug",
@@ -385,10 +399,11 @@ namespace CGullProject.Models
                          SalePrice = 15.99M,
                          Rating = 4.2M,
                          Stock = 50,
-                         isBundle = false
+                         IsBundle = false,
+                         OnSale = true
 
                      },
-                     new Product
+                     new Item
                      {
                          Id = "100028",
                          Name = "Seagull Plushies",
@@ -397,9 +412,10 @@ namespace CGullProject.Models
                          SalePrice = 15.99M,
                          Rating = 4.2M,
                          Stock = 1,
-                         isBundle = true
+                         IsBundle = true,
+                         OnSale = false
                      },
-                     new Product
+                     new Item
                      {
                          Id = "000029",
                          Name = "Decorative Seagull License Plate",
@@ -408,9 +424,11 @@ namespace CGullProject.Models
                          SalePrice = 35.99M,
                          Rating = 4.2M,
                          Stock = 20,
-                         isBundle = false
+                         IsBundle = false,
+                         OnSale = true
+
                      },
-                     new Product { 
+                     new Item { 
                          Id = "000030",
                          Name = "Authentic Canned Seagull Meat",
                          CategoryId = 1,
@@ -418,7 +436,20 @@ namespace CGullProject.Models
                          SalePrice = 2M,
                          Rating = 1M,
                          Stock = 100,
-                         isBundle = false
+                         IsBundle = false,
+                         OnSale = true
+                     },
+                     new Item
+                     {
+                         Id = "000031",
+                         Name = "Armored Seagull Figurine",
+                         CategoryId = 2,
+                         MSRP = 30M,
+                         SalePrice = 29M,
+                         Rating = 1M,
+                         Stock = 100,
+                         IsBundle = false,
+                         OnSale = true
                      }
                      );
                 }
@@ -464,13 +495,6 @@ namespace CGullProject.Models
                         },
                         new Bundle()
                         {
-                            ProductId = "100021",
-                            StartDate = DateTime.Now,
-                            EndDate = DateTime.Now + TimeSpan.FromDays(100)
-
-                        },
-                        new Bundle()
-                        {
                             ProductId = "100022",
                             StartDate = DateTime.Now,
                             EndDate = DateTime.Now + TimeSpan.FromDays(100)
@@ -505,24 +529,6 @@ namespace CGullProject.Models
                         },
                         new BundleItem()
                         {
-                            BundleId = "100021",
-                            ProductId = "000016"
-
-                        },
-                        new BundleItem()
-                        {
-                            BundleId = "100021",
-                            ProductId = "000017"
-
-                        },
-                        new BundleItem()
-                        {
-                            BundleId = "100021",
-                            ProductId = "000019"
-
-                        },
-                        new BundleItem()
-                        {
                             BundleId = "100022",
                             ProductId = "000010"
 
@@ -553,6 +559,32 @@ namespace CGullProject.Models
                         }
                     );
 
+                }
+
+                if (!context.Admins.Any())
+                {
+                    context.AddRange(
+                        new Admins()
+                        {
+                            Username = "stellagarcia",
+                            Password = "password"
+                        },
+                        new Admins()
+                        {
+                            Username = "manager",
+                            Password = "password"
+                        },
+                        new Admins()
+                        {
+                            Username = "thatmanryan",
+                            Password = "otto_are_you_married?"
+                        }, 
+                        new Admins()
+                        {
+                            Username ="o's_husband_44",
+                            Password = "password"
+                        }
+                    );
                 }
 
                 context.SaveChanges();

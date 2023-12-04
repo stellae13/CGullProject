@@ -120,6 +120,20 @@ namespace CGullProject.Migrations
                     b.ToTable("Address");
                 });
 
+            modelBuilder.Entity("CGullProject.Models.Admins", b =>
+                {
+                    b.Property<string>("Username")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Username");
+
+                    b.ToTable("Admins", (string)null);
+                });
+
             modelBuilder.Entity("CGullProject.Models.Cart", b =>
                 {
                     b.Property<Guid>("Id")
@@ -183,12 +197,22 @@ namespace CGullProject.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsBundle")
+                        .HasColumnType("bit");
+
                     b.Property<decimal>("MSRP")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("varchar(32)");
+
+                    b.Property<bool>("OnSale")
+                        .HasColumnType("bit");
 
                     b.Property<decimal>("Rating")
                         .HasColumnType("decimal(3,2)");
@@ -198,9 +222,6 @@ namespace CGullProject.Migrations
 
                     b.Property<int>("Stock")
                         .HasColumnType("int");
-
-                    b.Property<bool>("isBundle")
-                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 

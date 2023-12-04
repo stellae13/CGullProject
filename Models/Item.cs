@@ -7,7 +7,7 @@ namespace CGullProject.Models;
 /// <summary>
 /// Model for an item in the shop
 /// </summary>
-public class Product {
+public class Item {
 
     [Required]
     [Column(TypeName = "varchar(6)")]
@@ -41,7 +41,11 @@ public class Product {
     public int Stock { get; set; }
 
     [Required]
-    public bool isBundle {  get; set; }
+    public bool IsBundle {  get; set; }
+
+    public String Description { get; set; } = "";
+
+    public bool OnSale { get; set; } = false;
 
     public ICollection<Review> Reviews { get; }
 }

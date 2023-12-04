@@ -99,7 +99,7 @@ namespace CGullProject.Migrations
                     SalePrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Rating = table.Column<decimal>(type: "decimal(3,2)", nullable: false),
                     Stock = table.Column<int>(type: "int", nullable: false),
-                    isBundle = table.Column<bool>(type: "bit", nullable: false)
+                    IsBundle = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {

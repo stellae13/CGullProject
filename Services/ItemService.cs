@@ -5,17 +5,17 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CGullProject.Services
 {
-    public class ProductService : IProductService
+    public class ItemService : IItemService
        
     {
         private readonly ShopContext _context;
 
-        public ProductService(ShopContext context)
+        public ItemService(ShopContext context)
         {
             _context = context;
         }
 
-        public async Task<bool> AddProduct(Product Product)
+        public async Task<bool> AddItem(Item item)
         {
             throw new NotImplementedException();
         }
@@ -78,40 +78,43 @@ namespace CGullProject.Services
         }
 
 
+        public async Task<bool> RemoveItemFromCart(Guid cartId, string itemId) {
+            var record = await _context.CartItem.FindAsync(cartId, itemId);
+            if (record == null) {
+                return false;
+            } else {
+                _context.CartItem.Remove(record);
+                await _context.SaveChangesAsync();
+
+                return true;
+            }
+        }
+
         public async Task<IEnumerable<Category>> GetAllCategories()
         {
             List<Category> categories = await _context.Category.ToListAsync();
             return categories;
         }
 
-        public async Task<IEnumerable<Product>> GetAllProducts()
+        public async Task<IEnumerable<Item>> GetItemsByCategory(int categoryId)
         {
-            IEnumerable<Product> inventory =
-               await _context.Inventory.ToListAsync<Product>();
+            List<Item> items = new List<Item>();
 
-         
-            return inventory;
+            items = await _context.Inventory.Where( e => e.CategoryId == categoryId ).ToListAsync();
+            return items;
         }
 
-        public async Task<IEnumerable<Product>> GetProductsbyCategory(int categoryId)
-        {
-            List<Product> products = new List<Product>();
-
-            products = await _context.Inventory.Where( e => e.CategoryId == categoryId ).ToListAsync();
-            return products;
-        }
-
-        public async Task<IEnumerable<Product>> GetProductsById(string productIDs)
+        public async Task<IEnumerable<Item>> GetItemsById(string itemIds)
 
         {
 
             // Request supplies string with ampersand-delim'd to easily split
-            String[] ids = productIDs.Split("&");
+            String[] ids = itemIds.Split("&");
 
-            List<Product> itemsById = new();  // The sublist of items to return.
+            List<Item> itemsById = new();  // The sublist of items to return.
 
-            Dictionary<String, Product> inventoryTable =
-                await _context.Inventory.ToDictionaryAsync<Product, String>(itm => itm.Id);
+            Dictionary<String, Item> inventoryTable =
+                await _context.Inventory.ToDictionaryAsync<Item, String>(itm => itm.Id);
 
             foreach (string id in ids)
             {
@@ -121,7 +124,7 @@ namespace CGullProject.Services
                     continue;
                 try
                 {
-                    Product itm = inventoryTable[id];
+                    Item itm = inventoryTable[id];
                     itemsById.Add(itm);
                 }
                 catch (KeyNotFoundException e)
@@ -153,7 +156,7 @@ namespace CGullProject.Services
             return ret;
         }
 
-        public async Task<IEnumerable<Product>> GetBundledProducts(String bundleId) 
+        public async Task<IEnumerable<Item>> GetBundledItems(String bundleId) 
         {
             if (bundleId[0] != '1')
                 throw new BadHttpRequestException(
@@ -161,17 +164,17 @@ namespace CGullProject.Services
             if (bundleId.Length != 6)
                 throw new BadHttpRequestException(
                     $"Bundle ID malformatted {bundleId}.");
-            Dictionary<String, Product> productTable = 
-                await _context.Inventory.ToDictionaryAsync<Product, String>(p => p.Id);
+            Dictionary<String, Item> itemTable = 
+                await _context.Inventory.ToDictionaryAsync<Item, String>(p => p.Id);
             try
             {
                 Bundle? bundle =
                     _context.Bundle.Where(b => b.ProductId == bundleId).Select(b => b).Include(b => b.BundleItems).First();
 
-                IEnumerable<Product> ret =
+                IEnumerable<Item> ret =
                     from bndItm in bundle.BundleItems
-                    where productTable.ContainsKey(bndItm.ProductId)
-                    select productTable[bndItm.ProductId];
+                    where itemTable.ContainsKey(bndItm.ProductId)
+                    select itemTable[bndItm.ProductId];
                 return ret;
             }
             catch (InvalidOperationException e)
@@ -194,15 +197,15 @@ namespace CGullProject.Services
         }*/
 
 
-        public async Task<IEnumerable<Product>> GetProductsByKeyword(String keywords)
+        public async Task<IEnumerable<Item>> GetItemsByKeyword(String keywords)
         {
             HashSet<String> keySet = new(keywords.ToLower().Split("&"));
             return await 
-                Task.Run((Func<IEnumerable<Product>>) 
+                Task.Run((Func<IEnumerable<Item>>) 
                 (() => {
-                    IEnumerable<KeyValuePair<Product, int>> itemsAndRelevance =
+                    IEnumerable<KeyValuePair<Item, int>> itemsAndRelevance =
                         from item in _context.Inventory
-                        select new KeyValuePair<Product, int>(item, ScoreItemRelevance(item.Name.ToLower(), keySet));
+                        select new KeyValuePair<Item, int>(item, ScoreItemRelevance(item.Name.ToLower(), keySet));
 
                     return
                         from kv in itemsAndRelevance
@@ -213,7 +216,7 @@ namespace CGullProject.Services
             );
         }
 
-        public async Task<bool> RemoveProduct(string productId)
+        public async Task<bool> RemoveItem(string itemId)
         {
             throw new NotImplementedException();
         }
@@ -222,5 +225,6 @@ namespace CGullProject.Services
         {
             throw new NotImplementedException();
         }
+
     }
 }

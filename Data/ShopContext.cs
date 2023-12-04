@@ -19,7 +19,7 @@ namespace CGullProject.Data
         }
 
         public DbSet<Category> Category { get; set; }
-        public DbSet<Product> Inventory { get; set; }
+        public DbSet<Item> Inventory { get; set; }
         public DbSet<Cart> Cart { get; set; }
         public DbSet<CartItem> CartItem { get; set; }
         public DbSet<Bundle> Bundle { get; set; }
@@ -27,13 +27,14 @@ namespace CGullProject.Data
         public DbSet<Review> Review { get; set; }
         public DbSet<Order> Order { get; set; }
         public DbSet<OrderItem> OrderItem { get; set; }
+        public DbSet<Admins> Admins { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Category>().ToTable("Category");
-            modelBuilder.Entity<Product>().ToTable("Inventory");
+            modelBuilder.Entity<Item>().ToTable("Inventory");
             modelBuilder.Entity<Cart>().ToTable("Cart");
             modelBuilder.Entity<CartItem>().ToTable("CartItem");
 
@@ -51,6 +52,7 @@ namespace CGullProject.Data
             modelBuilder.Entity<Review>().ToTable("reviews");
             modelBuilder.Entity<Order>().ToTable("Orders");
             modelBuilder.Entity<OrderItem>().ToTable("OrderItems");
+            modelBuilder.Entity<Admins>().ToTable("Admins");
         }
     }
 }
