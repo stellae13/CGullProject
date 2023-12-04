@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
 
 namespace CGullProject.Models
 {
@@ -10,6 +11,8 @@ namespace CGullProject.Models
         public string Username { get; set; }
 
         [Required]
+        [Unicode(false)]
+        [MaxLength(32)]
         public string Password { get; set; }
 
     }

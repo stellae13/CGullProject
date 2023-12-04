@@ -77,4 +77,13 @@ namespace CGullProject.Services
             }
         }
     }
+
+    public enum AdminErrors {
+        STATUS_WRONG_MESSAGE_DIGEST = -4,
+        STATUS_USER_DNE = -3,
+        STATUS_USERNAME_CONFLICT = -2,
+        STATUS_MALFORMED_MESSAGE_DIGEST = -1,
+        STATUS_OK = 0,
+
+    }
 }
