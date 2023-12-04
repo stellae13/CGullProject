@@ -28,7 +28,7 @@ namespace CGullProject.Services
             {
                 await _Context.Review.AddAsync(r);
                 await _Context.SaveChangesAsync();
-                var avgRating = _Context.Review.Where(c => c.InventoryId == itemId).Average(c => c.rating);
+                var avgRating = _Context.Review.Where(c => c.InventoryId == itemId).Average(c => c.Rating);
                 var item = _Context.Inventory.First(c => c.Id == itemId);
                 item.Rating = avgRating;
                 await _Context.SaveChangesAsync();

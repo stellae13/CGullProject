@@ -45,10 +45,10 @@ namespace CGullProject.Data
                 .HasDefaultValueSql("getdate()");
 
             modelBuilder.Entity<Review>()
-              .Property(c => c.lastUpdated)
+              .Property(c => c.LastUpdated)
               .HasDefaultValueSql("getdate()");
                 
-            modelBuilder.Entity<Review>().ToTable("reviews");
+            modelBuilder.Entity<Review>().ToTable("Reviews");
             modelBuilder.Entity<Order>().ToTable("Orders");
             modelBuilder.Entity<OrderItem>().ToTable("OrderItems");
         }

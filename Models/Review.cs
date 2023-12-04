@@ -24,15 +24,15 @@ namespace CGullProject.Models
         [Required]
         [Column(TypeName = "decimal(3,2)")]
         [Range(0, 5)]
-        public decimal rating { get; set; }
+        public decimal Rating { get; set; }
 
-        public string? comment { get; set; }
+        public string? Comment { get; set; }
 
         [Required]
         public DateTime Created {  get; set; }
 
         [Required]
-        public DateTime lastUpdated { get; set; }
+        public DateTime LastUpdated { get; set; }
 
         public Review()
         {
@@ -43,10 +43,10 @@ namespace CGullProject.Models
         {
             this.CartId = reviewDTO.CartId;
             this.InventoryId = id;
-            this.rating = reviewDTO.rating;
-            this.comment = reviewDTO.comment;
+            this.Rating = reviewDTO.rating;
+            this.Comment = reviewDTO.comment;
             this.Created = DateTime.Now;
-            this.lastUpdated = DateTime.Now;
+            this.LastUpdated = DateTime.Now;
         }
     }
 }
