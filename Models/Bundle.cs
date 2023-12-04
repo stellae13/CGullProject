@@ -10,7 +10,7 @@ namespace CGullProject;
 public class Bundle {
     [Required]
     [Key]
-    public string ProductId { get; set; } 
+    public string ItemId { get; set; } = "";
 
     [Required]
     [Column(TypeName = "datetime")]
@@ -20,5 +20,5 @@ public class Bundle {
     [Column(TypeName = "datetime")]
     public DateTime EndDate { get; set; }
 
-    public ICollection<BundleItem> BundleItems { get; set; }
+    public ICollection<BundleItem> BundleItems { get; set; } = new List<BundleItem>();
 }

@@ -8,7 +8,7 @@ namespace CGullProject;
 /// Table model for what Products are contained in what Cart
 /// </summary>
 [Owned]
-[PrimaryKey(nameof(CartId),nameof(ProductId))]
+[PrimaryKey(nameof(CartId),nameof(ItemId))]
 public class CartItem {
 
     [Required]
@@ -19,7 +19,7 @@ public class CartItem {
     [Required]
     [ForeignKey("Product")]
     [Column(TypeName = "varchar(6)")]
-    public string ProductId { get; set; } = string.Empty;
+    public string ItemId { get; set; } = string.Empty;
 
     [Required]
     public int Quantity { get; set; }

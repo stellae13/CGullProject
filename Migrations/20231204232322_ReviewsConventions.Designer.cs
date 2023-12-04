@@ -4,6 +4,7 @@ using CGullProject.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CGullProject.Migrations
 {
     [DbContext(typeof(ShopContext))]
-    partial class ShopContextModelSnapshot : ModelSnapshot
+    [Migration("20231204232322_ReviewsConventions")]
+    partial class ReviewsConventions
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,7 +27,7 @@ namespace CGullProject.Migrations
 
             modelBuilder.Entity("CGullProject.Bundle", b =>
                 {
-                    b.Property<string>("ItemId")
+                    b.Property<string>("ProductId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("EndDate")
@@ -33,7 +36,7 @@ namespace CGullProject.Migrations
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime");
 
-                    b.HasKey("ItemId");
+                    b.HasKey("ProductId");
 
                     b.ToTable("Bundle", (string)null);
                 });
@@ -43,12 +46,12 @@ namespace CGullProject.Migrations
                     b.Property<string>("BundleId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("ItemId")
+                    b.Property<string>("ProductId")
                         .HasColumnType("varchar(6)");
 
-                    b.HasKey("BundleId", "ItemId");
+                    b.HasKey("BundleId", "ProductId");
 
-                    b.HasIndex("ItemId");
+                    b.HasIndex("ProductId");
 
                     b.ToTable("BundleItem", (string)null);
                 });
@@ -58,13 +61,13 @@ namespace CGullProject.Migrations
                     b.Property<Guid>("CartId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("ItemId")
+                    b.Property<string>("ProductId")
                         .HasColumnType("varchar(6)");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.HasKey("CartId", "ItemId");
+                    b.HasKey("CartId", "ProductId");
 
                     b.ToTable("CartItem", (string)null);
                 });
@@ -111,27 +114,13 @@ namespace CGullProject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ZipCode")
+                    b.Property<string>("Zipcode")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("OrderId");
 
                     b.ToTable("Address");
-                });
-
-            modelBuilder.Entity("CGullProject.Models.Admins", b =>
-                {
-                    b.Property<string>("Username")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Username");
-
-                    b.ToTable("Admins", (string)null);
                 });
 
             modelBuilder.Entity("CGullProject.Models.Cart", b =>
@@ -202,7 +191,7 @@ namespace CGullProject.Migrations
                     b.Property<DateTime>("OrderedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<decimal>("Total")
+                    b.Property<decimal>("total")
                         .HasColumnType("decimal(9,2)");
 
                     b.HasKey("OrderId");
@@ -217,15 +206,15 @@ namespace CGullProject.Migrations
                     b.Property<Guid>("OrderId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("ItemId")
+                    b.Property<string>("ProductId")
                         .HasColumnType("varchar(6)");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.HasKey("OrderId", "ItemId");
+                    b.HasKey("OrderId", "ProductId");
 
-                    b.HasIndex("ItemId");
+                    b.HasIndex("ProductId");
 
                     b.ToTable("OrderItems", (string)null);
                 });
@@ -235,8 +224,8 @@ namespace CGullProject.Migrations
                     b.Property<Guid>("CartId")
                         .HasColumnType("uniqueidentifier default NEWID()");
 
-                    b.Property<string>("ItemId")
-                        .HasColumnType("varchar(6)");
+                    b.Property<string>("InventoryId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Comment")
                         .HasColumnType("nvarchar(max)");
@@ -246,6 +235,9 @@ namespace CGullProject.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("getdate()");
 
+                    b.Property<string>("ItemId")
+                        .HasColumnType("varchar(6)");
+
                     b.Property<DateTime>("LastUpdated")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
@@ -254,7 +246,7 @@ namespace CGullProject.Migrations
                     b.Property<decimal>("Rating")
                         .HasColumnType("decimal(3,2)");
 
-                    b.HasKey("CartId", "ItemId");
+                    b.HasKey("CartId", "InventoryId");
 
                     b.HasIndex("ItemId");
 
@@ -269,15 +261,15 @@ namespace CGullProject.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CGullProject.Models.Item", "Item")
+                    b.HasOne("CGullProject.Models.Item", "Product")
                         .WithMany()
-                        .HasForeignKey("ItemId")
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Bundle");
 
-                    b.Navigation("Item");
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("CGullProject.CartItem", b =>
@@ -322,19 +314,19 @@ namespace CGullProject.Migrations
 
             modelBuilder.Entity("CGullProject.Models.OrderItem", b =>
                 {
-                    b.HasOne("CGullProject.Models.Item", "Item")
-                        .WithMany()
-                        .HasForeignKey("ItemId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("CGullProject.Models.Order", null)
                         .WithMany("Items")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Item");
+                    b.HasOne("CGullProject.Models.Item", "product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("product");
                 });
 
             modelBuilder.Entity("CGullProject.Models.Review", b =>
@@ -347,9 +339,7 @@ namespace CGullProject.Migrations
 
                     b.HasOne("CGullProject.Models.Item", null)
                         .WithMany("Reviews")
-                        .HasForeignKey("ItemId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ItemId");
                 });
 
             modelBuilder.Entity("CGullProject.Bundle", b =>
