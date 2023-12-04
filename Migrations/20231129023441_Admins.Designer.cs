@@ -4,6 +4,7 @@ using CGullProject.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CGullProject.Migrations
 {
     [DbContext(typeof(ShopContext))]
-    partial class ShopContextModelSnapshot : ModelSnapshot
+    [Migration("20231129023441_Admins")]
+    partial class Admins
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -149,47 +152,6 @@ namespace CGullProject.Migrations
                     b.ToTable("Cart", (string)null);
                 });
 
-            modelBuilder.Entity("CGullProject.Models.Item", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("varchar(6)");
-
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsBundle")
-                        .HasColumnType("bit");
-
-                    b.Property<decimal>("MSRP")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("varchar(32)");
-
-                    b.Property<bool>("OnSale")
-                        .HasColumnType("bit");
-
-                    b.Property<decimal>("Rating")
-                        .HasColumnType("decimal(3,2)");
-
-                    b.Property<decimal>("SalePrice")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("Stock")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
-
-                    b.ToTable("Inventory", (string)null);
-                });
-
             modelBuilder.Entity("CGullProject.Models.Order", b =>
                 {
                     b.Property<Guid>("OrderId")
@@ -230,6 +192,47 @@ namespace CGullProject.Migrations
                     b.ToTable("OrderItems", (string)null);
                 });
 
+            modelBuilder.Entity("CGullProject.Models.Product", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("varchar(6)");
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsBundle")
+                        .HasColumnType("bit");
+
+                    b.Property<decimal>("MSRP")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("varchar(32)");
+
+                    b.Property<bool>("OnSale")
+                        .HasColumnType("bit");
+
+                    b.Property<decimal>("Rating")
+                        .HasColumnType("decimal(3,2)");
+
+                    b.Property<decimal>("SalePrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("Stock")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("Inventory", (string)null);
+                });
+
             modelBuilder.Entity("CGullProject.Models.Review", b =>
                 {
                     b.Property<Guid>("CartId")
@@ -238,30 +241,30 @@ namespace CGullProject.Migrations
                     b.Property<string>("InventoryId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Comment")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("getdate()");
 
-                    b.Property<string>("ItemId")
+                    b.Property<string>("ProductId")
                         .HasColumnType("varchar(6)");
 
-                    b.Property<DateTime>("LastUpdated")
+                    b.Property<string>("comment")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("lastUpdated")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("getdate()");
 
-                    b.Property<decimal>("Rating")
+                    b.Property<decimal>("rating")
                         .HasColumnType("decimal(3,2)");
 
                     b.HasKey("CartId", "InventoryId");
 
-                    b.HasIndex("ItemId");
+                    b.HasIndex("ProductId");
 
-                    b.ToTable("Reviews", (string)null);
+                    b.ToTable("reviews", (string)null);
                 });
 
             modelBuilder.Entity("CGullProject.BundleItem", b =>
@@ -272,7 +275,7 @@ namespace CGullProject.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CGullProject.Models.Item", "Product")
+                    b.HasOne("CGullProject.Models.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -303,17 +306,6 @@ namespace CGullProject.Migrations
                     b.Navigation("Order");
                 });
 
-            modelBuilder.Entity("CGullProject.Models.Item", b =>
-                {
-                    b.HasOne("CGullProject.Category", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Category");
-                });
-
             modelBuilder.Entity("CGullProject.Models.Order", b =>
                 {
                     b.HasOne("CGullProject.Models.Cart", null)
@@ -331,13 +323,24 @@ namespace CGullProject.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CGullProject.Models.Item", "product")
+                    b.HasOne("CGullProject.Models.Product", "product")
                         .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("product");
+                });
+
+            modelBuilder.Entity("CGullProject.Models.Product", b =>
+                {
+                    b.HasOne("CGullProject.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
                 });
 
             modelBuilder.Entity("CGullProject.Models.Review", b =>
@@ -348,9 +351,9 @@ namespace CGullProject.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CGullProject.Models.Item", null)
+                    b.HasOne("CGullProject.Models.Product", null)
                         .WithMany("Reviews")
-                        .HasForeignKey("ItemId");
+                        .HasForeignKey("ProductId");
                 });
 
             modelBuilder.Entity("CGullProject.Bundle", b =>
@@ -367,16 +370,16 @@ namespace CGullProject.Migrations
                     b.Navigation("Reviews");
                 });
 
-            modelBuilder.Entity("CGullProject.Models.Item", b =>
-                {
-                    b.Navigation("Reviews");
-                });
-
             modelBuilder.Entity("CGullProject.Models.Order", b =>
                 {
                     b.Navigation("Address");
 
                     b.Navigation("Items");
+                });
+
+            modelBuilder.Entity("CGullProject.Models.Product", b =>
+                {
+                    b.Navigation("Reviews");
                 });
 #pragma warning restore 612, 618
         }
