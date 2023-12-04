@@ -17,7 +17,7 @@ namespace CGullProject.Services
 
         public async Task<IEnumerable<Review>> GetReviewsById(string id)
         {
-            var reviews = await _Context.Review.Where(c=> c.InventoryId == id).ToListAsync();
+            var reviews = await _Context.Review.Where(c=> c.ItemId == id).ToListAsync();
             return reviews;
         }
 
@@ -28,7 +28,7 @@ namespace CGullProject.Services
             {
                 await _Context.Review.AddAsync(r);
                 await _Context.SaveChangesAsync();
-                var avgRating = _Context.Review.Where(c => c.InventoryId == itemId).Average(c => c.Rating);
+                var avgRating = _Context.Review.Where(c => c.ItemId == itemId).Average(c => c.Rating);
                 var item = _Context.Inventory.First(c => c.Id == itemId);
                 item.Rating = avgRating;
                 await _Context.SaveChangesAsync();

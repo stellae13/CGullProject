@@ -28,19 +28,19 @@ namespace CGullProject.Services
 
             IEnumerable<CartDTO.AbsCartItemView> contents = cart.CartItems.Select((Func<CartItem, CartDTO.AbsCartItemView>) 
                 (entry => {
-                    Item prod = itemTable[entry.ProductId];
+                    Item prod = itemTable[entry.ItemId];
                     // We can omit this part if we feel that we don't need to show the
                     // bundled items associated with a bundle to the end user.
                     if (prod.IsBundle)
                     {
                         Bundle bundle = 
-                            _context.Bundle.Where(b => b.ProductId == prod.Id).Select(b => b).Include(b => b.BundleItems).First();
+                            _context.Bundle.Where(b => b.ItemId == prod.Id).Select(b => b).Include(b => b.BundleItems).First();
 
 
 
                         IEnumerable<String> bundledItemIds =
                         from bundleProd in bundle.BundleItems
-                            select bundleProd.ProductId;
+                            select bundleProd.ItemId;
 
                         return new CartDTO.BundleView(prod.Id, entry.Quantity, entry.Quantity * prod.SalePrice, bundledItemIds);
                     }
@@ -79,7 +79,7 @@ namespace CGullProject.Services
             IEnumerable<Tuple<Item, int>> cartContents =
                 cart.CartItems.Select((Func<CartItem, Tuple<Item, int>>) (
                 itm => {
-                    return new Tuple<Item, int>(itemTable[itm.ProductId], itm.Quantity);
+                    return new Tuple<Item, int>(itemTable[itm.ItemId], itm.Quantity);
                 }));
 
             TotalsDTO ret = 
@@ -135,7 +135,7 @@ namespace CGullProject.Services
             _context.Order.Add(newOrder);
             foreach(CartItem cartitem in cartItems)
             {
-                OrderItem i = new OrderItem(OrderId,cartitem.ProductId,cartitem.Quantity);
+                OrderItem i = new OrderItem(OrderId,cartitem.ItemId,cartitem.Quantity);
                 _context.OrderItem.Add(i);
 
             }
@@ -152,7 +152,7 @@ namespace CGullProject.Services
 
         public async Task<IEnumerable<Order>> GetOrdersById(Guid CartId)
         {
-            var orders = await _context.Order.Where(c => c.CartId == CartId).Include(Order => Order.Items).ThenInclude(Items => Items.product).ToListAsync();
+            var orders = await _context.Order.Where(c => c.CartId == CartId).Include(Order => Order.Items).ThenInclude(Items => Items.Item).ToListAsync();
             return orders;
         }
 

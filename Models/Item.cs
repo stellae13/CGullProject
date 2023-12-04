@@ -21,7 +21,7 @@ public class Item {
     [Required]
     public int CategoryId { get; set; }
 
-    public Category Category { get; set; }
+    public Category Category { get; set; } = new Category();
 
     [Required]
     [Column(TypeName = "decimal(18,2)")]
@@ -43,9 +43,9 @@ public class Item {
     [Required]
     public bool IsBundle {  get; set; }
 
-    public String Description { get; set; } = "";
+    public string Description { get; set; } = "";
 
     public bool OnSale { get; set; } = false;
 
-    public ICollection<Review> Reviews { get; }
+    public ICollection<Review> Reviews { get; } = new List<Review>();
 }

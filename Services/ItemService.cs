@@ -44,7 +44,7 @@ namespace CGullProject.Services
 
 
             Dictionary<Tuple<Guid, String>, CartItem> cartItemTable =
-                await _context.CartItem.ToDictionaryAsync<CartItem, Tuple<Guid, String>>(cItm => new(cItm.CartId, cItm.ProductId));
+                await _context.CartItem.ToDictionaryAsync<CartItem, Tuple<Guid, String>>(cItm => new(cItm.CartId, cItm.ItemId));
             Tuple<Guid, String> cartItemHandle = new(cartId, itemId);
             // If cart already has a quantity of this item, fetch its associated CartItem entry from the database
             // and then update its quantity to reflect the adjusted qty after adding this new qty to cart.
@@ -59,7 +59,7 @@ namespace CGullProject.Services
                 CartItem cartItem = new CartItem
                 {
                     CartId = cartId,
-                    ProductId = itemId,
+                    ItemId = itemId,
                     Quantity = quantity
                 };
                 await _context.CartItem.AddAsync(cartItem);
@@ -169,12 +169,12 @@ namespace CGullProject.Services
             try
             {
                 Bundle? bundle =
-                    _context.Bundle.Where(b => b.ProductId == bundleId).Select(b => b).Include(b => b.BundleItems).First();
+                    _context.Bundle.Where(b => b.ItemId == bundleId).Select(b => b).Include(b => b.BundleItems).First();
 
                 IEnumerable<Item> ret =
                     from bndItm in bundle.BundleItems
-                    where itemTable.ContainsKey(bndItm.ProductId)
-                    select itemTable[bndItm.ProductId];
+                    where itemTable.ContainsKey(bndItm.ItemId)
+                    select itemTable[bndItm.ItemId];
                 return ret;
             }
             catch (InvalidOperationException e)
