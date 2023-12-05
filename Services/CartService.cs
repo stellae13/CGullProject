@@ -116,22 +116,22 @@ namespace CGullProject.Services
 
         public async Task<bool> ProcessPayment(ProcessPaymentDTO paymentInfo)
         {
-            IEnumerable<CartItem> cartItems = await _context.CartItem.Where(x => x.CartId == paymentInfo.cartID).ToListAsync();
+            IEnumerable<CartItem> cartItems = await _context.CartItem.Where(x => x.CartId == paymentInfo.CartId).ToListAsync();
             
             if
             (
                 cartItems.IsNullOrEmpty() || 
-                !ValidateCreditCard(paymentInfo.cardNumber) || 
-                !ValidateSecurityCode(paymentInfo.cvv) || 
-                paymentInfo.exp < DateOnly.FromDateTime(DateTime.Now)
+                !ValidateCreditCard(paymentInfo.CardNumber) || 
+                !ValidateSecurityCode(paymentInfo.Cvv) || 
+                paymentInfo.Exp < DateOnly.FromDateTime(DateTime.Now)
             )
             {
                 return false;
             }
             //create order
-            var totals = await this.GetTotals(paymentInfo.cartID);
+            var totals = await this.GetTotals(paymentInfo.CartId);
             Guid OrderId = Guid.NewGuid();
-            Order newOrder = new Order(paymentInfo.cartID, OrderId, DateTime.Now,totals.TotalWithTax );
+            Order newOrder = new Order(paymentInfo.CartId, OrderId, DateTime.Now,totals.TotalWithTax );
             _context.Order.Add(newOrder);
             foreach(CartItem cartitem in cartItems)
             {

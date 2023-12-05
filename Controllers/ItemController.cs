@@ -8,40 +8,39 @@ using Microsoft.IdentityModel.Tokens;
 namespace CGullProject.Controllers
 {
     /// <summary>
-    /// Stores the Item endpoints
+    /// Stores the <see cref="Item"/> endpoints
     /// </summary>
     [ApiController]
     [Route("[controller]")]
     public class ItemController : ControllerBase {
 
         /// <summary>
-        /// IItemService that the controller will use to perform Item related data operations
+        /// Service that the controller will use to perform <see cref="Item"/> related data operations
         /// </summary>
         private readonly IItemService _itemService;
         /// <summary>
-        /// IReviewService that the controller will use to perform Review related data operations
+        /// Service that the controller will use to perform <see cref="Review"/> related data operations
         /// </summary>
         private readonly IReviewService _reviewService;
 
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="itemService">Target IItemService</param>
-        /// <param name="reviewService">Target IReviewService</param>
+        /// <param name="itemService">Target <see cref="IItemService"/> </param>
+        /// <param name="reviewService">Target <see cref="IReviewService"/> </param>
         public ItemController(IItemService itemService, IReviewService reviewService)
         {
             _itemService = itemService;
             _reviewService = reviewService;
         }
 
-
         /// <summary>
         /// Get a List of Items based on a delimited Id string
         /// </summary>
-        /// <param name="idList">String of delimited Ids</param>
-        /// <returns><see cref="IEnumerable{Item}"/></returns>
+        /// <param name="idList">String of multipe Ids delimited with '&'</param>
+        /// <returns><see cref="Item"/>s matching any Id in the idList</returns>
         [HttpGet("GetById")]
-        public async Task<ActionResult> GetById(String idList)
+        public async Task<ActionResult<IEnumerable<Item>>> GetById(string idList)
         {
             var items = await _itemService.GetItemsById(idList);
 
@@ -53,12 +52,12 @@ namespace CGullProject.Controllers
         }
 
         /// <summary>
-        /// Add an Item to a Cart
+        /// Add an <see cref="Item"/> to a <see cref="Cart"/> 
         /// </summary>
-        /// <param name="cartId">Guid cartId of the cart to be added to</param>
-        /// <param name="itemId">String id of the item</param>
-        /// <param name="quantity">int quantity of items to add to cart</param>
-        /// <returns>ActionResult</returns>
+        /// <param name="cartId">Id of the <see cref="Cart"/>  to be added to</param>
+        /// <param name="itemId">Id of the <see cref="Item"/> </param>
+        /// <param name="quantity">Quantity of items to add</param>
+        /// <returns>Success/Failure</returns>
         [HttpPost("AddItemToCart")]
         public async Task<ActionResult> AddItemToCart(Guid cartId, string itemId, int quantity)
         {
@@ -79,10 +78,10 @@ namespace CGullProject.Controllers
         }
 
         /// <summary>
-        /// Remove an item from a Cart
+        /// Remove an <see cref="Item"/> from a <see cref="Cart"/> 
         /// </summary>
-        /// <param name="cartId">Id of the Cart</param>
-        /// <param name="itemId">Id of the item</param>
+        /// <param name="cartId">Id of the <see cref="Cart"/></param>
+        /// <param name="itemId">Id of the <see cref="Item"/></param>
         /// <returns>Success/Failure</returns>
         [HttpDelete("RemoveFromCart")]
         public async Task<ActionResult> RemoveFromCart(Guid cartId, string itemId) {
@@ -90,12 +89,12 @@ namespace CGullProject.Controllers
         }
 
         /// <summary>
-        /// Get a list of relevant Items that match a string of keywords.
+        /// Get a list of relevant <see cref="Item"/>s  that match a string of keywords.
         /// </summary>
-        /// <param name="keywordList">String keywords</param>
-        /// <returns><see cref="IEnumerable{Item}"/></returns>
+        /// <param name="keywordList">String of keywords delimited by '&'</param>
+        /// <returns>Items that match the given keywords</returns>
         [HttpGet("GetByKeyword")]
-        public async Task<ActionResult> GetByKeyword(String keywordList)
+        public async Task<ActionResult> GetByKeyword(string keywordList)
         {
             var items = await _itemService.GetItemsByKeyword(keywordList);
             if (items.IsNullOrEmpty())
@@ -106,12 +105,12 @@ namespace CGullProject.Controllers
         }
 
         /// <summary>
-        /// Get the contents of a Bundle
+        /// Get the contents of a <see cref="Bundle"/> 
         /// </summary>
-        /// <param name="bundleId">String bundleId</param>
-        /// <returns><see cref="IEnumerable{Item}"/></returns>
+        /// <param name="bundleId">Id of the <see cref="Bundle"/></param>
+        /// <returns><see cref="Item"/>s in a <see cref="Bundle"/></returns>
         [HttpGet("GetBundleItems")]
-        public async Task<ActionResult> GetBundleItems(String bundleId) 
+        public async Task<ActionResult<IEnumerable<Item>>> GetBundleItems(String bundleId) 
         {
             try
             {
@@ -130,12 +129,12 @@ namespace CGullProject.Controllers
         }
 
         /// <summary>
-        /// Get the image associated with an Item
+        /// Get the image associated with an <see cref="Item"/> 
         /// </summary>
-        /// <param name="id">String itemId</param>
-        /// <returns>File</returns>
+        /// <param name="id">Id of the <see cref="Item"/></param>
+        /// <returns>The image associated with the <see cref="Item"/></returns>
         [HttpGet("Image/{id}")]
-        public ActionResult GetItemImage(String id)
+        public ActionResult<FileStreamResult> GetItemImage(String id)
         {
             try
             {
@@ -143,36 +142,18 @@ namespace CGullProject.Controllers
                 return File(img, "image/jpeg");
             } catch (FileNotFoundException e)
             {
-                return NotFound($"No image found matching Item with ID, {id}");
+                return NotFound($"No image found matching Item with ID, {id}.\n{e}");
             }
             
         }
 
-        /* Commented out until cycle issue with Bundle.BundleItem gets
-         [HttpGet("GetAssociatedBundles")]
-        public async Task<ActionResult> GetAssociatedBundles(String id)
-        {
-            try
-            {
-                IEnumerable<Bundle> bundles = await _productService.GetAssociatedBundles(id);
-                if (bundles.IsNullOrEmpty())
-                    return NotFound($"Item with ID {id} either DNE or has no associated bundles.");
-                return Ok(bundles);
-            }
-            catch (BadHttpRequestException e)
-            {
-                return BadRequest(e.Message);
-            }
-            
-        }*/
-
         /// <summary>
-        /// Get all Items that belong to a Category
+        /// Get all <see cref="Item"/>s that belong to a <see cref="Category"/> 
         /// </summary>
-        /// <param name="id">int id of the Category</param>
-        /// <returns><see cref="IEnumerable{Item}"/></returns>
+        /// <param name="id">Id of the <see cref="Category"/></param>
+        /// <returns><see cref="Item"/>s that belong to a <see cref="Category"/> </returns>
         [HttpGet("Category/{id}")]
-        public async Task<ActionResult> GetItemByCategory(int id)
+        public async Task<ActionResult<IEnumerable<Item>>> GetItemByCategory(int id)
         {
             var items = await _itemService.GetItemsByCategory(id);
 
@@ -185,11 +166,11 @@ namespace CGullProject.Controllers
         }
 
         /// <summary>
-        /// Get a list of all Categories
+        /// Get a list of all <see cref="Category"/>s
         /// </summary>
-        /// <returns>IEnumerable&lt;Category&gt;</returns>
+        /// <returns>List of <see cref="Category"/>s</returns>
         [HttpGet("Category")]
-        public async Task<ActionResult> GetCategories()
+        public async Task<ActionResult<IEnumerable<Category>>> GetCategories()
         {
             var categories = await _itemService.GetAllCategories();
 
@@ -197,24 +178,24 @@ namespace CGullProject.Controllers
         }
 
         /// <summary>
-        /// Get a list of all reviews for a specific Item
+        /// Get a list of all <see cref="Review"/>s for a specific <see cref="Item"/> 
         /// </summary>
-        /// <param name="id">String id of Item</param>
-        /// <returns>IEnumerable&lt;Review&gt;</returns>
+        /// <param name="id">Id of <see cref="Item"/> </param>
+        /// <returns>List of reviews</returns>
         [HttpGet("{id}/Review")]
-        public async Task<ActionResult> GetReviews(String id)
+        public async Task<ActionResult<IEnumerable<Review>>> GetReviews(string id)
         {
             return Ok(await _reviewService.GetReviewsById(id));
         }
 
         /// <summary>
-        /// Create a new Review for an Item
+        /// Create a new <see cref="Review"/> for an <see cref="Item"/> 
         /// </summary>
-        /// <param name="review">CreateReviewDTO review</param>
-        /// <param name="id">String id of Item</param>
-        /// <returns>ActionResult</returns>
+        /// <param name="review">review</param>
+        /// <param name="id">Id of <see cref="Item"/></param>
+        /// <returns>Success/Failure</returns>
         [HttpPost("{id}/Review")]
-        public async Task<ActionResult> CreateReview(CreateReviewDTO review, String id)
+        public async Task<ActionResult<bool>> CreateReview(CreateReviewDTO review, string id)
         {
             if(await _reviewService.AddReview(review, id))
             {
@@ -223,6 +204,5 @@ namespace CGullProject.Controllers
 
             return BadRequest();
         }
-
     }
 }
