@@ -52,43 +52,6 @@ namespace CGullProject.Controllers
         }
 
         /// <summary>
-        /// Add an <see cref="Item"/> to a <see cref="Cart"/> 
-        /// </summary>
-        /// <param name="cartId">Id of the <see cref="Cart"/>  to be added to</param>
-        /// <param name="itemId">Id of the <see cref="Item"/> </param>
-        /// <param name="quantity">Quantity of items to add</param>
-        /// <returns>Success/Failure</returns>
-        [HttpPost("AddItemToCart")]
-        public async Task<ActionResult> AddItemToCart(Guid cartId, string itemId, int quantity)
-        {
-            try
-            {
-                await _itemService.AddItemToCart(cartId, itemId, quantity);
-                return Ok($"Item with ID {itemId} added to cart with ID {cartId}.");
-            }
-            catch (BadHttpRequestException e)
-            {
-                return BadRequest(e.Message);
-            }
-            catch (KeyNotFoundException e)
-            {
-                return NotFound(e.Message);
-            }
-
-        }
-
-        /// <summary>
-        /// Remove an <see cref="Item"/> from a <see cref="Cart"/> 
-        /// </summary>
-        /// <param name="cartId">Id of the <see cref="Cart"/></param>
-        /// <param name="itemId">Id of the <see cref="Item"/></param>
-        /// <returns>Success/Failure</returns>
-        [HttpDelete("RemoveFromCart")]
-        public async Task<ActionResult> RemoveFromCart(Guid cartId, string itemId) {
-            return Ok(await _itemService.RemoveItemFromCart(cartId, itemId));
-        }
-
-        /// <summary>
         /// Get a list of relevant <see cref="Item"/>s  that match a string of keywords.
         /// </summary>
         /// <param name="keywordList">String of keywords delimited by '&'</param>
