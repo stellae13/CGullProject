@@ -97,7 +97,7 @@ namespace CGullProject.Controllers
         /// <param name="id">Id of the <see cref="Item"/></param>
         /// <returns>The image associated with the <see cref="Item"/></returns>
         [HttpGet("Image/{id}")]
-        public ActionResult<FileStreamResult> GetItemImage(String id)
+        public ActionResult GetItemImage(string id)
         {
             try
             {
