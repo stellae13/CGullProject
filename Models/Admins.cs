@@ -11,9 +11,8 @@ namespace CGullProject.Models
         public string Username { get; set; }
 
         [Required]
-        [Unicode(false)]
-        [MaxLength(32)]
-        public string Password { get; set; }
+        [Column(TypeName = "binary(32)")]
+        public byte[] Password { get; set; }
 
     }
 }

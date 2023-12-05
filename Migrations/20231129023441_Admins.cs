@@ -15,7 +15,7 @@ namespace CGullProject.Migrations
                 columns: table => new
                 {
                     Username = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Password = table.Column<string>(type: "binary(32)", nullable: false)
                 },
                 constraints: table =>
                 {

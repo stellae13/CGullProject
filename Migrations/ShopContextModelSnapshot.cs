@@ -125,11 +125,9 @@ namespace CGullProject.Migrations
                     b.Property<string>("Username")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Password")
+                    b.Property<byte[]>("Password")
                         .IsRequired()
-                        .HasMaxLength(32)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(32)");
+                        .HasColumnType("binary(32)");
 
                     b.HasKey("Username");
 

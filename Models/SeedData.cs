@@ -1,5 +1,7 @@
 ﻿using CGullProject.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace CGullProject.Models
 {
@@ -561,32 +563,33 @@ namespace CGullProject.Models
 
                 }
 
-                if (!context.Admins.Any())
-                {
-                    context.AddRange(
-                        new Admins()
-                        {
-                            Username = "stellagarcia",
-                            Password = "password"
-                        },
-                        new Admins()
-                        {
-                            Username = "manager",
-                            Password = "password"
-                        },
-                        new Admins()
-                        {
-                            Username = "thatmanryan",
-                            Password = "otto_are_you_married?"
-                        }, 
-                        new Admins()
-                        {
-                            Username ="o's_husband_44",
-                            Password = "password"
-                        }
-                    );
+                if (!context.Admins.Any()) {
+                    using (SHA256 shaCtx = SHA256.Create()) {
+                        byte[] defPassHash = shaCtx.ComputeHash(Encoding.UTF8.GetBytes("password"));
+                        context.AddRange(
+                            new Admins()
+                            {
+                                Username = "stellagarcia",
+                                Password = defPassHash
+                            },
+                            new Admins()
+                            {
+                                Username = "manager",
+                                Password = defPassHash
+                            },
+                            new Admins()
+                            {
+                                Username = "thatmanryan",
+                                Password = shaCtx.ComputeHash(Encoding.UTF8.GetBytes("otto_are_you_married?"))
+                            },
+                            new Admins()
+                            {
+                                Username = "o's_husband_44",
+                                Password = defPassHash
+                            }
+                        );
+                    }
                 }
-
                 context.SaveChanges();
 
             }
