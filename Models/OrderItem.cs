@@ -20,7 +20,7 @@ namespace CGullProject.Models
         [ForeignKey("Inventory")]
         public string ItemId { get; set; } = "";
 
-        public Item Item { get; set; } = new Item();
+        public Item Item { get; set; }
 
         [Required]
         public int Quantity { get; set; }

@@ -20,5 +20,5 @@ public class Bundle {
     [Column(TypeName = "datetime")]
     public DateTime EndDate { get; set; }
 
-    public ICollection<BundleItem> BundleItems { get; set; } = new List<BundleItem>();
+    public ICollection<BundleItem> BundleItems { get; set; }
 }

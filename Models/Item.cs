@@ -21,7 +21,7 @@ public class Item {
     [Required]
     public int CategoryId { get; set; }
 
-    public Category Category { get; set; } = new Category();
+    public Category Category { get; set; }
 
     [Required]
     [Column(TypeName = "decimal(18,2)")]
@@ -47,5 +47,5 @@ public class Item {
 
     public bool OnSale { get; set; } = false;
 
-    public ICollection<Review> Reviews { get; } = new List<Review>();
+    public ICollection<Review> Reviews { get; }
 }

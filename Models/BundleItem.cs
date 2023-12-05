@@ -13,11 +13,11 @@ public class BundleItem {
     [Required]
     [ForeignKey("Bundle")]
     public string BundleId { get; set; } = "";
-    public Bundle Bundle { get; set; } = new Bundle();
+    public Bundle Bundle { get; set; }
 
     [Required]
     [ForeignKey("Product")]
     [Column(TypeName = "varchar(6)")]
     public string ItemId { get; set; } = "";
-    public Item Item { get; set; } = new Item();
+    public Item Item { get; set; }
 }

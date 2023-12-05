@@ -30,7 +30,7 @@ namespace CGullProject.Models
         [Column(TypeName = "decimal(9,2)")]
         public decimal Total { get; set; }
 
-        public ICollection<OrderItem> Items { get; set; } = new List<OrderItem>();
+        public ICollection<OrderItem> Items { get; set; }
 
         public Order() {}
 

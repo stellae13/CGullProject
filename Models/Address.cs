@@ -33,7 +33,7 @@ namespace CGullProject.Models
         [ForeignKey("Order")]
         public Guid OrderId { get; set; }
 
-        public Order Order { get; set; } = new();
+        public Order Order { get; set; }
 
     }
 }
