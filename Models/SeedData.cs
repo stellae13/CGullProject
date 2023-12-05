@@ -490,21 +490,21 @@ namespace CGullProject.Models
 
                         new Bundle()
                         {
-                            ProductId = "100020",
+                            ItemId = "100020",
                             StartDate = DateTime.Now,
                             EndDate = DateTime.Now + TimeSpan.FromDays(100)
 
                         },
                         new Bundle()
                         {
-                            ProductId = "100022",
+                            ItemId = "100022",
                             StartDate = DateTime.Now,
                             EndDate = DateTime.Now + TimeSpan.FromDays(100)
 
                         },
                         new Bundle()
                         {
-                            ProductId = "100028",
+                            ItemId = "100028",
                             StartDate = DateTime.Now,
                             EndDate = DateTime.Now + TimeSpan.FromDays(100)
 
@@ -520,43 +520,43 @@ namespace CGullProject.Models
                         new BundleItem()
                         {
                             BundleId = "100020",
-                            ProductId = "000016"
+                            ItemId = "000016"
 
                         },
                         new BundleItem()
                         {
                             BundleId = "100020",
-                            ProductId = "000017"
+                            ItemId = "000017"
 
                         },
                         new BundleItem()
                         {
                             BundleId = "100022",
-                            ProductId = "000010"
+                            ItemId = "000010"
 
                         },
                         new BundleItem()
                         {
                             BundleId = "100022",
-                            ProductId = "000011"
+                            ItemId = "000011"
 
                         },
                         new BundleItem()
                         {
                             BundleId = "100022",
-                            ProductId = "000012"
+                            ItemId = "000012"
 
                         },
                         new BundleItem()
                         {
                             BundleId = "100028",
-                            ProductId = "000014"
+                            ItemId = "000014"
 
                         },
                         new BundleItem()
                         {
                             BundleId = "100028",
-                            ProductId = "000015"
+                            ItemId = "000015"
 
                         }
                     );

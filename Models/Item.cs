@@ -43,7 +43,7 @@ public class Item {
     [Required]
     public bool IsBundle {  get; set; }
 
-    public String Description { get; set; } = "";
+    public string Description { get; set; } = "";
 
     public bool OnSale { get; set; } = false;
 

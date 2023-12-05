@@ -16,9 +16,9 @@ namespace CGullProject.Models.DTO
 
         [Required]
         [Range(0, 5)]
-        public decimal rating { get; set; }
+        public decimal Rating { get; set; }
 
-        public string? comment { get; set; }
+        public string? Comment { get; set; }
 
     }
 }

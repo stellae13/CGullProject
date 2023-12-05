@@ -4,6 +4,7 @@ using CGullProject.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CGullProject.Migrations
 {
     [DbContext(typeof(ShopContext))]
-    partial class ShopContextModelSnapshot : ModelSnapshot
+    [Migration("20231204233258_RenameFromProductToItem")]
+    partial class RenameFromProductToItem
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -125,9 +128,9 @@ namespace CGullProject.Migrations
                     b.Property<string>("Username")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<byte[]>("Password")
+                    b.Property<string>("Password")
                         .IsRequired()
-                        .HasColumnType("binary(32)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Username");
 
@@ -149,7 +152,7 @@ namespace CGullProject.Migrations
                     b.ToTable("Cart", (string)null);
                 });
 
-            modelBuilder.Entity("CGullProject.Models.Order", b =>
+            modelBuilder.Entity("CGullProject.Models.Item", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("varchar(6)");
@@ -246,13 +249,7 @@ namespace CGullProject.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("getdate()");
 
-                    b.Property<string>("ProductId")
-                        .HasColumnType("varchar(6)");
-
-                    b.Property<string>("comment")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("lastUpdated")
+                    b.Property<DateTime>("LastUpdated")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("getdate()");
@@ -328,7 +325,7 @@ namespace CGullProject.Migrations
 
             modelBuilder.Entity("CGullProject.Models.OrderItem", b =>
                 {
-                    b.HasOne("CGullProject.Models.Item", "Item")
+                    b.HasOne("CGullProject.Models.Item", "product")
                         .WithMany()
                         .HasForeignKey("ItemId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -340,7 +337,7 @@ namespace CGullProject.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Item");
+                    b.Navigation("product");
                 });
 
             modelBuilder.Entity("CGullProject.Models.Review", b =>

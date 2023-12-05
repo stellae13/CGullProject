@@ -14,6 +14,23 @@ namespace CGullProject.Services.ServiceInterfaces
         public Task<CartDTO> GetCart(Guid cartId);
 
         /// <summary>
+        /// Add an Item to a specific Cart
+        /// </summary>
+        /// <param name="cartId">Id of the cart</param>
+        /// <param name="itemId">Id of the item</param>
+        /// <param name="quantity">Number of the Item to add</param>
+        /// <returns>bool</returns>
+        public Task<bool> AddItemToCart(Guid cartId, string itemId, int quantity);
+
+        /// <summary>
+        /// Removes an item from a Cart.
+        /// </summary>
+        /// <param name="cartId">Id of the Cart</param>
+        /// <param name="itemId">Id of the item</param>
+        /// <returns>True iff item is found and successfully remove, false otherwise</returns>
+        public Task<bool> RemoveItemFromCart(Guid cartId, string itemId);
+
+        /// <summary>
         /// Get the totals of a particular Cart
         /// </summary>
         /// <param name="cartId">Id of the cart</param>

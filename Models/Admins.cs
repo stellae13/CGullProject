@@ -8,7 +8,7 @@ namespace CGullProject.Models
     {
         [Required]
         [Key]
-        public string Username { get; set; }
+        public string Username { get; set; } = "";
 
         [Required]
         [Column(TypeName = "binary(32)")]

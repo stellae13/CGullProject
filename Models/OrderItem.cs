@@ -7,7 +7,7 @@ namespace CGullProject.Models
     /// <summary>
     /// Table model for when an order was placed on a specific product
     /// </summary>
-    [PrimaryKey(nameof(OrderId),nameof(ProductId))]
+    [PrimaryKey(nameof(OrderId),nameof(ItemId))]
     public class OrderItem
     {
 
@@ -17,22 +17,20 @@ namespace CGullProject.Models
         public Guid OrderId { get; set; }
 
         [Required]
-        [ForeignKey("Product")]
-        public string ProductId { get; set; } 
-        public Item product { get; set; }
+        [ForeignKey("Inventory")]
+        public string ItemId { get; set; } = "";
+
+        public Item Item { get; set; }
 
         [Required]
         public int Quantity { get; set; }
 
-        public OrderItem()
-        {
-
-        }
+        public OrderItem() {}
 
         public OrderItem(Guid orderId, string productId, int quantity)
         {
             OrderId = orderId;
-            ProductId = productId;
+            ItemId = productId;
             Quantity = quantity;
         }
     }

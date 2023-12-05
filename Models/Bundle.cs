@@ -10,7 +10,7 @@ namespace CGullProject;
 public class Bundle {
     [Required]
     [Key]
-    public string ProductId { get; set; } 
+    public string ItemId { get; set; } = "";
 
     [Required]
     [Column(TypeName = "datetime")]

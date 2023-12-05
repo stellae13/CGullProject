@@ -8,7 +8,7 @@ namespace CGullProject;
 /// <summary>
 /// Table model for what Products are contained in what Bundle
 /// </summary>
-[PrimaryKey(nameof(BundleId), nameof(ProductId))]
+[PrimaryKey(nameof(BundleId), nameof(ItemId))]
 public class BundleItem {
     [Required]
     [ForeignKey("Bundle")]
@@ -18,6 +18,6 @@ public class BundleItem {
     [Required]
     [ForeignKey("Product")]
     [Column(TypeName = "varchar(6)")]
-    public string ProductId { get; set; } = "";
-    public Item Product { get; set; }
+    public string ItemId { get; set; } = "";
+    public Item Item { get; set; }
 }

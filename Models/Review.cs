@@ -8,7 +8,7 @@ namespace CGullProject.Models
     /// <summary>
     /// Model for a review of an item
     /// </summary>
-    [PrimaryKey(nameof(CartId), nameof(InventoryId))]
+    [PrimaryKey(nameof(CartId), nameof(ItemId))]
     public class Review
     {
 
@@ -19,34 +19,31 @@ namespace CGullProject.Models
 
         [Required]
         [ForeignKey("Inventory")]
-        public string InventoryId { get; set; }
+        public string ItemId { get; set; } = "";
 
         [Required]
         [Column(TypeName = "decimal(3,2)")]
         [Range(0, 5)]
-        public decimal rating { get; set; }
+        public decimal Rating { get; set; }
 
-        public string? comment { get; set; }
+        public string? Comment { get; set; }
 
         [Required]
         public DateTime Created {  get; set; }
 
         [Required]
-        public DateTime lastUpdated { get; set; }
-
-        public Review()
-        {
-
-        }
+        public DateTime LastUpdated { get; set; }
         
-        public Review(CreateReviewDTO reviewDTO, String id)
+        public Review() {}
+
+        public Review(CreateReviewDTO reviewDTO, string id)
         {
-            this.CartId = reviewDTO.CartId;
-            this.InventoryId = id;
-            this.rating = reviewDTO.rating;
-            this.comment = reviewDTO.comment;
-            this.Created = DateTime.Now;
-            this.lastUpdated = DateTime.Now;
+            CartId = reviewDTO.CartId;
+            ItemId = id;
+            Rating = reviewDTO.Rating;
+            Comment = reviewDTO.Comment;
+            Created = DateTime.Now;
+            LastUpdated = DateTime.Now;
         }
     }
 }
