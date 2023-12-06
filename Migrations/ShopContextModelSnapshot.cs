@@ -125,9 +125,9 @@ namespace CGullProject.Migrations
                     b.Property<string>("Username")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Password")
+                    b.Property<byte[]>("Password")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("binary(32)");
 
                     b.HasKey("Username");
 
@@ -149,7 +149,7 @@ namespace CGullProject.Migrations
                     b.ToTable("Cart", (string)null);
                 });
 
-            modelBuilder.Entity("CGullProject.Models.Item", b =>
+            modelBuilder.Entity("CGullProject.Models.Order", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("varchar(6)");
@@ -246,7 +246,13 @@ namespace CGullProject.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("getdate()");
 
-                    b.Property<DateTime>("LastUpdated")
+                    b.Property<string>("ProductId")
+                        .HasColumnType("varchar(6)");
+
+                    b.Property<string>("comment")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("lastUpdated")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("getdate()");

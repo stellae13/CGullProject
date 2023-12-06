@@ -1,5 +1,7 @@
 ﻿using CGullProject.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace CGullProject.Models
 {
@@ -451,7 +453,6 @@ namespace CGullProject.Models
                          IsBundle = false,
                          OnSale = true
                      }
-
                      );
                 }
                 //end of product seed data
@@ -562,32 +563,40 @@ namespace CGullProject.Models
 
                 }
 
-                if (!context.Admins.Any())
-                {
-                    context.AddRange(
-                        new Admins()
-                        {
-                            Username = "stellagarcia",
-                            Password = "password"
-                        },
-                        new Admins()
-                        {
-                            Username = "manager",
-                            Password = "password"
-                        },
-                        new Admins()
-                        {
-                            Username = "thatmanryan",
-                            Password = "otto_are_you_married?"
-                        }, 
-                        new Admins()
-                        {
-                            Username ="o's_husband_44",
-                            Password = "password"
-                        }
-                    );
+                if (!context.Admins.Any()) {
+                    using (SHA256 shaCtx = SHA256.Create()) {
+                        byte[] defPassHash = shaCtx.ComputeHash(Encoding.UTF8.GetBytes("password"));
+                        context.AddRange(
+                            new Admins()
+                            {
+                                Username = "stellagarcia",
+                                Password = defPassHash  // hash string for endpoint: "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8"
+                            },
+                            new Admins()
+                            {
+                                Username = "manager",
+                                Password = defPassHash  // hash string for endpoint: "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8"
+                            },
+                            new Admins()
+                            {
+                                Username = "thatmanryan",
+                                Password = shaCtx.ComputeHash(Encoding.UTF8.GetBytes("otto_are_you_married?"))
+                                // ^ hash string for endpoint: "939f3d400003081e9b6fbd95d868a5ae49a248fd880ae750498b156631b48ddb"
+                            },
+                            new Admins()
+                            {
+                                Username = "o's_husband_44",
+                                Password = defPassHash  // hash string for endpoint: "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8"
+                            },
+                            new Admins()
+                            {
+                                Username = "Flieburt",
+                                Password = shaCtx.ComputeHash(Encoding.UTF8.GetBytes("Cat$02884197"))
+                                // ^ hash string for endpoint: "7babe75b4cb4731ec35e3a2c0f74dac4b1b4db0b91d5bc1e30e81701ac1df507"
+                            }
+                        );
+                    }
                 }
-
                 context.SaveChanges();
 
             }
