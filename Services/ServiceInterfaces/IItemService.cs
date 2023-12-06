@@ -38,5 +38,13 @@ namespace CGullProject.Services.ServiceInterfaces
         /// <returns><see cref="IEnumerable{Item}"/></returns>
         public Task<IEnumerable<Item>> GetBundledItems(String bundleIds);
 
+
+        /// <summary>
+        /// Get associated bundle. 
+        /// </summary>
+        /// <param name="itemId"></param>
+        /// <returns>IEnumerable&lt;Bundle&gt;</returns>
+        public Task<IEnumerable<Bundle>> GetAssociatedBundle(string itemId);
+
     }
 }

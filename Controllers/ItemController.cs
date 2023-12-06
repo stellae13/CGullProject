@@ -167,5 +167,26 @@ namespace CGullProject.Controllers
 
             return BadRequest();
         }
+
+        /// <summary>
+        /// Get all Bundles associated with a Product
+        /// </summary>
+        /// <param name="id">String Id of the Product</param>
+        /// <returns>IEnumerable&lt;Bundle&gt;</returns>
+        [HttpGet("GetAssociatedBundles")]
+        public async Task<ActionResult> GetAssociatedBundles(string id)
+        {
+            try
+            {
+                IEnumerable<Bundle> bundles = await _itemService.GetAssociatedBundle(id);
+                if (bundles.IsNullOrEmpty())
+                    return NotFound($"Item with ID {id} either DNE or has no associated bundles.");
+                return Ok(bundles);
+            }
+            catch (BadHttpRequestException e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
     }
 }

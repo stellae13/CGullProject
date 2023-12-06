@@ -1,7 +1,9 @@
 ﻿using CGullProject.Data;
 using CGullProject.Models;
 using CGullProject.Services.ServiceInterfaces;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace CGullProject.Services
 {
@@ -111,9 +113,10 @@ namespace CGullProject.Services
         public async Task<IEnumerable<Item>> GetItemsByKeyword(String keywords)
         {
             HashSet<String> keySet = new(keywords.ToLower().Split("&"));
-            return await 
-                Task.Run((Func<IEnumerable<Item>>) 
-                (() => {
+            return await
+                Task.Run((Func<IEnumerable<Item>>)
+                (() =>
+                {
                     IEnumerable<KeyValuePair<Item, int>> itemsAndRelevance =
                         from item in _context.Inventory
                         select new KeyValuePair<Item, int>(item, ScoreItemRelevance(item.Name.ToLower(), keySet));
@@ -126,6 +129,20 @@ namespace CGullProject.Services
                 })
             );
         }
+        public async Task<IEnumerable<Bundle>> GetAssociatedBundle(String itemId)
+        {
+            if (itemId[0] != '0')
+                throw new BadHttpRequestException($"ID {itemId} is a Bundle ID not an Item ID.");
+            if (itemId.Length != 6)
+                throw new BadHttpRequestException($"Item ID malformatted {itemId}.");
+            IEnumerable<Bundle> ret = await Task.Run(() => (from bndlItm in _context.BundleItem
+                                      where bndlItm.ItemId == itemId
+                                      select bndlItm.Bundle).ToArray());  // Wrap in Task.Run call to actually make use of the fact
+                                                                          // that this is an asynchronous method
 
+
+            return ret;
+        }
     }
+
 }
