@@ -20,8 +20,8 @@ namespace CGullProject.Services
 
         public async Task<CartDTO> GetCart(Guid cartId)
         {
-            Dictionary<String, Item> itemTable = 
-                await _context.Inventory.ToDictionaryAsync<Item, String>(entry => entry.Id);
+            Dictionary<string, Item> itemTable = 
+                await _context.Inventory.ToDictionaryAsync<Item, string>(entry => entry.Id);
             Cart? cart =
                 _context.Cart.Where(c => c.Id == cartId).Select(c => c).Include(c => c.CartItems).First() 
                     ?? throw new KeyNotFoundException($"Cart with Id {cartId} not found");
@@ -38,7 +38,7 @@ namespace CGullProject.Services
 
 
 
-                        IEnumerable<String> bundledItemIds =
+                        IEnumerable<string> bundledItemIds =
                         from bundleProd in bundle.BundleItems
                             select bundleProd.ItemId;
 
@@ -78,9 +78,9 @@ public async Task<bool> AddItemToCart(Guid cartId, string itemId, int quantity)
             }
 
 
-            Dictionary<Tuple<Guid, String>, CartItem> cartItemTable =
-                await _context.CartItem.ToDictionaryAsync<CartItem, Tuple<Guid, String>>(cItm => new(cItm.CartId, cItm.ItemId));
-            Tuple<Guid, String> cartItemHandle = new(cartId, itemId);
+            Dictionary<Tuple<Guid, string>, CartItem> cartItemTable =
+                await _context.CartItem.ToDictionaryAsync<CartItem, Tuple<Guid, string>>(cItm => new(cItm.CartId, cItm.ItemId));
+            Tuple<Guid, string> cartItemHandle = new(cartId, itemId);
             // If cart already has a quantity of this item, fetch its associated CartItem entry from the database
             // and then update its quantity to reflect the adjusted qty after adding this new qty to cart.
             if (cartItemTable.ContainsKey(cartItemHandle))
@@ -124,7 +124,7 @@ public async Task<bool> AddItemToCart(Guid cartId, string itemId, int quantity)
             }
         }
         
-        public async Task<Guid> CreateNewCart(String cartName)
+        public async Task<Guid> CreateNewCart(string cartName)
         {
             Cart cart = (await _context.Cart.AddAsync(new Cart {
                 Name = cartName
@@ -136,8 +136,8 @@ public async Task<bool> AddItemToCart(Guid cartId, string itemId, int quantity)
 
         public async Task<TotalsDTO> GetTotals(Guid cartId)
         {
-            Dictionary<String, Item> itemTable = 
-                await _context.Inventory.ToDictionaryAsync<Item, String>(itm=> itm.Id);
+            Dictionary<string, Item> itemTable = 
+                await _context.Inventory.ToDictionaryAsync<Item, string>(itm=> itm.Id);
             // The items this cart contains tupled together with the quantity of the item in the cart
             Cart? cart = 
                 _context.Cart.Where(c => c.Id == cartId).Select(c => c).Include(c => c.CartItems).First()
