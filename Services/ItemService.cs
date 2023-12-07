@@ -53,7 +53,7 @@ namespace CGullProject.Services
                     Item itm = inventoryTable[id];
                     itemsById.Add(itm);
                 }
-                catch (KeyNotFoundException e)
+                catch (KeyNotFoundException)
                 {
                     // Tentative: skip over any requested Id that is not
                     // listed in DB without returning bad request error.

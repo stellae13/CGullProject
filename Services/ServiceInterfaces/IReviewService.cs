@@ -10,7 +10,7 @@ namespace CGullProject.Services.ServiceInterfaces
         /// </summary>
         /// <param name="id">String id of <see cref="Item"/></param>
         /// <returns>IEnumerable&lt;Review&gt;</returns>
-        public Task<IEnumerable<Review>> GetReviewsById(String id);
+        public Task<IEnumerable<Review>> GetReviewsById(string id);
 
 
         /// <summary>

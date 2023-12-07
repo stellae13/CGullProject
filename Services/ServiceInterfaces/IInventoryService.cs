@@ -6,7 +6,7 @@ namespace CGullProject.Services
     public interface IInventoryService {
 
         /// <summary>
-        /// Gets the Inventory (all items)
+        /// Get all items in the database
         /// </summary>
         /// <returns></returns>
         public Task<IEnumerable<Item>> GetInventory();
@@ -16,7 +16,7 @@ namespace CGullProject.Services
         /// </summary>
         /// <param name="itemId">Id of the <see cref="Item"/></param>
         /// <param name="quantity">Number of <see cref="Item"/> in stock</param>
-        /// <returns>True iff successful, false otherwise</returns>
+        /// <returns>Success/Failure</returns>
         public Task<bool> UpdateStock(string itemId, int quantity);
 
         /// <summary>
@@ -24,7 +24,7 @@ namespace CGullProject.Services
         /// </summary>
         /// <param name="itemId">Id of the <see cref="Item"/></param>
         /// <param name="amount">Amount to increase(+) or decrease(-) the stock by</param>
-        /// <returns>True iff successful, false otherwise</returns>
+        /// <returns>Success/Failure</returns>
         public Task<bool> AdjustStock(string itemId, int amount);
 
         /// <summary>
@@ -32,18 +32,18 @@ namespace CGullProject.Services
         /// </summary>
         /// <param name="itemId">Id of the <see cref="Item"/></param>
         /// <param name="newPrice">New price for the <see cref="Item"/></param>
-        /// <returns>True iff successful, false otherwise</returns>
+        /// <returns>Success/Failure</returns>
         public Task<bool> ChangePrice(string itemId, decimal newPrice);
 
         /// <summary>
         /// Add a new <see cref="Item"/> to the Inventory
         /// </summary>
         /// <param name="item"><see cref="Item"/> to add</param>
-        /// <returns>True iff successful, false otherwise</returns>
+        /// <returns>Success/Failure</returns>
         public Task<bool> AddNewItem(ItemDTO item);
 
         /// <summary>
-        /// returns all of the items on sale
+        /// Get all items on sale
         /// </summary>
         /// <returns></returns>
         public Task<IEnumerable<Item>> GetAllSalesItems();
@@ -51,9 +51,9 @@ namespace CGullProject.Services
         /// <summary>
         /// Changes the sale status of an item to either true or false
         /// </summary>
-        /// <param name="itemID"></param>
-        /// <param name="status"></param>
-        /// <returns></returns>
+        /// <param name="itemID">Id of the item to change</param>
+        /// <param name="status">New sale status for the item</param>
+        /// <returns>Success/Failure</returns>
         public Task<bool> ChangeSalesStatus(string itemId, bool status);
 
        

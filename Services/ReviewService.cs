@@ -33,7 +33,7 @@ namespace CGullProject.Services
                 item.Rating = avgRating;
                 await _Context.SaveChangesAsync();
             }
-            catch(Exception e )
+            catch (Exception)
             {
                 return false;
             }

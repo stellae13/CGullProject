@@ -28,7 +28,7 @@ namespace CGullProject.Services.ServiceInterfaces
         /// <summary>
         /// Get a list all categories from database
         /// </summary>
-        /// <returns>IEnumerable&lt;Category&gt;</returns>
+        /// <returns><see cref="IEnumerable{Category}"/></returns>
         public Task<IEnumerable<Category>> GetAllCategories();
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace CGullProject.Services.ServiceInterfaces
         /// Get associated bundle. 
         /// </summary>
         /// <param name="itemId"></param>
-        /// <returns>IEnumerable&lt;Bundle&gt;</returns>
+        /// <returns><see cref="IEnumerable{Bundle}"/> </returns>
         public Task<IEnumerable<Bundle>> GetAssociatedBundle(string itemId);
 
     }

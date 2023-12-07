@@ -10,7 +10,7 @@ namespace CGullProject.Services.ServiceInterfaces
         /// and their respective running total.
         /// </summary>
         /// <param name="cartId">Id of the cart</param>
-        /// <returns>CartDTO</returns>
+        /// <returns>Cart with the given Id</returns>
         public Task<CartDTO> GetCart(Guid cartId);
 
         /// <summary>
@@ -19,7 +19,7 @@ namespace CGullProject.Services.ServiceInterfaces
         /// <param name="cartId">Id of the cart</param>
         /// <param name="itemId">Id of the item</param>
         /// <param name="quantity">Number of the Item to add</param>
-        /// <returns>bool</returns>
+        /// <returns>Success/Failure</returns>
         public Task<bool> AddItemToCart(Guid cartId, string itemId, int quantity);
 
         /// <summary>
@@ -27,21 +27,21 @@ namespace CGullProject.Services.ServiceInterfaces
         /// </summary>
         /// <param name="cartId">Id of the Cart</param>
         /// <param name="itemId">Id of the item</param>
-        /// <returns>True iff item is found and successfully remove, false otherwise</returns>
+        /// <returns>Success/Failure</returns>
         public Task<bool> RemoveItemFromCart(Guid cartId, string itemId);
 
         /// <summary>
         /// Get the totals of a particular Cart
         /// </summary>
         /// <param name="cartId">Id of the cart</param>
-        /// <returns>TotalsDTO</returns>
+        /// <returns>Totals information</returns>
         public Task<TotalsDTO> GetTotals(Guid cartId);
         
         /// <summary>
         /// Process payment of a specific cart
         /// </summary>
-        /// <param name="paymentInfo">ProcessPaymentDTO</param>
-        /// <returns>bool</returns>
+        /// <param name="paymentInfo">Payment information</param>
+        /// <returns>Success/Failure</returns>
         public Task<bool> ProcessPayment(ProcessPaymentDTO paymentInfo);
 
         /// <summary>
@@ -52,10 +52,10 @@ namespace CGullProject.Services.ServiceInterfaces
         public Task<Guid> CreateNewCart(string cartName);
 
         /// <summary>
-        /// Returns a list of Orders that belong to a specific Cart (or user)
+        /// Returns a list of Orders that belong to a specific Cart
         /// </summary>
-        /// <param name="CartId">Guid of the cart</param>
+        /// <param name="cartId">Guid of the cart</param>
         /// <returns>IEnumerable&lt;Order&gt;</returns>
-        public Task<IEnumerable<Order>> GetOrdersById(Guid CartId);
+        public Task<IEnumerable<Order>> GetOrdersById(Guid cartId);
     }
 }
