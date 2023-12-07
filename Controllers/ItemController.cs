@@ -1,6 +1,5 @@
 using CGullProject.Models;
 using CGullProject.Models.DTO;
-using CGullProject.Services;
 using CGullProject.Services.ServiceInterfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;

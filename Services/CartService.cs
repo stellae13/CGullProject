@@ -4,7 +4,6 @@ using CGullProject.Models.DTO;
 using CGullProject.Services.ServiceInterfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using System.Net;
 using System.Text.RegularExpressions;
 
 namespace CGullProject.Services

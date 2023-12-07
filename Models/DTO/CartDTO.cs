@@ -1,6 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-
-namespace CGullProject.Models.DTO
+﻿namespace CGullProject.Models.DTO
 {
     /// <summary>
     /// Used by GetCart endpoint, so that GetCart can tuple cart info (name & id)

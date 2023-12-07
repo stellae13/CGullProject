@@ -1,9 +1,7 @@
 ﻿using CGullProject.Data;
 using CGullProject.Models;
 using CGullProject.Services.ServiceInterfaces;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 
 namespace CGullProject.Services
 {
