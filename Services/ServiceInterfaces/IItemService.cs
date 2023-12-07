@@ -9,14 +9,14 @@ namespace CGullProject.Services.ServiceInterfaces
         /// </summary>
         /// <param name="keywords"></param>
         /// <returns><see cref="IEnumerable{Item}"/></returns>
-        public Task<IEnumerable<Item>> GetItemsByKeyword(String keywords);
+        public Task<IEnumerable<Item>> GetItemsByKeyword(string keywords);
 
         /// <summary>
         /// Get a list of Items by a string of delimited Ids
         /// </summary>
         /// <param name="ids">String of delimited ids</param>
         /// <returns><see cref="IEnumerable{Item}"/></returns>
-        public Task<IEnumerable<Item>> GetItemsById(String ids);
+        public Task<IEnumerable<Item>> GetItemsById(string ids);
 
         /// <summary>
         /// Get a list of Items that belong to a specific category
@@ -36,7 +36,7 @@ namespace CGullProject.Services.ServiceInterfaces
         /// </summary>
         /// <param name="bundleIds">ID of the bundles</param>
         /// <returns><see cref="IEnumerable{Item}"/></returns>
-        public Task<IEnumerable<Item>> GetBundledItems(String bundleIds);
+        public Task<IEnumerable<Item>> GetBundledItems(string bundleIds);
 
 
         /// <summary>

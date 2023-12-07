@@ -35,12 +35,12 @@ namespace CGullProject.Services
         {
 
             // Request supplies string with ampersand-delim'd to easily split
-            String[] ids = itemIds.Split("&");
+            string[] ids = itemIds.Split("&");
 
             List<Item> itemsById = new();  // The sublist of items to return.
 
-            Dictionary<String, Item> inventoryTable =
-                await _context.Inventory.ToDictionaryAsync<Item, String>(itm => itm.Id);
+            Dictionary<string, Item> inventoryTable =
+                await _context.Inventory.ToDictionaryAsync<Item, string>(itm => itm.Id);
 
             foreach (string id in ids)
             {
@@ -63,14 +63,14 @@ namespace CGullProject.Services
             return itemsById;
         }
 
-        private static int ScoreItemRelevance(String itemName, HashSet<String> searchKeySet)
+        private static int ScoreItemRelevance(string itemName, HashSet<string> searchKeySet)
         {
-            HashSet<String> tokensChecked = new();
+            HashSet<string> tokensChecked = new();
 
             
-            String[] nameTok = itemName.Split(" ");
+            string[] nameTok = itemName.Split(" ");
             int ret = 0;
-            foreach (String token in nameTok)
+            foreach (string token in nameTok)
             {
                 if (!tokensChecked.Add(token))
                     continue;
@@ -82,7 +82,7 @@ namespace CGullProject.Services
             return ret;
         }
 
-        public async Task<IEnumerable<Item>> GetBundledItems(String bundleId) 
+        public async Task<IEnumerable<Item>> GetBundledItems(string bundleId) 
         {
             if (bundleId[0] != '1')
                 throw new BadHttpRequestException(
@@ -90,8 +90,8 @@ namespace CGullProject.Services
             if (bundleId.Length != 6)
                 throw new BadHttpRequestException(
                     $"Bundle ID malformatted {bundleId}.");
-            Dictionary<String, Item> itemTable = 
-                await _context.Inventory.ToDictionaryAsync<Item, String>(p => p.Id);
+            Dictionary<string, Item> itemTable = 
+                await _context.Inventory.ToDictionaryAsync<Item, string>(p => p.Id);
             try
             {
                 Bundle? bundle =
@@ -110,9 +110,9 @@ namespace CGullProject.Services
 
         }
 
-        public async Task<IEnumerable<Item>> GetItemsByKeyword(String keywords)
+        public async Task<IEnumerable<Item>> GetItemsByKeyword(string keywords)
         {
-            HashSet<String> keySet = new(keywords.ToLower().Split("&"));
+            HashSet<string> keySet = new(keywords.ToLower().Split("&"));
             return await
                 Task.Run((Func<IEnumerable<Item>>)
                 (() =>
@@ -129,7 +129,7 @@ namespace CGullProject.Services
                 })
             );
         }
-        public async Task<IEnumerable<Bundle>> GetAssociatedBundle(String itemId)
+        public async Task<IEnumerable<Bundle>> GetAssociatedBundle(string itemId)
         {
             if (itemId[0] != '0')
                 throw new BadHttpRequestException($"ID {itemId} is a Bundle ID not an Item ID.");
