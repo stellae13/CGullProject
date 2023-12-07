@@ -80,7 +80,12 @@ namespace CGullProject.Controllers
         /// <returns>Success/Failure</returns>
         [HttpDelete("RemoveFromCart")]
         public async Task<ActionResult> RemoveFromCart(Guid cartId, string itemId) {
-            return Ok(await _cartService.RemoveItemFromCart(cartId, itemId));
+            bool success = await _cartService.RemoveItemFromCart(cartId, itemId);
+            if (success) {
+                return Ok(await _cartService.GetCart(cartId));
+            } else {
+                return BadRequest($"Cart with id {cartId} not found.");
+            }
         }
 
         /// <summary>
